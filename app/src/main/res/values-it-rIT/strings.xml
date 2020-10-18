@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MisurApp</string>
+    <string name="text_slide_2">Pieno controllo</string>
+    <string name="text_desc">Benvenuto su MisurApp! Questa app ti aiuterà ad effettuare delle misure semplici e veloci, organizzarle e gestirle come ti è più comodo</string>
+    <string name="text_button_intro">Inizio</string>
+    <string name="text_slide">Benvenuto!</string>
+    <string name="text_desc_2">Crea le tue schede personalizzate, in cui poter organizzare le tue misure. Oppure effettua misure veloci senza preoccuparti di come organizzarle</string>
+    <string name="text_slide_3">Ampia scelta</string>
+    <string name="text_desc_3">Scegli fra vari strumenti che ti aiuteranno nel tuo lavoro, facili e comodi da usare!</string>
+</resources>
