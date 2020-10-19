@@ -36,16 +36,16 @@ public class IntroductionActivity extends AppCompatActivity {
 
         if (viewPager == null) {
 
-            viewPager = findViewById(R.id.ViewPage);
-            viewPager.setAdapter(new SlideViewIntroductionAdapter(this));
+            //viewPager = findViewById(R.id.ViewPage);
+            //viewPager.setAdapter(new SlideViewIntroductionAdapter(this));
 
         }
 
         if (isAlreadyOpened()) {
 
-            Intent intent = new Intent(IntroductionActivity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            //Intent intent = new Intent(IntroductionActivity.this, MainActivity.class);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            //startActivity(intent);
 
         } else {
 
