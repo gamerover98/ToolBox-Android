@@ -8,4 +8,15 @@
     <string name="text_desc_2">Crea le tue schede personalizzate, in cui poter organizzare le tue misure. Oppure effettua misure veloci senza preoccuparti di come organizzarle</string>
     <string name="text_slide_3">Ampia scelta</string>
     <string name="text_desc_3">Scegli fra vari strumenti che ti aiuteranno nel tuo lavoro, facili e comodi da usare!</string>
+    <string name="login_button">Accesso</string>
+    <string name="insert_email">Inserisci la tua email</string>
+    <string name="text_sign_up">Entra</string>
+    <string name="text_question">Non hai ancora un account?</string>
+    <string name="text_forgot_password">Password dimenticata?</string>
+    <string name="text_insert_password">Inserisci la tua password</string>
+    <string name="text_name">Nome</string>
+    <string name="text_surname_registration">Inserisci il tuo cognome</string>
+    <string name="confirmation_passw">Conferma la password</string>
+    <string name="register_layout">Registrazione</string>
+    <string name="insert_name_registration">Inserisci il tuo nome</string>
 </resources>
