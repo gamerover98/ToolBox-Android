@@ -6,8 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".introduction.IntroductionActivity">
 
+    <!-- A FrameLayout to add fragments dynamically -->
+    <FrameLayout
+        android:id="@+id/introduction_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/introduction_button_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
-        android:id="@+id/button_start"
+        android:id="@+id/introduction_button_start"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_primary"

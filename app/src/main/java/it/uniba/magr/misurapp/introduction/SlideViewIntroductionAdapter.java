@@ -15,6 +15,9 @@ import androidx.viewpager.widget.PagerAdapter;
 import it.uniba.magr.misurapp.MainActivity;
 import it.uniba.magr.misurapp.R;
 
+/**
+ * This class wil be removed during the next commit.
+ */
 public class SlideViewIntroductionAdapter extends PagerAdapter {
 
     Context ctx;
@@ -37,7 +40,7 @@ public class SlideViewIntroductionAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
-        LayoutInflater layoutInflater = (LayoutInflater) ctx
+        /*LayoutInflater layoutInflater = (LayoutInflater) ctx
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.introduction_screen,
                 container,false);
@@ -54,7 +57,7 @@ public class SlideViewIntroductionAdapter extends PagerAdapter {
         ImageView next = view.findViewById(R.id.arrow_next);
         ImageView back = view.findViewById(R.id.arrow_back);
 
-        Button button_start = view.findViewById(R.id.button_start);
+        Button button_start = view.findViewById(R.id.introduction_button_start);
 
         button_start.setOnClickListener(v -> {
 
@@ -114,7 +117,9 @@ public class SlideViewIntroductionAdapter extends PagerAdapter {
         }
 
         container.addView(view);
-        return view;
+        return view;*/
+
+        return null;
 
     }
 
