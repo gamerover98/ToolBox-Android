@@ -3,9 +3,11 @@ package it.uniba.magr.misurapp.introduction;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import it.uniba.magr.misurapp.MainActivity;
 import it.uniba.magr.misurapp.R;
 
 /**
@@ -23,7 +25,7 @@ public class IntroductionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_introduction_activity);
+        setContentView(R.layout.activity_introduction);
 
         if (savedInstanceState == null) {
 
@@ -33,21 +35,23 @@ public class IntroductionActivity extends AppCompatActivity {
 
         }
 
-        if (isAlreadyOpened()) {
+        //if (!isAlreadyOpened()) {
 
-            //Intent intent = new Intent(IntroductionActivity.this, MainActivity.class);
+            Intent intent = new Intent(IntroductionActivity.this, MainActivity.class);
             //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            //startActivity(intent);
+            startActivity(intent);
 
-            return;
+           //return;
 
-        }
+        //}
 
+        /*
         SharedPreferences preferences = getSharedPreferences(SHARED_SLIDE_KEY, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putBoolean(SHARED_SLIDE_KEY, SHARED_SLIDE_OPENED);
         editor.apply(); // use apply instead of commit method.
+         */
 
     }
 
