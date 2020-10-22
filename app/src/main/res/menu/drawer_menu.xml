@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/drawer_menu_main"
+            android:icon="@drawable/ic_launcher"
+            android:title="@string/test_page_1" />
+
+        <item
+            android:id="@+id/drawer_menu_second"
+            android:icon="@drawable/ic_launcher"
+            android:title="@string/test_page_2" />
+
+    </group>
+
+</menu>

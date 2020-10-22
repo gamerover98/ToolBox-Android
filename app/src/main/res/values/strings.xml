@@ -1,4 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
     <string name="app_name" translatable="false">MisurApp</string>
     <string name="text_desc_2">Create your own custom tabs, where you can organize your measurements. Or make quick measurements without worrying about how to organize them</string>
     <string name="text_slide_3">Wide choice</string>
@@ -18,4 +19,7 @@
     <string name="confirmation_passw">Password confirmation</string>
     <string name="register_layout">Register</string>
     <string name="insert_name_registration">Insert your name</string>
+    <string name="header_layout_your_account">Your account</string>
+    <string name="test_page_1">Page 1</string>
+    <string name="test_page_2">Page 2</string>
 </resources>
