@@ -8,18 +8,17 @@
     <string name="text_desc">Welcome to MisurApp! This app will help you make simple and quick measurements, organize them and manage them as you see for convenience</string>
     <string name="text_button_intro">Start</string>
     <string name="text_slide_2">Full control</string>
-    <string name="login_button">Login</string>
-    <string name="insert_email">Insert your email</string>
     <string name="text_sign_up">Sign up</string>
     <string name="text_question">Don\'t have an account yet?</string>
     <string name="text_forgot_password">Forgot password?</string>
     <string name="text_insert_password">Insert your password</string>
-    <string name="text_name">Name</string>
-    <string name="text_surname_registration">Insert your Surname</string>
-    <string name="confirmation_passw">Password confirmation</string>
+    <string name="text_insert_name">Insert your name</string>
+    <string name="text_insert_surname">Insert your surname</string>
+    <string name="text_confirm_pass">Confirm Password</string>
     <string name="register_layout">Register</string>
-    <string name="insert_name_registration">Insert your name</string>
     <string name="header_layout_your_account">Your account</string>
     <string name="test_page_1">Page 1</string>
     <string name="test_page_2">Page 2</string>
+    <string name="text_insert_email">Insert your e-mail</string>
+    <string name="login_button">Login</string>
 </resources>
