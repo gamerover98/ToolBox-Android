@@ -22,7 +22,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_password_login" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_forgot_pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_password_login" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/text_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -42,14 +42,14 @@
         app:layout_constraintTop_toBottomOf="@+id/introduction_button_start2" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/text_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
         android:text="@string/text_sign_up"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toEndOf="@+id/text_question"
         app:layout_constraintTop_toBottomOf="@+id/introduction_button_start2" />
 
     <EditText
