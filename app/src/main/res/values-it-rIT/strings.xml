@@ -19,5 +19,6 @@
     <string name="test_page_1">Pagina 1</string>
     <string name="test_page_2">Pagina 2</string>
     <string name="text_insert_email">Inserisci la tuae-mail</string>
-    <string name="login_button">Accedi</string>
+    <string name="text_login">Accedi</string>
+    <string name="text_sing_in">Refistrati</string>
 </resources>

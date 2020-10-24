@@ -89,7 +89,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="480dp"
         android:background="@drawable/button_primary"
-        android:text="@string/login_button"
+        android:text="@string/text_login"
         android:textAllCaps="true"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"

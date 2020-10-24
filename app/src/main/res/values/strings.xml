@@ -20,6 +20,6 @@
     <string name="test_page_1">Page 1</string>
     <string name="test_page_2">Page 2</string>
     <string name="text_insert_email">Insert your e-mail</string>
-    <string name="login_button">Login</string>
     <string name="text_login">Login</string>
+    <string name="text_sing_in">Sign in</string>
 </resources>
