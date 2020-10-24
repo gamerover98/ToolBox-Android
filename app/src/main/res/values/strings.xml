@@ -14,11 +14,12 @@
     <string name="text_insert_password">Insert your password</string>
     <string name="text_insert_name">Insert your name</string>
     <string name="text_insert_surname">Insert your surname</string>
-    <string name="text_confirm_pass">Confirm Password</string>
+    <string name="text_confirm_pass">Confirm password</string>
     <string name="register_layout">Register</string>
     <string name="header_layout_your_account">Your account</string>
     <string name="test_page_1">Page 1</string>
     <string name="test_page_2">Page 2</string>
     <string name="text_insert_email">Insert your e-mail</string>
     <string name="login_button">Login</string>
+    <string name="text_login">Login</string>
 </resources>
