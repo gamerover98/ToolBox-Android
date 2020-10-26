@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
 
-import it.uniba.magr.misurapp.MainActivity;
 import it.uniba.magr.misurapp.R;
 
 /**
@@ -22,7 +20,7 @@ import it.uniba.magr.misurapp.R;
  */
 public class IntroductionActivity extends AppCompatActivity {
 
-    private static final String SHARED_COMPLETED_INTRO_KEY = "completed_into";
+    public static final String SHARED_COMPLETED_INTRO_KEY = "completed_into";
 
     private static final boolean SHARED_COMPLETED_INTRO_OPENED = true;
     private static final boolean SHARED_COMPLETED_INTRO_CLOSED = false;
@@ -52,15 +50,8 @@ public class IntroductionActivity extends AppCompatActivity {
 
         }
 
-        if (isAlreadyCompleted()) {
-
-            openMainActivity();
-            return;
-
-        }
-
         Button startButton = findViewById(R.id.intro_button_start);
-        startButton.setOnClickListener(this ::startClick);
+        startButton.setOnClickListener(this :: startClick);
 
     }
 
@@ -86,27 +77,17 @@ public class IntroductionActivity extends AppCompatActivity {
         editor.putBoolean(SHARED_COMPLETED_INTRO_KEY, SHARED_COMPLETED_INTRO_OPENED);
         editor.apply(); // use apply instead of commit method.
 
-        openMainActivity();
+        finish();
 
     }
 
     /**
      * @return True if introduction activity is already opened.
      */
-    private boolean isAlreadyCompleted() {
+    public static boolean isAlreadyCompleted(AppCompatActivity activity) {
 
-        SharedPreferences shared = getSharedPreferences(SHARED_COMPLETED_INTRO_KEY,MODE_PRIVATE);
+        SharedPreferences shared = activity.getSharedPreferences(SHARED_COMPLETED_INTRO_KEY,MODE_PRIVATE);
         return shared.getBoolean(SHARED_COMPLETED_INTRO_KEY, SHARED_COMPLETED_INTRO_CLOSED);
-
-    }
-
-    private void openMainActivity() {
-
-        Intent intent = new Intent(IntroductionActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-
-        finish();
 
     }
 
