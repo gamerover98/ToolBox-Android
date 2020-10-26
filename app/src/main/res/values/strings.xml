@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">MisurApp</string>
-    <string name="text_desc_2">Create your own custom tabs, where you can organize your measurements. Or make quick measurements without worrying about how to organize them</string>
-    <string name="text_slide_3">Wide choice</string>
-    <string name="text_desc_3">Choose from various tools that will help you in your work, easy and comfortable to use! What are you waiting for? Start using MisurApp</string>
-    <string name="text_slide">Welcome!</string>
-    <string name="text_desc">Welcome to MisurApp! This app will help you make simple and quick measurements, organize them and manage them as you see for convenience</string>
-    <string name="text_button_intro">Start</string>
-    <string name="text_slide_2">Full control</string>
+    <string name="text_intro_first_title">Welcome!</string>
+    <string name="text_intro_first_text">Welcome to MisurApp! This app will help you make simple and quick measurements, organize them and manage them as you see for convenience</string>
+    <string name="text_intro_second_title">Full control</string>
+    <string name="text_intro_second_text">Create your own custom tabs, where you can organize your measurements. Or make quick measurements without worrying about how to organize them</string>
+    <string name="text_intro_third_title">Wide choice</string>
+    <string name="text_intro_third_text">Choose from various tools that will help you in your work, easy and comfortable to use! What are you waiting for? Start using MisurApp</string>
+    <string name="text_intro_start_button">Start</string>
     <string name="text_sign_up">Sign up</string>
     <string name="text_question">Don\'t have an account yet?</string>
     <string name="text_forgot_password">Forgot password?</string>
