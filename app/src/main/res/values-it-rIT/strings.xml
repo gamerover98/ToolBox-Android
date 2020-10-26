@@ -21,4 +21,8 @@
     <string name="text_insert_email">Inserisci la tuae-mail</string>
     <string name="text_login">Accedi</string>
     <string name="text_sing_in">Refistrati</string>
+    <string name="text_insert_title">Inserire il titolo</string>
+    <string name="text_intro_newtab">Nuova scheda</string>
+    <string name="text_insert_description">Inserire la descrizione</string>
+    <string name="text_intro_add_measure">Aggiungi una misura</string>
 </resources>

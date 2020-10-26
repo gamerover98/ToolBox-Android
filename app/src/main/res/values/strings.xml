@@ -22,4 +22,8 @@
     <string name="text_insert_email">Insert your e-mail</string>
     <string name="text_login">Login</string>
     <string name="text_sing_in">Sign in</string>
+    <string name="text_insert_title">Insert the title</string>
+    <string name="text_intro_newtab">New Tab</string>
+    <string name="text_insert_description">Insert the description</string>
+    <string name="text_intro_add_measure">Add a measure</string>
 </resources>
