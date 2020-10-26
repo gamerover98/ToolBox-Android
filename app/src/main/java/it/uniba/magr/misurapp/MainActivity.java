@@ -1,6 +1,5 @@
 package it.uniba.magr.misurapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,30 +16,60 @@ import com.google.android.material.internal.NavigationMenuItemView;
 import com.google.android.material.navigation.NavigationView;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import it.uniba.magr.misurapp.introduction.IntroductionActivity;
 import lombok.Getter;
 
+/**
+ * The Main Activity layout of the application.
+ *
+ * This class will manage the interfaces and components
+ * of the project.
+ */
 @SuppressWarnings({"squid:S110", "NotNullFieldNotInitialized"})
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     * Gets the ToolBar View instance.
+     * It will be initialized since the activity layout
+     * doesn't have an XML default toolbar property.
+     */
     @Getter @NotNull
     private Toolbar toolbar;
 
+    /**
+     * Gets the layout instance of this activity.
+     * The DrawerLayout thought to be the base of the dynamic
+     * graph layout managed by the Navigation Controller.
+     */
     @Getter @NotNull
     private DrawerLayout drawerLayout;
 
+    /**
+     * Gets the Navigation Controller instance.
+     */
     @Getter @NotNull
     private NavController navController;
 
+    /**
+     * Gets the NavigationView component located
+     * into the DrawerLayout of this activity.
+     *
+     * <p>You can consider this as the navigation menu.</p>
+     */
     @Getter @NotNull
     private NavigationView navigationView;
 
+    /**
+     * Application layout and navigation initialization.
+     * @param bundle The bundle of this activity.
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle bundle) {
 
-        super.onCreate(savedInstanceState);
+        super.onCreate(bundle);
         setContentView(R.layout.activity_main);
 
         setupNavigation();
@@ -61,8 +90,47 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    /*
+     * Hamburger button click event.
+     */
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(navController, drawerLayout);
+    }
+
+    /*
+     * Back arrow button click event.
+     * The suppression will be when it will be filled with its implementation.
+     */
+    @Override
+    @SuppressWarnings("squid:S1185")
+    public void onBackPressed() {
+        super.onBackPressed(); // unused for now.
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NotNull MenuItem item) {
+
+        item.setChecked(true);
+        drawerLayout.closeDrawers();
+        int id = item.getItemId();
+
+        NavigationMenuItemView mainMenuItem = findViewById(R.id.drawer_menu_main);
+        NavigationMenuItemView secondMenuItem = findViewById(R.id.drawer_menu_second);
+
+        if (id == mainMenuItem.getId()) {
+            navController.navigate(R.id.nav_main_fragment);
+        } else if (id == secondMenuItem.getId()) {
+            navController.navigate(R.id.nav_second_fragment);
+        }
+
+        return false;
+
+    }
+
+
     /**
-     * Setup the ActionBar with the hamburger button and
+     * Setup the ActionBar (ToolBar) with the hamburger button and
      * the navigation menu from left side.
      */
     private void setupNavigation() {
@@ -90,44 +158,6 @@ public class MainActivity extends AppCompatActivity implements
         NavigationUI.setupWithNavController(navigationView, navController);
 
         navigationView.setNavigationItemSelectedListener(this);
-
-    }
-
-    /*
-     * Hamburger button click event.
-     */
-    @Override
-    public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, drawerLayout);
-    }
-
-    /*
-     * Back arrow button click event.
-     * The suppression will be when it will be filled with its implementation.
-     */
-    @Override
-    @SuppressWarnings("squid:S1185")
-    public void onBackPressed() {
-        super.onBackPressed(); // unused for now.
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        item.setChecked(true);
-        drawerLayout.closeDrawers();
-        int id = item.getItemId();
-
-        NavigationMenuItemView mainMenuItem = findViewById(R.id.drawer_menu_main);
-        NavigationMenuItemView secondMenuItem = findViewById(R.id.drawer_menu_second);
-
-        if (id == mainMenuItem.getId()) {
-            navController.navigate(R.id.nav_main_fragment);
-        } else if (id == secondMenuItem.getId()) {
-            navController.navigate(R.id.nav_second_fragment);
-        }
-
-        return false;
 
     }
 

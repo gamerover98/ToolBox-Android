@@ -27,48 +27,57 @@ public class IntroductionActivity extends AppCompatActivity {
     private static final boolean SHARED_COMPLETED_INTRO_OPENED = true;
     private static final boolean SHARED_COMPLETED_INTRO_CLOSED = false;
 
+    /**
+     * With this component, you can manage the dynamic and horizontal flow scroll
+     * of introduction fragments.
+     */
     @NotNull
     private ViewPager viewPager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle bundle) {
 
-        super.onCreate(savedInstanceState);
+        super.onCreate(bundle);
         setContentView(R.layout.activity_introduction);
 
-        if (savedInstanceState == null) {
+        viewPager = findViewById(R.id.intro_pager);
+        viewPager.setAdapter(new IntroPagerAdapter(getSupportFragmentManager()));
 
-            viewPager = findViewById(R.id.intro_pager);
-            viewPager.setAdapter(new IntroPagerAdapter(getSupportFragmentManager()));
+        TabLayout tabLayout = findViewById(R.id.intro_tab_layout);
+        tabLayout.setupWithViewPager(viewPager, true);
 
-            TabLayout tabLayout = findViewById(R.id.intro_tab_layout);
-            tabLayout.setupWithViewPager(viewPager, true);
+        ImageView backArrow = findViewById(R.id.intro_arrow_back);
+        ImageView nextArrow = findViewById(R.id.intro_arrow_next);
 
-            ImageView backArrow = findViewById(R.id.intro_arrow_back);
-            ImageView nextArrow = findViewById(R.id.intro_arrow_next);
-
-            backArrow.setOnClickListener(this :: backClick);
-            nextArrow.setOnClickListener(this :: nextClick);
-
-        }
+        backArrow.setOnClickListener(view -> backClick());
+        nextArrow.setOnClickListener(view -> nextClick());
 
         Button startButton = findViewById(R.id.intro_button_start);
-        startButton.setOnClickListener(this :: startClick);
+        startButton.setOnClickListener(view -> startClick());
 
     }
 
-    private void backClick(View view) {
+    /**
+     * Perform the back arrow clicking.
+     */
+    private void backClick() {
         viewPager.arrowScroll(View.FOCUS_LEFT);
     }
 
-    private void nextClick(View view) {
+    /**
+     * Perform the next arrow clicking.
+     */
+    private void nextClick() {
         viewPager.arrowScroll(View.FOCUS_RIGHT);
     }
 
-    private void startClick(View view) {
+    /**
+     * Perform the start button clicking.
+     */
+    private void startClick() {
 
-        SharedPreferences preferences = getSharedPreferences(SHARED_COMPLETED_INTRO_KEY, MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences.Editor editor = getSharedPreferences(
+                SHARED_COMPLETED_INTRO_KEY, MODE_PRIVATE).edit();
 
         editor.putBoolean(SHARED_COMPLETED_INTRO_KEY, SHARED_COMPLETED_INTRO_OPENED);
         editor.apply(); // use apply instead of commit method.
@@ -78,12 +87,14 @@ public class IntroductionActivity extends AppCompatActivity {
     }
 
     /**
-     * @return True if introduction activity is already opened.
+     * @return True if introduction activity is already completed.
      */
     public static boolean isAlreadyCompleted(AppCompatActivity activity) {
 
-        SharedPreferences shared = activity.getSharedPreferences(SHARED_COMPLETED_INTRO_KEY,MODE_PRIVATE);
-        return shared.getBoolean(SHARED_COMPLETED_INTRO_KEY, SHARED_COMPLETED_INTRO_CLOSED);
+        SharedPreferences preferences = activity.getSharedPreferences(
+                SHARED_COMPLETED_INTRO_KEY, MODE_PRIVATE);
+
+        return preferences.getBoolean(SHARED_COMPLETED_INTRO_KEY, SHARED_COMPLETED_INTRO_CLOSED);
 
     }
 
