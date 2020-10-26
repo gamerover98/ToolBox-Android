@@ -16,18 +16,25 @@ import android.view.MenuItem;
 import com.google.android.material.internal.NavigationMenuItemView;
 import com.google.android.material.navigation.NavigationView;
 
-import it.uniba.magr.misurapp.introduction.IntroductionActivity;
+import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("FieldCanBeLocal") // this suppression will be when lombok plugin will be added.
+import it.uniba.magr.misurapp.introduction.IntroductionActivity;
+import lombok.Getter;
+
+@SuppressWarnings({"squid:S110", "NotNullFieldNotInitialized"})
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
+    @Getter @NotNull
     private Toolbar toolbar;
 
+    @Getter @NotNull
     private DrawerLayout drawerLayout;
 
+    @Getter @NotNull
     private NavController navController;
 
+    @Getter @NotNull
     private NavigationView navigationView;
 
     @Override
@@ -96,8 +103,10 @@ public class MainActivity extends AppCompatActivity implements
 
     /*
      * Back arrow button click event.
+     * The suppression will be when it will be filled with its implementation.
      */
     @Override
+    @SuppressWarnings("squid:S1185")
     public void onBackPressed() {
         super.onBackPressed(); // unused for now.
     }

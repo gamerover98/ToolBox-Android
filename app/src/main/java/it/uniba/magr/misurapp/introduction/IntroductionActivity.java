@@ -1,6 +1,5 @@
 package it.uniba.magr.misurapp.introduction;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -12,12 +11,15 @@ import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.jetbrains.annotations.NotNull;
+
 import it.uniba.magr.misurapp.R;
 
 /**
  * Introduction activity that will be shown at the first
  * application startup.
  */
+@SuppressWarnings({"squid:S110", "NotNullFieldNotInitialized"})
 public class IntroductionActivity extends AppCompatActivity {
 
     public static final String SHARED_COMPLETED_INTRO_KEY = "completed_into";
@@ -25,7 +27,7 @@ public class IntroductionActivity extends AppCompatActivity {
     private static final boolean SHARED_COMPLETED_INTRO_OPENED = true;
     private static final boolean SHARED_COMPLETED_INTRO_CLOSED = false;
 
-    @Nullable
+    @NotNull
     private ViewPager viewPager;
 
     @Override
@@ -56,17 +58,11 @@ public class IntroductionActivity extends AppCompatActivity {
     }
 
     private void backClick(View view) {
-
-        assert viewPager != null;
         viewPager.arrowScroll(View.FOCUS_LEFT);
-
     }
 
     private void nextClick(View view) {
-
-        assert viewPager != null;
         viewPager.arrowScroll(View.FOCUS_RIGHT);
-
     }
 
     private void startClick(View view) {
