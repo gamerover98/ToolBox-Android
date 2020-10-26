@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "it.uniba.magr.misurapp"
         minSdkVersion 28
-        //noinspection OldTargetApi
+        //noinspection ExpiringTargetSdkVersion,OldTargetApi
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -34,7 +34,6 @@ dependencies {
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.design:design:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation "androidx.navigation:navigation-fragment:2.3.1"
     implementation "androidx.navigation:navigation-ui:2.3.1"
