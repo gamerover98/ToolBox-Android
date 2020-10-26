@@ -76,12 +76,15 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    /**
+     * On activity start, check if the introduction is completed.
+     */
     @Override
     protected void onStart() {
 
         super.onStart();
 
-        if (!IntroductionActivity.isAlreadyCompleted(this)) {
+        if (!IntroductionActivity.isCompleted(this)) {
 
             Intent intent = new Intent(this, IntroductionActivity.class);
             startActivity(intent);

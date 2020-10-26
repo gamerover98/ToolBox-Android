@@ -87,9 +87,10 @@ public class IntroductionActivity extends AppCompatActivity {
     }
 
     /**
+     * @param activity A not-null activity instance to get shared preferences.
      * @return True if introduction activity is already completed.
      */
-    public static boolean isAlreadyCompleted(AppCompatActivity activity) {
+    public static boolean isCompleted(@NotNull AppCompatActivity activity) {
 
         SharedPreferences preferences = activity.getSharedPreferences(
                 SHARED_COMPLETED_INTRO_KEY, MODE_PRIVATE);
