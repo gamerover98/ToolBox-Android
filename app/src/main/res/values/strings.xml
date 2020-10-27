@@ -8,6 +8,7 @@
     <string name="text_intro_third_title">Wide choice</string>
     <string name="text_intro_third_text">Choose from various tools that will help you in your work, easy and comfortable to use! What are you waiting for? Start using MisurApp</string>
     <string name="text_intro_start_button">Start</string>
+    <string name="text_intro_confirm_button">Confirm</string>
     <string name="text_sign_up">Sign up</string>
     <string name="text_question">Don\'t have an account yet?</string>
     <string name="text_forgot_password">Forgot password?</string>
@@ -20,10 +21,12 @@
     <string name="test_page_1">Page 1</string>
     <string name="test_page_2">Page 2</string>
     <string name="text_insert_email">Insert your e-mail</string>
-    <string name="text_login">Login</string>
-    <string name="text_sing_in">Sign in</string>
-    <string name="text_insert_title">Insert the title</string>
-    <string name="text_intro_newtab">New Tab</string>
-    <string name="text_insert_description">Insert the description</string>
-    <string name="text_intro_add_measure">Add a measure</string>
+    <string name="text_login">Sign in</string>
+    <string name="text_registration">Register</string>
+    <string name="text_insert_title">Insert title</string>
+    <string name="text_title">Title</string>
+    <string name="text_insert_description">Insert description</string>
+    <string name="text_description">Description</string>
+    <string name="text_intro_add_measure">Add measure</string>
+    <string name="text_intro_new_tab">New Tab</string>
 </resources>

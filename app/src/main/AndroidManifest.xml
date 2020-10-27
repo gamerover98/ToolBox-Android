@@ -19,6 +19,8 @@
         </activity>
 
         <activity android:name=".introduction.IntroductionActivity" />
+        <activity android:name=".auth.LoginActivity"/>
+        <activity android:name=".auth.RegistrationActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"
