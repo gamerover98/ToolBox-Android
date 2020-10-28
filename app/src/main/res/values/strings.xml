@@ -31,4 +31,5 @@
     <string name="text_intro_new_card">New Tab</string>
     <string name="text_create_new_card">Add new tab</string>
     <string name="text_fast_measure">Fast measure</string>
+    <string name="text_access_no_authentication"><u>Use MisurApp without authentication</u></string>
 </resources>
