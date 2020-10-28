@@ -8,12 +8,12 @@
 
     <fragment
         android:id="@+id/nav_main_fragment"
-        android:name="it.uniba.magr.misurapp.MainFragment"
+        android:name="it.uniba.magr.misurapp.navigation.MainFragment"
         tools:layout="@layout/fragment_main_layout"/>
 
     <fragment
         android:id="@+id/nav_second_fragment"
-        android:name="it.uniba.magr.misurapp.SecondFragment"
+        android:name="it.uniba.magr.misurapp.navigation.SecondFragment"
         tools:layout="@layout/fragment_second_layout"/>
 
 </navigation>

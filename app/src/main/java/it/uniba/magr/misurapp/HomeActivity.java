@@ -18,6 +18,8 @@ import com.google.android.material.navigation.NavigationView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 import it.uniba.magr.misurapp.introduction.IntroductionActivity;
 import lombok.Getter;
 
@@ -28,7 +30,7 @@ import lombok.Getter;
  * of the project.
  */
 @SuppressWarnings({"squid:S110", "NotNullFieldNotInitialized"})
-public class MainActivity extends AppCompatActivity implements
+public class HomeActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
     private static final int FIRST_NAVIGATION_MENU_ITEM = 0;
@@ -163,10 +165,9 @@ public class MainActivity extends AppCompatActivity implements
         drawerLayout   = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
-        navHostFragment = (NavHostFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.nav_host_fragment);
+        navHostFragment = (NavHostFragment) Objects.requireNonNull(getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment));
 
-        assert navHostFragment != null;
         navController = navHostFragment.getNavController();
 
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout);
