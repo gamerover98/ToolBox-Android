@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/icon_launcher"
         tools:ignore="ContentDescription"/>
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/intro_first_page_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/intro_first_page_logo" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/intro_first_page_text_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

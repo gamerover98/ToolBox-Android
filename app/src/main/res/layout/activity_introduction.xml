@@ -51,7 +51,7 @@
         app:srcCompat="@drawable/icon_next"
         tools:ignore="ContentDescription" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/intro_button_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
