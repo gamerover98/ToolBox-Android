@@ -5,13 +5,13 @@
 
         <item
             android:id="@+id/drawer_menu_main"
-            android:icon="@drawable/ic_launcher"
-            android:title="@string/test_page_1" />
+            android:icon="@drawable/icon_launcher"
+            android:title="@string/text_test_page_1" />
 
         <item
             android:id="@+id/drawer_menu_second"
-            android:icon="@drawable/ic_launcher"
-            android:title="@string/test_page_2" />
+            android:icon="@drawable/icon_launcher"
+            android:title="@string/text_test_page_2" />
 
     </group>
 

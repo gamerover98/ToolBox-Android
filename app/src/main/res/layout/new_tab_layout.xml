@@ -11,7 +11,7 @@
         android:layout_marginTop="120dp"
         android:fontFamily="@font/alegreya_sc_bold"
         android:gravity="center"
-        android:text="@string/text_intro_new_tab"
+        android:text="@string/text_intro_new_card"
         android:textColor="@color/primary_dark"
         android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"

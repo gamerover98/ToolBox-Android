@@ -12,7 +12,7 @@
         android:layout_marginTop="120dp"
         android:fontFamily="@font/alegreya_sc_bold"
         android:gravity="center"
-        android:text="@string/register_layout"
+        android:text="@string/text_register_layout"
         android:textColor="@color/primary_dark"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +90,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
-            android:drawableEnd="@drawable/ic_baseline_email_24"
+            android:drawableEnd="@drawable/icon_email"
             android:hint="@string/text_insert_email" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -116,7 +116,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
-            android:drawableEnd="@drawable/ic_baseline_lock_24"
+            android:drawableEnd="@drawable/icon_lock"
             android:hint="@string/text_insert_password" />
 
     </com.google.android.material.textfield.TextInputLayout>

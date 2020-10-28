@@ -16,10 +16,10 @@
     <string name="text_insert_name">Insert your name</string>
     <string name="text_insert_surname">Insert your surname</string>
     <string name="text_confirm_pass">Confirm password</string>
-    <string name="register_layout">Register</string>
-    <string name="header_layout_your_account">Your account</string>
-    <string name="test_page_1">Page 1</string>
-    <string name="test_page_2">Page 2</string>
+    <string name="text_register_layout">Register</string>
+    <string name="text_header_layout_your_account">Your account</string>
+    <string name="text_test_page_1">Page 1</string>
+    <string name="text_test_page_2">Page 2</string>
     <string name="text_insert_email">Insert your e-mail</string>
     <string name="text_login">Sign in</string>
     <string name="text_registration">Register</string>
@@ -28,5 +28,7 @@
     <string name="text_insert_description">Insert description</string>
     <string name="text_description">Description</string>
     <string name="text_intro_add_measure">Add measure</string>
-    <string name="text_intro_new_tab">New Tab</string>
+    <string name="text_intro_new_card">New Tab</string>
+    <string name="text_create_new_card">Add new tab</string>
+    <string name="text_fast_measure">Fast measure</string>
 </resources>

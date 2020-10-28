@@ -14,18 +14,20 @@
     <string name="text_insert_name">Nome</string>
     <string name="text_insert_surname">Inserisci il tuo cognome</string>
     <string name="text_confirm_pass">Conferma la password</string>
-    <string name="register_layout">Registrazione</string>
-    <string name="header_layout_your_account">Il tuo account</string>
-    <string name="test_page_1">Pagina 1</string>
-    <string name="test_page_2">Pagina 2</string>
+    <string name="text_register_layout">Registrazione</string>
+    <string name="text_header_layout_your_account">Il tuo account</string>
+    <string name="text_test_page_1">Pagina 1</string>
+    <string name="text_test_page_2">Pagina 2</string>
     <string name="text_insert_email">Inserisci la tuae-mail</string>
     <string name="text_login">Accedi</string>
     <string name="text_registration">Registrati</string>
     <string name="text_insert_title">Inserire il titolo</string>
-    <string name="text_intro_new_tab">Nuova scheda</string>
+    <string name="text_intro_new_card">Nuova scheda</string>
     <string name="text_insert_description">Inserire la descrizione</string>
     <string name="text_intro_add_measure">Aggiungi una misura</string>
     <string name="text_title">Titolo</string>
     <string name="text_description">Descrizione</string>
     <string name="text_intro_confirm_button">Conferma</string>
+    <string name="text_create_new_card">Crea nuova scheda</string>
+    <string name="text_fast_measure">Misura veloce</string>
 </resources>

@@ -37,7 +37,7 @@
         app:layout_constraintBottom_toTopOf="@+id/intro_button_start"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_back"
+        app:srcCompat="@drawable/icon_back"
         tools:ignore="ContentDescription" />
 
     <ImageView
@@ -48,7 +48,7 @@
         app:layout_constraintBottom_toTopOf="@+id/intro_button_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_next"
+        app:srcCompat="@drawable/icon_next"
         tools:ignore="ContentDescription" />
 
     <Button

@@ -31,6 +31,8 @@ import lombok.Getter;
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int FIRST_NAVIGATION_MENU_ITEM = 0;
+
     /**
      * Gets the ToolBar View instance.
      * It will be initialized since the activity layout
@@ -48,12 +50,6 @@ public class MainActivity extends AppCompatActivity implements
     private DrawerLayout drawerLayout;
 
     /**
-     * Gets the Navigation Controller instance.
-     */
-    @Getter @NotNull
-    private NavController navController;
-
-    /**
      * Gets the NavigationView component located
      * into the DrawerLayout of this activity.
      *
@@ -61,6 +57,18 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Getter @NotNull
     private NavigationView navigationView;
+
+    /**
+     * Gets the Navigation Host Fragment instance.
+     */
+    @Getter @NotNull
+    private NavHostFragment navHostFragment;
+
+    /**
+     * Gets the Navigation Controller instance.
+     */
+    @Getter @NotNull
+    private NavController navController;
 
     /**
      * Application layout and navigation initialization.
@@ -83,6 +91,10 @@ public class MainActivity extends AppCompatActivity implements
     protected void onStart() {
 
         super.onStart();
+
+        // disable main menu item
+        MenuItem mainItem = navigationView.getMenu().getItem(FIRST_NAVIGATION_MENU_ITEM);
+        navigationView.getMenu().removeItem(mainItem.getItemId());
 
         if (!IntroductionActivity.isCompleted(this)) {
 
@@ -118,13 +130,13 @@ public class MainActivity extends AppCompatActivity implements
         drawerLayout.closeDrawers();
         int id = item.getItemId();
 
-        NavigationMenuItemView mainMenuItem = findViewById(R.id.drawer_menu_main);
         NavigationMenuItemView secondMenuItem = findViewById(R.id.drawer_menu_second);
 
-        if (id == mainMenuItem.getId()) {
-            navController.navigate(R.id.nav_main_fragment);
-        } else if (id == secondMenuItem.getId()) {
+        if (id == secondMenuItem.getId()) {
+
             navController.navigate(R.id.nav_second_fragment);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
         }
 
         return false;
@@ -151,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements
         drawerLayout   = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+        navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
 
         assert navHostFragment != null;
@@ -161,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements
         NavigationUI.setupWithNavController(navigationView, navController);
 
         navigationView.setNavigationItemSelectedListener(this);
+
 
     }
 

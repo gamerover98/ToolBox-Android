@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/nav_fragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_button_operation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="@color/accent"
+            android:contentDescription="@string/text_create_new_card"
+            android:src="@drawable/icon_add"
+            app:tint="@color/icons"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_button_create_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginBottom="120dp"
+            android:backgroundTint="@color/accent"
+            android:contentDescription="@string/text_create_new_card"
+            android:src="@drawable/icon_card"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/icons" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_button_fast_measure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginBottom="190dp"
+            android:visibility="invisible"
+            android:backgroundTint="@color/accent"
+            android:contentDescription="@string/text_create_new_card"
+            android:src="@drawable/icon_compass"
+            app:tint="@color/icons"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fab_button_fast_measure_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            android:text="@string/text_fast_measure"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/fab_button_fast_measure"
+            app:layout_constraintEnd_toStartOf="@+id/fab_button_fast_measure"
+            app:layout_constraintTop_toTopOf="@+id/fab_button_fast_measure" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fab_button_create_card_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:gravity="center"
+            android:text="@string/text_create_new_card"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/fab_button_create_card"
+            app:layout_constraintEnd_toStartOf="@+id/fab_button_create_card"
+            app:layout_constraintTop_toTopOf="@+id/fab_button_create_card" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
