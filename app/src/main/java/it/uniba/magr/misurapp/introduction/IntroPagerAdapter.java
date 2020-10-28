@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import it.uniba.magr.misurapp.R;
+import lombok.RequiredArgsConstructor;
 
 public class IntroPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -41,13 +42,10 @@ public class IntroPagerAdapter extends FragmentStatePagerAdapter {
         return pagesArray.length;
     }
 
+    @RequiredArgsConstructor
     public static class PageFragment extends Fragment {
 
         private final int layoutID;
-
-        public PageFragment(int layoutID) {
-            this.layoutID = layoutID;
-        }
 
         @Nullable
         @Override
