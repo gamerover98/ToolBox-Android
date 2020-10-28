@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
 
@@ -48,6 +48,7 @@ dependencies {
     // Note: Don't change compileOnly with implementation, it doesn't work!
     //noinspection AnnotationProcessorOnCompilePath
     compileOnly 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
     testImplementation 'junit:junit:4.12'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
