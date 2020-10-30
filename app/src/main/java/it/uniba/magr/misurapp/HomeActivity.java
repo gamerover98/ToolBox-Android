@@ -18,6 +18,8 @@ import com.google.android.material.navigation.NavigationView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 import it.uniba.magr.misurapp.introduction.IntroductionActivity;
 import lombok.Getter;
 
@@ -28,10 +30,22 @@ import lombok.Getter;
  * of the project.
  */
 @SuppressWarnings({"squid:S110", "NotNullFieldNotInitialized"})
-public class MainActivity extends AppCompatActivity implements
+public class HomeActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     * The index of the first navigation menu item.
+     *
+     * The item will be the start fragment of
+     * the graph navigation resource file.
+     */
     private static final int FIRST_NAVIGATION_MENU_ITEM = 0;
+
+    /**
+     * Prevents the removal of the first menu item after the
+     * activity refocus.
+     */
+    private boolean removedFirstMenuItem = false;
 
     /**
      * Gets the ToolBar View instance.
@@ -78,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle bundle) {
 
         super.onCreate(bundle);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
 
         setupNavigation();
 
@@ -92,13 +106,34 @@ public class MainActivity extends AppCompatActivity implements
 
         super.onStart();
 
-        // disable main menu item
-        MenuItem mainItem = navigationView.getMenu().getItem(FIRST_NAVIGATION_MENU_ITEM);
-        navigationView.getMenu().removeItem(mainItem.getItemId());
+        if (!removedFirstMenuItem) {
+
+            // disable main menu item
+            MenuItem mainItem = navigationView.getMenu().getItem(FIRST_NAVIGATION_MENU_ITEM);
+            navigationView.getMenu().removeItem(mainItem.getItemId());
+
+            removedFirstMenuItem = true;
+
+        }
 
         if (!IntroductionActivity.isCompleted(this)) {
 
             Intent intent = new Intent(this, IntroductionActivity.class);
+            startActivity(intent);
+
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        if (!AuthActivity.canBypassAuthentication()) {
+
+            // open authentication activity
+            Intent intent = new Intent(this, AuthActivity.class);
             startActivity(intent);
 
         }
@@ -163,10 +198,9 @@ public class MainActivity extends AppCompatActivity implements
         drawerLayout   = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
-        navHostFragment = (NavHostFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.nav_host_fragment);
+        navHostFragment = (NavHostFragment) Objects.requireNonNull(getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment));
 
-        assert navHostFragment != null;
         navController = navHostFragment.getNavController();
 
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout);

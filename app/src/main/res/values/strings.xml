@@ -4,7 +4,7 @@
     <string name="text_intro_first_title">Welcome!</string>
     <string name="text_intro_first_text">Welcome to MisurApp! This app will help you make simple and quick measurements, organize them and manage them as you see for convenience</string>
     <string name="text_intro_second_title">Full control</string>
-    <string name="text_intro_second_text">Create your own custom tabs, where you can organize your measurements. Or make quick measurements without worrying about how to organize them</string>
+    <string name="text_intro_second_text">Create your own custom cards, where you can organize your measurements. Or make quick measurements without worrying about how to organize them</string>
     <string name="text_intro_third_title">Wide choice</string>
     <string name="text_intro_third_text">Choose from various tools that will help you in your work, easy and comfortable to use! What are you waiting for? Start using MisurApp</string>
     <string name="text_intro_start_button">Start</string>
@@ -28,7 +28,8 @@
     <string name="text_insert_description">Insert description</string>
     <string name="text_description">Description</string>
     <string name="text_intro_add_measure">Add measure</string>
-    <string name="text_intro_new_card">New Tab</string>
-    <string name="text_create_new_card">Add new tab</string>
+    <string name="text_intro_new_card">New card</string>
+    <string name="text_create_new_card">Add new card</string>
     <string name="text_fast_measure">Fast measure</string>
+    <string name="text_access_no_authentication"><u>Use MisurApp without authentication</u></string>
 </resources>

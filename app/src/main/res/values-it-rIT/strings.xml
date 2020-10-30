@@ -30,4 +30,5 @@
     <string name="text_intro_confirm_button">Conferma</string>
     <string name="text_create_new_card">Crea nuova scheda</string>
     <string name="text_fast_measure">Misura veloce</string>
+    <string name="text_access_no_authentication"><u>Usa MisurApp senza autenticarti</u></string>
 </resources>

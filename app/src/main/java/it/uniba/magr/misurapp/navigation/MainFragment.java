@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp;
+package it.uniba.magr.misurapp.navigation;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,9 +17,12 @@ import com.google.android.material.textview.MaterialTextView;
 
 import org.jetbrains.annotations.NotNull;
 
+import it.uniba.magr.misurapp.HomeActivity;
+import it.uniba.magr.misurapp.R;
+
 public class MainFragment extends Fragment {
 
-    private MainActivity mainActivity;
+    private HomeActivity homeActivity;
 
     private FloatingActionButton buttonCreateCard;
     private FloatingActionButton buttonFastMeasure;
@@ -40,7 +43,7 @@ public class MainFragment extends Fragment {
                              @Nullable ViewGroup parent,
                              @Nullable Bundle savedInstanceState) {
 
-        mainActivity = (MainActivity) inflater.getContext();
+        homeActivity = (HomeActivity) inflater.getContext();
         fabOpened = false;
 
         return inflater.inflate(R.layout.fragment_main_layout,
@@ -54,24 +57,24 @@ public class MainFragment extends Fragment {
         super.onActivityCreated(bundle);
         setupFloatingButtons();
 
-        DrawerLayout drawerLayout = mainActivity.getDrawerLayout();
+        DrawerLayout drawerLayout = homeActivity.getDrawerLayout();
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
     }
 
     private void setupFloatingButtons() {
 
-        FloatingActionButton buttonOperation = mainActivity.findViewById(R.id.fab_button_operation);
+        FloatingActionButton buttonOperation = homeActivity.findViewById(R.id.fab_button_operation);
 
-        buttonCreateCard  = mainActivity.findViewById(R.id.fab_button_create_card);
-        buttonFastMeasure = mainActivity.findViewById(R.id.fab_button_fast_measure);
-        animationFabOpening = AnimationUtils.loadAnimation(mainActivity, R.anim.fab_open);
-        animationFabClosing = AnimationUtils.loadAnimation(mainActivity, R.anim.fab_close);
-        animationRotateForward  = AnimationUtils.loadAnimation(mainActivity, R.anim.rotate_forward);
-        animationRotateBackward = AnimationUtils.loadAnimation(mainActivity, R.anim.rotate_backward);
+        buttonCreateCard  = homeActivity.findViewById(R.id.fab_button_create_card);
+        buttonFastMeasure = homeActivity.findViewById(R.id.fab_button_fast_measure);
+        animationFabOpening = AnimationUtils.loadAnimation(homeActivity, R.anim.fab_open);
+        animationFabClosing = AnimationUtils.loadAnimation(homeActivity, R.anim.fab_close);
+        animationRotateForward  = AnimationUtils.loadAnimation(homeActivity, R.anim.rotate_forward);
+        animationRotateBackward = AnimationUtils.loadAnimation(homeActivity, R.anim.rotate_backward);
 
-        buttonCreateCardTextView  = mainActivity.findViewById(R.id.fab_button_create_card_text_view);
-        buttonFastMeasureTextView = mainActivity.findViewById(R.id.fab_button_fast_measure_text_view);
+        buttonCreateCardTextView  = homeActivity.findViewById(R.id.fab_button_create_card_text_view);
+        buttonFastMeasureTextView = homeActivity.findViewById(R.id.fab_button_fast_measure_text_view);
 
         buttonOperation.setOnClickListener(this :: operationButtonClick);
 
