@@ -18,7 +18,7 @@
     <string name="text_header_layout_your_account">Il tuo account</string>
     <string name="text_test_page_1">Pagina 1</string>
     <string name="text_test_page_2">Pagina 2</string>
-    <string name="text_insert_email">Inserisci la tuae-mail</string>
+    <string name="text_insert_email">Inserisci la tua e-mail</string>
     <string name="text_login">Accedi</string>
     <string name="text_registration">Registrati</string>
     <string name="text_insert_title">Inserire il titolo</string>
@@ -31,4 +31,7 @@
     <string name="text_create_new_card">Crea nuova scheda</string>
     <string name="text_fast_measure">Misura veloce</string>
     <string name="text_access_no_authentication"><u>Usa MisurApp senza autenticarti</u></string>
+    <string name="text_radio_complete">Completa</string>
+    <string name="text_radio_essential">Essenziale</string>
+    <string name="text_radio_functionality">Seleziona funzionalità</string>
 </resources>

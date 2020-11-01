@@ -32,4 +32,7 @@
     <string name="text_create_new_card">Add new card</string>
     <string name="text_fast_measure">Fast measure</string>
     <string name="text_access_no_authentication"><u>Use MisurApp without authentication</u></string>
+    <string name="text_radio_complete">Complete</string>
+    <string name="text_radio_essential">Essential</string>
+    <string name="text_radio_functionality">Select functionality:</string>
 </resources>

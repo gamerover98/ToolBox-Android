@@ -19,6 +19,7 @@
             android:backgroundTint="@color/accent"
             android:contentDescription="@string/text_create_new_card"
             android:src="@drawable/icon_add"
+            app:elevation="6dp"
             app:tint="@color/icons"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -34,6 +35,7 @@
             android:contentDescription="@string/text_create_new_card"
             android:src="@drawable/icon_card"
             android:visibility="invisible"
+            app:elevation="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:tint="@color/icons" />
@@ -48,6 +50,7 @@
             android:backgroundTint="@color/accent"
             android:contentDescription="@string/text_create_new_card"
             android:src="@drawable/icon_compass"
+            app:elevation="6dp"
             app:tint="@color/icons"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

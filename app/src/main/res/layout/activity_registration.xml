@@ -9,12 +9,12 @@
         android:id="@+id/text_registration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="60dp"
         android:fontFamily="@font/alegreya_sc_bold"
         android:gravity="center"
         android:text="@string/text_register_layout"
         android:textColor="@color/primary_dark"
-        android:textSize="60sp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,10 +25,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/rounded_field"
         android:textColorHint="@color/secondary_text"
+        app:hintTextAppearance="@style/TextLabel"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_registration">
@@ -54,6 +56,8 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/rounded_field"
         android:textColorHint="@color/secondary_text"
+        app:hintTextAppearance="@style/TextLabel"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout_name">
@@ -79,6 +83,8 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/rounded_field"
         android:textColorHint="@color/secondary_text"
+        app:hintTextAppearance="@style/TextLabel"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout_surname">
@@ -105,6 +111,8 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/rounded_field"
         android:textColorHint="@color/secondary_text"
+        app:hintTextAppearance="@style/TextLabel"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout_email">
@@ -131,6 +139,8 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/rounded_field"
         android:textColorHint="@color/secondary_text"
+        app:hintTextAppearance="@style/TextLabel"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout_password">
@@ -145,6 +155,50 @@
             android:hint="@string/text_confirm_pass" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/alegreya_sc_bold"
+        android:text="@string/text_radio_functionality"
+        android:textColor="@color/primary_dark"
+        android:textSize="30sp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_confirm_pass" />
+
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/registration_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_question"
+        app:layout_constraintVertical_bias="0.10">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/text_radio_complete"
+            android:textSize="20sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_essential"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/text_radio_essential"
+            android:textSize="20sp" />
+    </RadioGroup>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registration_button"
