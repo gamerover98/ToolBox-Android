@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "599676596933",
+    "firebase_url": "https://misurapp-android.firebaseio.com",
+    "project_id": "misurapp-android",
+    "storage_bucket": "misurapp-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599676596933:android:d8c80b9f01b7026456b6ac",
+        "android_client_info": {
+          "package_name": "it.uniba.magr.misurapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599676596933-4sptn662gieclo4q93bvb5hfs0r5u1id.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.uniba.magr.misurapp",
+            "certificate_hash": "1828be0076e557f10b0ea4f32bfdfbb9d405f436"
+          }
+        },
+        {
+          "client_id": "599676596933-i7mbal9midrndunpg736dq4kk553sqft.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpxQJaId8QWwWOuJ0EmeruB9aDsvPXdyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599676596933-i7mbal9midrndunpg736dq4kk553sqft.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

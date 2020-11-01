@@ -33,8 +33,10 @@ android {
 
 dependencies {
 
-
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:26.0.0')
 
     // jetbrains annotations: https://www.jetbrains.com/help/idea/annotating-source-code.html
     implementation 'org.jetbrains:annotations:16.0.2'
@@ -44,6 +46,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:2.3.1"
     implementation "androidx.drawerlayout:drawerlayout:1.1.1"
     implementation 'com.google.android.material:material:1.2.1'
+    // Declare the dependency for the Firebase SDK for Google Analytics
+    implementation 'com.google.firebase:firebase-analytics'
 
     // lombok: https://projectlombok.org/setup/gradle
     // Note: Don't change compileOnly with implementation, it doesn't work!
