@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp;
+package it.uniba.magr.misurapp.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,8 +10,8 @@ import com.google.android.material.textview.MaterialTextView;
 
 import org.jetbrains.annotations.NotNull;
 
-import it.uniba.magr.misurapp.auth.LoginActivity;
-import it.uniba.magr.misurapp.auth.RegistrationActivity;
+import it.uniba.magr.misurapp.HomeActivity;
+import it.uniba.magr.misurapp.R;
 import lombok.Getter;
 
 /**

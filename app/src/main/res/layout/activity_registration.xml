@@ -205,7 +205,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_primary"
-        android:text="@string/text_registration"
+        android:text="@string/text_registration_button"
         android:textAllCaps="true"
         android:textColor="@color/button_text"
         app:layout_constraintBottom_toBottomOf="parent"

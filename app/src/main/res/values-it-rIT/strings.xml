@@ -7,7 +7,7 @@
     <string name="text_intro_third_title">Ampia scelta</string>
     <string name="text_intro_third_text">Scegli fra vari strumenti che ti aiuteranno nel tuo lavoro, facili e comodi da usare!</string>
     <string name="text_intro_start_button">Inizio</string>
-    <string name="text_sign_up">Entra</string>
+    <string name="text_sign_in_button">Entra con e-mail</string>
     <string name="text_question">Non hai ancora un account?</string>
     <string name="text_forgot_password">Password dimenticata?</string>
     <string name="text_insert_password">Inserisci la tua password</string>
@@ -20,7 +20,7 @@
     <string name="text_test_page_2">Pagina 2</string>
     <string name="text_insert_email">Inserisci la tua e-mail</string>
     <string name="text_login">Accedi</string>
-    <string name="text_registration">Registrati</string>
+    <string name="text_registration_button">Registrati con email</string>
     <string name="text_insert_title">Inserire il titolo</string>
     <string name="text_intro_new_card">Nuova scheda</string>
     <string name="text_insert_description">Inserire la descrizione</string>

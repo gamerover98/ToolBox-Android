@@ -20,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
+import it.uniba.magr.misurapp.auth.AuthActivity;
 import it.uniba.magr.misurapp.introduction.IntroductionActivity;
 import lombok.Getter;
 

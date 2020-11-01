@@ -22,7 +22,7 @@
         <activity android:name=".introduction.IntroductionActivity" />
         <activity android:name=".auth.LoginActivity" />
         <activity android:name=".auth.RegistrationActivity" />
-        <activity android:name=".AuthActivity" />
+        <activity android:name=".auth.AuthActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
