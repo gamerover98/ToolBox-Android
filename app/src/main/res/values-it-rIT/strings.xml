@@ -37,4 +37,5 @@
     <string name="text_no_connection">Controlla la tua connessione ad internet</string>
     <string name="text_change_functionality">Cambia funzionalità</string>
     <string name="text_confirm_button_settings">Conferma</string>
+    <string name="text_settings">Impostazioni</string>
 </resources>

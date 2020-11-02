@@ -38,4 +38,5 @@
     <string name="text_no_connection">Check your internet connection</string>
     <string name="text_change_functionality">Change functionality</string>
     <string name="text_confirm_button_settings">Confirm</string>
+    <string name="text_settings">Settings</string>
 </resources>
