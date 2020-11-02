@@ -36,6 +36,8 @@ import static it.uniba.magr.misurapp.auth.LoginActivity.*;
 @SuppressWarnings({"squid:S110", "squid:S2696", "NotNullFieldNotInitialized"})
 public class AuthActivity extends AppCompatActivity {
 
+    private static final String AUTH_LOG_TAG = "Auth";
+
     private static final int REQUEST_CODE_SIGN_IN = 123;
 
     /**
@@ -180,7 +182,7 @@ public class AuthActivity extends AppCompatActivity {
                 } else {
 
                     if (task.getException() != null) {
-                        Log.e("pelopelo", "login error", task.getException());
+                        Log.e(AUTH_LOG_TAG, "anonymous login error", task.getException());
                     }
 
                     String message = getResources().getString(R.string.incorrect_sign_in);
