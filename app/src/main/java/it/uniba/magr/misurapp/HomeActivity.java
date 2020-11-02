@@ -12,8 +12,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.internal.NavigationMenuItemView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -117,6 +121,15 @@ public class HomeActivity extends AppCompatActivity implements
 
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        handleAuthentication();
+
         if (!IntroductionActivity.isCompleted(this)) {
 
             Intent intent = new Intent(this, IntroductionActivity.class);
@@ -126,16 +139,35 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
-    @Override
-    protected void onResume() {
+    private void handleAuthentication() {
 
-        super.onResume();
 
-        if (!AuthActivity.canBypassAuthentication()) {
+        if (!AuthActivity.isAuthenticated()) {
 
             // open authentication activity
             Intent intent = new Intent(this, AuthActivity.class);
             startActivity(intent);
+
+        } else {
+
+
+
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+            assert firebaseUser != null;
+
+            Task<GetTokenResult> resultTask = firebaseUser.getIdToken(true);
+
+            resultTask.addOnCompleteListener(this, task -> {
+
+                if (!task.isSuccessful()) {
+
+                    firebaseAuth.signOut();
+                    handleAuthentication();
+
+                }
+
+            });
 
         }
 

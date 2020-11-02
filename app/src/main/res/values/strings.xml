@@ -35,4 +35,6 @@
     <string name="text_radio_complete">Complete</string>
     <string name="text_radio_essential">Essential</string>
     <string name="text_radio_functionality">Select functionality:</string>
+    <string name="correct_sign_in">Successful sign in</string>
+    <string name="incorrect_sign_in">An error has occurred during the authentication, try again</string>
 </resources>

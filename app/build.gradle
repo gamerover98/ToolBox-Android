@@ -49,6 +49,9 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth'
 
+    // FirebaseUI for Firebase Auth
+    implementation 'com.firebaseui:firebase-ui-auth:6.3.0'
+
     // lombok: https://projectlombok.org/setup/gradle
     // Note: Don't change compileOnly with implementation, it doesn't work!
     //noinspection AnnotationProcessorOnCompilePath

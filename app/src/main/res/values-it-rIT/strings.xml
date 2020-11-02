@@ -34,4 +34,6 @@
     <string name="text_radio_complete">Completa</string>
     <string name="text_radio_essential">Essenziale</string>
     <string name="text_radio_functionality">Seleziona funzionalità</string>
+    <string name="correct_sign_in">Accesso eseguito correttamente</string>
+    <string name="incorrect_sign_in">Errore imprevisto durante l\'autenticazione, riprova</string>
 </resources>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_login"
+        android:id="@+id/login_text_view_title"
         android:layout_width="275dp"
         android:layout_height="65dp"
         android:layout_marginTop="150dp"
@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.700" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_email"
+        android:id="@+id/login_input_text_box_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -33,10 +33,10 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_login">
+        app:layout_constraintTop_toBottomOf="@+id/login_text_view_title">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/email_field"
+            android:id="@+id/login_input_text_email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
@@ -48,7 +48,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_password"
+        android:id="@+id/login_input_text_box_password"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -60,10 +60,10 @@
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_email">
+        app:layout_constraintTop_toBottomOf="@+id/login_input_text_box_email">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password_field"
+            android:id="@+id/login_input_text_password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
@@ -83,10 +83,10 @@
         android:text="@string/text_forgot_password"
         android:textColor="@color/secondary_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_password" />
+        app:layout_constraintTop_toBottomOf="@+id/login_input_text_box_password" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_question"
+        android:id="@+id/login_text_view_select_functionality"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="3dp"
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:text="@string/text_sign_in_button"
+        android:text="@string/text_registration_button"
         android:textColor="@color/secondary_text"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
