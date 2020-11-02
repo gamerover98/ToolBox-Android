@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/loading_fragment_background"
-    android:theme="@style/Theme.MaterialComponents.NoActionBar"
+    android:theme="@style/LightTheme"
     tools:context=".loading.LoadingFragment">
 
     <ProgressBar

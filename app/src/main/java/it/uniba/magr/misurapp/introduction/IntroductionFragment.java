@@ -1,11 +1,18 @@
 package it.uniba.magr.misurapp.introduction;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -13,14 +20,18 @@ import com.google.android.material.tabs.TabLayout;
 
 import org.jetbrains.annotations.NotNull;
 
+import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.loading.LoadingFragment;
+
+import static android.app.Activity.*;
 
 /**
  * Introduction activity that will be shown at the first
  * application startup.
  */
 @SuppressWarnings({"squid:S110", "NotNullFieldNotInitialized"})
-public class IntroductionActivity extends AppCompatActivity {
+public class IntroductionFragment extends Fragment {
 
     public static final String SHARED_COMPLETED_INTRO_KEY = "completed_into";
 
@@ -34,26 +45,54 @@ public class IntroductionActivity extends AppCompatActivity {
     @NotNull
     private ViewPager viewPager;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle bundle) {
+    public View onCreateView(@NotNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle bundle) {
+        return inflater.inflate(R.layout.fragment_introduction, container, false);
+    }
 
-        super.onCreate(bundle);
-        setContentView(R.layout.activity_introduction);
+    @Override
+    public void onStart() {
 
-        viewPager = findViewById(R.id.intro_pager);
-        viewPager.setAdapter(new IntroPagerAdapter(getSupportFragmentManager()));
+        super.onStart();
 
-        TabLayout tabLayout = findViewById(R.id.intro_tab_layout);
+        FragmentActivity activity = getActivity();
+        assert activity != null;
+
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+
+        viewPager = activity.findViewById(R.id.intro_pager);
+        viewPager.setAdapter(new IntroPagerAdapter(fragmentManager));
+
+        TabLayout tabLayout = activity.findViewById(R.id.intro_tab_layout);
         tabLayout.setupWithViewPager(viewPager, true);
 
-        ImageView backArrow = findViewById(R.id.intro_arrow_back);
-        ImageView nextArrow = findViewById(R.id.intro_arrow_next);
+        ImageView backArrow = activity.findViewById(R.id.intro_arrow_back);
+        ImageView nextArrow = activity.findViewById(R.id.intro_arrow_next);
 
         backArrow.setOnClickListener(view -> backClick());
         nextArrow.setOnClickListener(view -> nextClick());
 
-        Button startButton = findViewById(R.id.intro_button_start);
+        Button startButton = activity.findViewById(R.id.intro_button_start);
         startButton.setOnClickListener(view -> startClick());
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+        assert homeActivity != null;
+
+        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+
+        LoadingFragment loadingFragment = new LoadingFragment(fragment -> homeActivity.reload());
+        fragmentTransaction.replace(R.id.home_frame_layout, loadingFragment);
+        fragmentTransaction.commit();
 
     }
 
@@ -76,13 +115,19 @@ public class IntroductionActivity extends AppCompatActivity {
      */
     private void startClick() {
 
-        SharedPreferences.Editor editor = getSharedPreferences(
+        FragmentActivity activity = getActivity();
+        assert activity != null;
+
+        SharedPreferences.Editor editor = activity.getSharedPreferences(
                 SHARED_COMPLETED_INTRO_KEY, MODE_PRIVATE).edit();
 
         editor.putBoolean(SHARED_COMPLETED_INTRO_KEY, SHARED_COMPLETED_INTRO_OPENED);
         editor.apply(); // use apply instead of commit method.
 
-        finish();
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.remove(this).commit();
 
     }
 

@@ -192,8 +192,6 @@ public class AuthActivity extends AppCompatActivity {
 
             });
 
-
-
         }
 
     }
@@ -201,6 +199,7 @@ public class AuthActivity extends AppCompatActivity {
     /**
      * @return True if user is logged in (also in anonymous user).
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isAuthenticated() {
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();

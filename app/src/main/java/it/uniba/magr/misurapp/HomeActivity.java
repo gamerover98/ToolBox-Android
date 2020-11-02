@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 import it.uniba.magr.misurapp.auth.AuthActivity;
-import it.uniba.magr.misurapp.introduction.IntroductionActivity;
+import it.uniba.magr.misurapp.introduction.IntroductionFragment;
 import it.uniba.magr.misurapp.loading.LoadingFragment;
 import lombok.Getter;
 
@@ -42,7 +42,7 @@ import lombok.Getter;
 public class HomeActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String HOME_LOG_TAG = "homeActivity";
+    private static final String HOME_LOG_TAG = "Home";
 
     /**
      * The index of the first navigation menu item.
@@ -109,9 +109,6 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
-    /**
-     * On activity start, check if the introduction is completed.
-     */
     @Override
     protected void onStart() {
 
@@ -133,17 +130,67 @@ public class HomeActivity extends AppCompatActivity implements
     protected void onResume() {
 
         super.onResume();
+        reload();
 
-        handleAuthentication();
+    }
 
-        if (!IntroductionActivity.isCompleted(this)) {
+    /*
+     * Hamburger button click event.
+     */
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(navController, drawerLayout);
+    }
 
-            Intent intent = new Intent(this, IntroductionActivity.class);
+    /*
+     * Back arrow button click event.
+     * The suppression will be when it will be filled with its implementation.
+     */
+    @Override
+    @SuppressWarnings("squid:S1185")
+    public void onBackPressed() {
+        super.onBackPressed(); // unused for now.
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NotNull MenuItem item) {
+
+        item.setChecked(true);
+        drawerLayout.closeDrawers();
+        int id = item.getItemId();
+
+        NavigationMenuItemView secondMenuItem = findViewById(R.id.drawer_menu_second);
+
+        if (id == secondMenuItem.getId()) {
+
+            navController.navigate(R.id.nav_second_fragment);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        }
+
+        return false;
+
+    }
+
+    public void reload() {
+
+        if (!IntroductionFragment.isCompleted(this)) {
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            fragmentTransaction.replace(R.id.home_frame_layout, new IntroductionFragment());
+            fragmentTransaction.commit();
+
+        } else if (!AuthActivity.isAuthenticated()) {
+
+            Intent intent = new Intent(this, AuthActivity.class);
             startActivity(intent);
 
         }
 
     }
+
 
     private void handleAuthentication() {
 
@@ -202,45 +249,6 @@ public class HomeActivity extends AppCompatActivity implements
         });
 
     }
-
-    /*
-     * Hamburger button click event.
-     */
-    @Override
-    public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, drawerLayout);
-    }
-
-    /*
-     * Back arrow button click event.
-     * The suppression will be when it will be filled with its implementation.
-     */
-    @Override
-    @SuppressWarnings("squid:S1185")
-    public void onBackPressed() {
-        super.onBackPressed(); // unused for now.
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NotNull MenuItem item) {
-
-        item.setChecked(true);
-        drawerLayout.closeDrawers();
-        int id = item.getItemId();
-
-        NavigationMenuItemView secondMenuItem = findViewById(R.id.drawer_menu_second);
-
-        if (id == secondMenuItem.getId()) {
-
-            navController.navigate(R.id.nav_second_fragment);
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
-        }
-
-        return false;
-
-    }
-
 
     /**
      * Setup the ActionBar (ToolBar) with the hamburger button and
