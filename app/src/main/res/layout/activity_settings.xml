@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/measurement_description_view"
+        android:id="@+id/settings_measurement_description_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -26,10 +26,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/measurement_description_view">
+        app:layout_constraintTop_toBottomOf="@+id/settings_measurement_description_view">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/registration_radio_button_complete"
+            android:id="@+id/settings_radio_button_complete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -37,7 +37,7 @@
             android:textSize="20sp" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/registration_radio_button_essential"
+            android:id="@+id/settings_radio_button_essential"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -46,7 +46,7 @@
     </RadioGroup>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/confirm_button"
+        android:id="@+id/settings_confirm_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_primary"
