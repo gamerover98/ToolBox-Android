@@ -3,7 +3,7 @@
     <string name="text_intro_first_title">Benvenuto!</string>
     <string name="text_intro_first_text">Benvenuto su MisurApp! Questa app ti aiuterà ad effettuare delle misure semplici e veloci, organizzarle e gestirle come ti è più comodo</string>
     <string name="text_intro_second_title">Pieno controllo</string>
-    <string name="text_intro_second_text">Crea le tue schede personalizzate, in cui poter organizzare le tue misure. Oppure effettua misure veloci senza preoccuparti di come organizzarle</string>
+    <string name="text_intro_second_text">Fai le tue misurazioni</string>
     <string name="text_intro_third_title">Ampia scelta</string>
     <string name="text_intro_third_text">Scegli fra vari strumenti che ti aiuteranno nel tuo lavoro, facili e comodi da usare!</string>
     <string name="text_intro_start_button">Inizio</string>
@@ -22,13 +22,11 @@
     <string name="text_login">Accedi</string>
     <string name="text_registration_button">Registrati con email</string>
     <string name="text_insert_title">Inserire il titolo</string>
-    <string name="text_intro_new_card">Nuova scheda</string>
     <string name="text_insert_description">Inserire la descrizione</string>
     <string name="text_intro_add_measure">Aggiungi una misura</string>
     <string name="text_title">Titolo</string>
     <string name="text_description">Descrizione</string>
     <string name="text_intro_confirm_button">Conferma</string>
-    <string name="text_create_new_card">Crea nuova scheda</string>
     <string name="text_fast_measure">Misura veloce</string>
     <string name="text_access_no_authentication"><u>Usa MisurApp senza autenticarti</u></string>
     <string name="text_radio_complete">Completa</string>

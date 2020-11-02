@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/home_drawer_layout"
         android:layout_width="match_parent"

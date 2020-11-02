@@ -24,10 +24,8 @@ public class MainFragment extends Fragment {
 
     private HomeActivity homeActivity;
 
-    private FloatingActionButton buttonCreateCard;
     private FloatingActionButton buttonFastMeasure;
 
-    private MaterialTextView buttonCreateCardTextView;
     private MaterialTextView buttonFastMeasureTextView;
 
     private Animation animationFabClosing;
@@ -66,14 +64,12 @@ public class MainFragment extends Fragment {
 
         FloatingActionButton buttonOperation = homeActivity.findViewById(R.id.fab_button_operation);
 
-        buttonCreateCard  = homeActivity.findViewById(R.id.fab_button_create_card);
         buttonFastMeasure = homeActivity.findViewById(R.id.fab_button_fast_measure);
         animationFabOpening = AnimationUtils.loadAnimation(homeActivity, R.anim.fab_open);
         animationFabClosing = AnimationUtils.loadAnimation(homeActivity, R.anim.fab_close);
         animationRotateForward  = AnimationUtils.loadAnimation(homeActivity, R.anim.rotate_forward);
         animationRotateBackward = AnimationUtils.loadAnimation(homeActivity, R.anim.rotate_backward);
 
-        buttonCreateCardTextView  = homeActivity.findViewById(R.id.fab_button_create_card_text_view);
         buttonFastMeasureTextView = homeActivity.findViewById(R.id.fab_button_fast_measure_text_view);
 
         buttonOperation.setOnClickListener(this :: operationButtonClick);
@@ -86,13 +82,8 @@ public class MainFragment extends Fragment {
 
             view.startAnimation(animationRotateBackward);
 
-            buttonCreateCard.startAnimation(animationFabClosing);
             buttonFastMeasure.startAnimation(animationFabClosing);
-
-            buttonCreateCardTextView.setVisibility(View.INVISIBLE);
             buttonFastMeasureTextView.setVisibility(View.INVISIBLE);
-
-            buttonCreateCard.setClickable(false);
             buttonFastMeasure.setClickable(false);
 
             fabOpened = false;
@@ -100,13 +91,9 @@ public class MainFragment extends Fragment {
         } else {
 
             view.startAnimation(animationRotateForward);
-            buttonCreateCard.startAnimation(animationFabOpening);
+
             buttonFastMeasure.startAnimation(animationFabOpening);
-
-            buttonCreateCardTextView.setVisibility(View.VISIBLE);
             buttonFastMeasureTextView.setVisibility(View.VISIBLE);
-
-            buttonCreateCard.setClickable(true);
             buttonFastMeasure.setClickable(true);
 
             fabOpened = true;
