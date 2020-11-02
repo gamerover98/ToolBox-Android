@@ -4,12 +4,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.gms.tasks.Task;
@@ -26,6 +29,7 @@ import java.util.Objects;
 
 import it.uniba.magr.misurapp.auth.AuthActivity;
 import it.uniba.magr.misurapp.introduction.IntroductionActivity;
+import it.uniba.magr.misurapp.loading.LoadingFragment;
 import lombok.Getter;
 
 /**
@@ -37,6 +41,8 @@ import lombok.Getter;
 @SuppressWarnings({"squid:S110", "NotNullFieldNotInitialized"})
 public class HomeActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String HOME_LOG_TAG = "homeActivity";
 
     /**
      * The index of the first navigation menu item.
@@ -141,6 +147,8 @@ public class HomeActivity extends AppCompatActivity implements
 
     private void handleAuthentication() {
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         if (!AuthActivity.isAuthenticated()) {
 
@@ -150,26 +158,48 @@ public class HomeActivity extends AppCompatActivity implements
 
         } else {
 
-
-
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            assert firebaseUser != null;
-
-            Task<GetTokenResult> resultTask = firebaseUser.getIdToken(true);
-
-            resultTask.addOnCompleteListener(this, task -> {
-
-                if (!task.isSuccessful()) {
-
-                    firebaseAuth.signOut();
-                    handleAuthentication();
-
-                }
-
-            });
+            LoadingFragment loadingFragment = new LoadingFragment(this :: checkFirebaseUser);
+            fragmentTransaction.replace(R.id.home_frame_layout, loadingFragment);
+            fragmentTransaction.commit();
 
         }
+
+    }
+
+    private void checkFirebaseUser(LoadingFragment fragment) {
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        assert firebaseUser != null;
+
+        Task<GetTokenResult> resultTask = firebaseUser.getIdToken(true);
+
+        resultTask.addOnCanceledListener(this, () -> {
+
+            Log.w(HOME_LOG_TAG, "Cannot get token result due to a cancellation");
+            fragment.close();
+
+        });
+
+        resultTask.addOnFailureListener(this, task -> {
+
+            Log.w(HOME_LOG_TAG, "Cannot get token result due to a failure");
+            fragment.close();
+
+        });
+
+        resultTask.addOnCompleteListener(this, task -> {
+
+            if (!task.isSuccessful()) {
+
+                firebaseAuth.signOut();
+                handleAuthentication();
+
+            }
+
+            fragment.close();
+
+        });
 
     }
 
@@ -228,7 +258,7 @@ public class HomeActivity extends AppCompatActivity implements
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-        drawerLayout   = findViewById(R.id.drawer_layout);
+        drawerLayout   = findViewById(R.id.home_drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
         navHostFragment = (NavHostFragment) Objects.requireNonNull(getSupportFragmentManager()
