@@ -90,7 +90,13 @@ public class IntroductionFragment extends Fragment {
 
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
 
-        LoadingFragment loadingFragment = new LoadingFragment(fragment -> homeActivity.reload());
+        LoadingFragment loadingFragment = new LoadingFragment(fragment -> {
+
+            homeActivity.reload();
+            fragment.close();
+
+        });
+
         fragmentTransaction.replace(R.id.home_frame_layout, loadingFragment);
         fragmentTransaction.commit();
 
