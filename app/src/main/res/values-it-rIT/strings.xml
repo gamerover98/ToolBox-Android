@@ -37,4 +37,6 @@
     <string name="correct_sign_in">Accesso eseguito correttamente</string>
     <string name="incorrect_sign_in">Errore imprevisto durante l\'autenticazione, riprova</string>
     <string name="text_no_connection">Controlla la tua connessione ad internet</string>
+    <string name="text_change_functionality">Cambia funzionalità</string>
+    <string name="text_confirm_button_settings">Conferma</string>
 </resources>
