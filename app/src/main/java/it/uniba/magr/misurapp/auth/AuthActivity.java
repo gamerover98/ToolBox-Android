@@ -98,10 +98,28 @@ public class AuthActivity extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (data == null) {
+            return;
+        }
+
         switch (requestCode) {
-            case REQUEST_CODE_SIGN_IN:        handleGoogleLogin(resultCode); break;
-            case REQUEST_CODE_LOGIN_ACTIVITY: registrationClick();           break;
+
+            case REQUEST_CODE_SIGN_IN:
+
+                handleGoogleLogin(resultCode);
+                break;
+
+            case REQUEST_CODE_LOGIN_ACTIVITY:
+
+                if (data.hasExtra(OPEN_REGISTRATION_ACTIVITY)
+                        && data.getBooleanExtra(OPEN_REGISTRATION_ACTIVITY, false)) {
+                    registrationClick();
+                }
+
+                break;
+
             default: break;
+
         }
 
     }

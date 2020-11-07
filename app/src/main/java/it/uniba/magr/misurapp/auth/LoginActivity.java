@@ -16,6 +16,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_LOGIN_ACTIVITY = 200;
 
+    public static final String OPEN_REGISTRATION_ACTIVITY = "open_registration";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -30,24 +32,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
     private void registerWithEmailTextClick() {
 
         Intent result = new Intent();
+
+        result.putExtra(OPEN_REGISTRATION_ACTIVITY, true);
         setResult(REQUEST_CODE_LOGIN_ACTIVITY, result);
 
         finish();
