@@ -28,8 +28,7 @@
     <string name="text_title">Title</string>
     <string name="text_insert_description">Insert description</string>
     <string name="text_description">Description</string>
-    <string name="text_intro_add_measure">Add measure</string>
-    <string name="text_fast_measure">Fast measure</string>
+    <string name="text_add_measure">Add measure</string>
     <string name="text_access_no_authentication"><u>Use MisurApp without authentication</u></string>
     <string name="text_radio_complete">Complete</string>
     <string name="text_radio_essential">Essential</string>
