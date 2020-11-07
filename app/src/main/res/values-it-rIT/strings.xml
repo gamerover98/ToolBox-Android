@@ -20,6 +20,7 @@
     <string name="text_test_page_2">Pagina 2</string>
     <string name="text_insert_email">Inserisci la tua e-mail</string>
     <string name="text_login">Accedi</string>
+    <string name="text_logout">Esci</string>
     <string name="text_registration_button">Registrati con email</string>
     <string name="text_insert_title">Inserire il titolo</string>
     <string name="text_insert_description">Inserire la descrizione</string>

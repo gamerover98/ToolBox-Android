@@ -9,19 +9,38 @@
             android:title="@string/text_test_page_1" />
 
         <item
+            android:id="@+id/drawer_menu_login"
+            android:icon="@drawable/icon_login"
+            android:title="@string/text_login" />
+
+        <item
+            android:id="@+id/drawer_menu_logout"
+            android:icon="@drawable/icon_logout"
+            android:title="@string/text_logout" />
+
+
+        <item
             android:id="@+id/drawer_menu_second"
             android:icon="@drawable/icon_launcher"
             android:title="@string/text_test_page_2" />
 
     </group>
 
-    <group>
+    <item android:title="@string/app_name">
 
-        <item
-            android:id="@+id/drawer_menu_settings"
-            android:icon="@drawable/icon_settings"
-            android:title="@string/text_settings" />
+        <menu>
 
-    </group>
+            <group>
+
+                <item
+                    android:id="@+id/drawer_menu_settings"
+                    android:icon="@drawable/icon_settings"
+                    android:title="@string/text_settings" />
+
+            </group>
+
+        </menu>
+
+    </item>
 
 </menu>

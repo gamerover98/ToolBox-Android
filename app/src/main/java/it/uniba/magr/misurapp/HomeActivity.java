@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.internal.NavigationMenuItemView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,7 +24,10 @@ import com.google.firebase.auth.GetTokenResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import it.uniba.magr.misurapp.auth.AuthActivity;
 import it.uniba.magr.misurapp.introduction.IntroductionFragment;
@@ -44,19 +46,7 @@ public class HomeActivity extends AppCompatActivity implements
 
     private static final String HOME_LOG_TAG = "Home";
 
-    /**
-     * The index of the first navigation menu item.
-     *
-     * The item will be the start fragment of
-     * the graph navigation resource file.
-     */
-    private static final int FIRST_NAVIGATION_MENU_ITEM = 0;
-
-    /**
-     * Prevents the removal of the first menu item after the
-     * activity refocus.
-     */
-    private boolean removedFirstMenuItem = false;
+    private final Map<MenuItem, Runnable> navItemBehaviourMap = new HashMap<>();
 
     /**
      * Gets the ToolBar View instance.
@@ -114,14 +104,11 @@ public class HomeActivity extends AppCompatActivity implements
 
         super.onStart();
 
-        if (!removedFirstMenuItem) {
+        // disable main menu item
+        MenuItem menuItem = navigationView.getMenu().findItem(R.id.drawer_menu_main);
 
-            // disable main menu item
-            MenuItem mainItem = navigationView.getMenu().getItem(FIRST_NAVIGATION_MENU_ITEM);
-            navigationView.getMenu().removeItem(mainItem.getItemId());
-
-            removedFirstMenuItem = true;
-
+        if (menuItem != null) {
+            navigationView.getMenu().removeItem(menuItem.getItemId());
         }
 
     }
@@ -131,6 +118,19 @@ public class HomeActivity extends AppCompatActivity implements
 
         super.onResume();
         reload();
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        if (firebaseUser == null) {
+            return;
+        }
+
+        MenuItem loginItem = navigationView.getMenu().findItem(R.id.drawer_menu_login);
+        MenuItem logoutItem = navigationView.getMenu().findItem(R.id.drawer_menu_logout);
+
+        loginItem.setVisible(firebaseUser.isAnonymous());
+        logoutItem.setVisible(!firebaseUser.isAnonymous());
 
     }
 
@@ -155,24 +155,37 @@ public class HomeActivity extends AppCompatActivity implements
     @Override
     public boolean onNavigationItemSelected(@NotNull MenuItem item) {
 
-        item.setChecked(true);
         drawerLayout.closeDrawers();
-        int id = item.getItemId();
 
-        NavigationMenuItemView secondMenuItem = findViewById(R.id.drawer_menu_second);
+        Optional<MenuItem> clickedItem = navItemBehaviourMap.keySet()
+                .stream().filter(current -> current.getItemId() == item.getItemId()).findAny();
 
-        if (id == secondMenuItem.getId()) {
+        clickedItem.ifPresent(menuItem -> {
 
-            navController.navigate(R.id.nav_second_fragment);
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            Runnable behaviour = navItemBehaviourMap.get(menuItem);
 
-        }
+            assert behaviour != null;
+            behaviour.run();
+
+        });
 
         return false;
 
     }
 
     public void reload() {
+
+        MenuItem loginItem = navigationView.getMenu().findItem(R.id.drawer_menu_login);
+        MenuItem logoutItem = navigationView.getMenu().findItem(R.id.drawer_menu_logout);
+        MenuItem secondMenuItem = navigationView.getMenu().findItem(R.id.drawer_menu_second);
+
+        assert loginItem != null;
+
+        navItemBehaviourMap.clear();
+
+        navItemBehaviourMap.put(loginItem, this :: loginNavClick);
+        navItemBehaviourMap.put(logoutItem, this :: logoutNavClick);
+        navItemBehaviourMap.put(secondMenuItem, this :: secondItemNavClick);
 
         if (!IntroductionFragment.isCompleted(this)) {
 
@@ -191,6 +204,45 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
+    private void secondItemNavClick() {
+
+        MenuItem secondMenuItem = navigationView.getMenu().findItem(R.id.drawer_menu_second);
+        secondMenuItem.setChecked(true);
+
+        navController.navigate(R.id.nav_second_fragment);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+    }
+
+    @SuppressWarnings("squid:S4144")
+    private void loginNavClick() {
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        if (firebaseUser != null) {
+            firebaseAuth.signOut();
+        }
+
+        Intent intent = new Intent(this, AuthActivity.class);
+        startActivity(intent);
+
+    }
+
+    @SuppressWarnings("squid:S4144")
+    private void logoutNavClick() {
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        if (firebaseUser != null) {
+            firebaseAuth.signOut();
+        }
+
+        Intent intent = new Intent(this, AuthActivity.class);
+        startActivity(intent);
+
+    }
 
     private void handleAuthentication() {
 

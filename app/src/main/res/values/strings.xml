@@ -22,6 +22,7 @@
     <string name="text_test_page_2">Page 2</string>
     <string name="text_insert_email">Insert your e-mail</string>
     <string name="text_login">Sign in</string>
+    <string name="text_logout">Sign out</string>
     <string name="text_registration_button">Register with e-mail</string>
     <string name="text_insert_title">Insert title</string>
     <string name="text_title">Title</string>
