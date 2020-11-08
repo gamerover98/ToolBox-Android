@@ -39,9 +39,9 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.0.0')
 
     // jetbrains annotations: https://www.jetbrains.com/help/idea/annotating-source-code.html
-    implementation 'org.jetbrains:annotations:16.0.2'
+    implementation 'org.jetbrains:annotations:16.0.3'
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation "androidx.navigation:navigation-fragment:2.3.1"
     implementation "androidx.navigation:navigation-ui:2.3.1"
     implementation "androidx.drawerlayout:drawerlayout:1.1.1"
@@ -49,7 +49,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth'
 
-    // FirebaseUI for Firebase Auth
+    // FirebaseUI for login with google
     implementation 'com.firebaseui:firebase-ui-auth:6.3.0'
 
     // lombok: https://projectlombok.org/setup/gradle
