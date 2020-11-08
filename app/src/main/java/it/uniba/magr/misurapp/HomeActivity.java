@@ -121,22 +121,15 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
-    /*
-     * Hamburger button click event.
+    /**
+     * Hamburger and back arrow buttons click event.
      */
     @Override
     public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, drawerLayout);
-    }
 
-    /*
-     * Back arrow button click event.
-     * The suppression will be when it will be filled with its implementation.
-     */
-    @Override
-    @SuppressWarnings("squid:S1185")
-    public void onBackPressed() {
-        super.onBackPressed(); // unused for now.
+        toolbar.setTitle(R.string.app_name);
+        return NavigationUI.navigateUp(navController, drawerLayout);
+
     }
 
     @Override
@@ -149,6 +142,7 @@ public class HomeActivity extends AppCompatActivity implements
 
         clickedItem.ifPresent(menuItem -> {
 
+            toolbar.setTitle(menuItem.getTitle());
             Runnable behaviour = navItemBehaviourMap.get(menuItem);
 
             assert behaviour != null;
@@ -229,6 +223,7 @@ public class HomeActivity extends AppCompatActivity implements
 
     private void settingsItemNavClick() {
 
+        toolbar.setTitle(R.string.text_settings);
         navController.navigate(R.id.nav_settings_fragment);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
@@ -350,7 +345,6 @@ public class HomeActivity extends AppCompatActivity implements
         NavigationUI.setupWithNavController(navigationView, navController);
 
         navigationView.setNavigationItemSelectedListener(this);
-
 
     }
 
