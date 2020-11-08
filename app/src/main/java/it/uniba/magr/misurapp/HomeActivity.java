@@ -119,19 +119,6 @@ public class HomeActivity extends AppCompatActivity implements
         super.onResume();
         reload();
 
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-
-        if (firebaseUser == null) {
-            return;
-        }
-
-        MenuItem loginItem = navigationView.getMenu().findItem(R.id.drawer_menu_login);
-        MenuItem logoutItem = navigationView.getMenu().findItem(R.id.drawer_menu_logout);
-
-        loginItem.setVisible(firebaseUser.isAnonymous());
-        logoutItem.setVisible(!firebaseUser.isAnonymous());
-
     }
 
     /*
@@ -175,17 +162,8 @@ public class HomeActivity extends AppCompatActivity implements
 
     public void reload() {
 
-        MenuItem loginItem = navigationView.getMenu().findItem(R.id.drawer_menu_login);
-        MenuItem logoutItem = navigationView.getMenu().findItem(R.id.drawer_menu_logout);
-        MenuItem secondMenuItem = navigationView.getMenu().findItem(R.id.drawer_menu_second);
-
-        assert loginItem != null;
-
-        navItemBehaviourMap.clear();
-
-        navItemBehaviourMap.put(loginItem, this :: loginNavClick);
-        navItemBehaviourMap.put(logoutItem, this :: logoutNavClick);
-        navItemBehaviourMap.put(secondMenuItem, this :: secondItemNavClick);
+        setupNavBehaviourMap();
+        refreshNavigation();
 
         if (!IntroductionFragment.isCompleted(this)) {
 
@@ -195,12 +173,48 @@ public class HomeActivity extends AppCompatActivity implements
             fragmentTransaction.replace(R.id.home_frame_layout, new IntroductionFragment());
             fragmentTransaction.commit();
 
-        } else if (!AuthActivity.isAuthenticated()) {
+        } else if (!AuthActivity.isAuthenticated() && !AuthActivity.isAnonymousUser(this)) {
 
             Intent intent = new Intent(this, AuthActivity.class);
             startActivity(intent);
 
         }
+
+    }
+
+    public void refreshNavigation() {
+
+        MenuItem loginItem = navigationView.getMenu().findItem(R.id.drawer_menu_login);
+        MenuItem logoutItem = navigationView.getMenu().findItem(R.id.drawer_menu_logout);
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        if (firebaseUser != null) {
+
+            loginItem.setVisible(false);
+            logoutItem.setVisible(true);
+
+        } else {
+
+            loginItem.setVisible(true);
+            logoutItem.setVisible(false);
+
+        }
+
+    }
+
+    public void setupNavBehaviourMap() {
+
+        MenuItem loginItem      = navigationView.getMenu().findItem(R.id.drawer_menu_login);
+        MenuItem logoutItem     = navigationView.getMenu().findItem(R.id.drawer_menu_logout);
+        MenuItem secondMenuItem = navigationView.getMenu().findItem(R.id.drawer_menu_second);
+
+        navItemBehaviourMap.clear();
+
+        navItemBehaviourMap.put(loginItem, this :: loginNavClick);
+        navItemBehaviourMap.put(logoutItem, this :: logoutNavClick);
+        navItemBehaviourMap.put(secondMenuItem, this :: secondItemNavClick);
 
     }
 
@@ -249,7 +263,7 @@ public class HomeActivity extends AppCompatActivity implements
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        if (!AuthActivity.isAuthenticated()) {
+        if (!AuthActivity.isAuthenticated() && !AuthActivity.isAnonymousUser(this)) {
 
             // open authentication activity
             Intent intent = new Intent(this, AuthActivity.class);

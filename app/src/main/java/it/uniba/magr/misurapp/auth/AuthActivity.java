@@ -3,17 +3,16 @@ package it.uniba.magr.misurapp.auth;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -36,7 +35,7 @@ import static it.uniba.magr.misurapp.auth.LoginActivity.*;
 @SuppressWarnings({"squid:S110", "squid:S2696", "NotNullFieldNotInitialized"})
 public class AuthActivity extends AppCompatActivity {
 
-    private static final String AUTH_LOG_TAG = "Auth";
+    private static final String SHARED_ANONYMOUS_USER_KEY = "anonymous_user";
 
     private static final int REQUEST_CODE_SIGN_IN = 123;
 
@@ -80,7 +79,7 @@ public class AuthActivity extends AppCompatActivity {
         loginButton       .setOnClickListener(view -> loginClick());
         googleAuthButton  .setOnClickListener(view -> googleAuthClick());
         registrationButton.setOnClickListener(view -> registrationClick());
-        noAuthTextView    .setOnClickListener(view -> noAuthClick());
+        noAuthTextView    .setOnClickListener(view -> anonymousClick());
 
     }
 
@@ -131,6 +130,8 @@ public class AuthActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
 
             message = getString(R.string.correct_sign_in);
+
+            setAnonymousUser(false);
             finish();
 
         } else {
@@ -182,37 +183,49 @@ public class AuthActivity extends AppCompatActivity {
     }
 
     /**
-     * Perform the no authentication text view click event.
+     * Perform the anonymous text view click event.
      */
-    private void noAuthClick() {
+    private void anonymousClick() {
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-        if (firebaseUser == null) {
-
-            Task<AuthResult> authTask = firebaseAuth.signInAnonymously();
-
-            authTask.addOnCompleteListener(this, task -> {
-
-                if (task.isSuccessful()) {
-                    finish();
-                } else {
-
-                    if (task.getException() != null) {
-                        Log.e(AUTH_LOG_TAG, "anonymous login error", task.getException());
-                    }
-
-                    String message = getResources().getString(R.string.incorrect_sign_in);
-                    Toast.makeText(AuthActivity.this, message, Toast.LENGTH_SHORT).show();
-
-                }
-
-            });
-
+        if (firebaseUser != null && !AuthActivity.isAnonymousUser(this)) {
+            return;
         }
 
+        setAnonymousUser(true);
+        finish();
+
     }
+
+    /**
+     * @param enabled true if you want to enable anonymous user.
+     */
+    private void setAnonymousUser(boolean enabled) {
+
+        SharedPreferences.Editor editor = getSharedPreferences(
+                SHARED_ANONYMOUS_USER_KEY, MODE_PRIVATE).edit();
+
+        editor.putBoolean(SHARED_ANONYMOUS_USER_KEY, enabled);
+        editor.apply();
+
+    }
+
+    /**
+     * @param context The not null instance of a context.
+     * @return True if the user is "logged in" as anonymous.
+     */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public static boolean isAnonymousUser(@NotNull Context context) {
+
+        SharedPreferences preferences = context.getSharedPreferences(
+                SHARED_ANONYMOUS_USER_KEY, MODE_PRIVATE);
+
+        return preferences.getBoolean(SHARED_ANONYMOUS_USER_KEY, false);
+
+    }
+
 
     /**
      * @return True if user is logged in (also in anonymous user).
