@@ -206,24 +206,30 @@ public class HomeActivity extends AppCompatActivity implements
 
     public void setupNavBehaviourMap() {
 
-        MenuItem loginItem      = navigationView.getMenu().findItem(R.id.drawer_menu_login);
-        MenuItem logoutItem     = navigationView.getMenu().findItem(R.id.drawer_menu_logout);
-        MenuItem secondMenuItem = navigationView.getMenu().findItem(R.id.drawer_menu_second);
+        MenuItem loginItem        = navigationView.getMenu().findItem(R.id.drawer_menu_login);
+        MenuItem logoutItem       = navigationView.getMenu().findItem(R.id.drawer_menu_logout);
+        MenuItem secondMenuItem   = navigationView.getMenu().findItem(R.id.drawer_menu_second);
+        MenuItem settingsMenuItem = navigationView.getMenu().findItem(R.id.drawer_menu_settings);
 
         navItemBehaviourMap.clear();
 
         navItemBehaviourMap.put(loginItem, this :: loginNavClick);
         navItemBehaviourMap.put(logoutItem, this :: logoutNavClick);
         navItemBehaviourMap.put(secondMenuItem, this :: secondItemNavClick);
+        navItemBehaviourMap.put(settingsMenuItem, this :: settingsItemNavClick);
 
     }
 
     private void secondItemNavClick() {
 
-        MenuItem secondMenuItem = navigationView.getMenu().findItem(R.id.drawer_menu_second);
-        secondMenuItem.setChecked(true);
-
         navController.navigate(R.id.nav_second_fragment);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+    }
+
+    private void settingsItemNavClick() {
+
+        navController.navigate(R.id.nav_settings_fragment);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
     }
