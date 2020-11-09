@@ -25,20 +25,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.util.DigestUtil;
 
 @SuppressWarnings("squid:S110")
 public class LoginActivity extends AppCompatActivity {
-
-    static final String MD5_DIGEST = "MD5";
-
-    static final int MD5_POSITIVE_SIGNUM_DIGEST = 1;
-    static final int MD5_CHAR_LENGTH            = 16;
-    static final int MD5_LENGTH                 = 32;
 
     static final String ERROR_INVALID_EMAIL    = "ERROR_INVALID_EMAIL";
     static final String ERROR_INVALID_PASSWORD = "ERROR_WRONG_PASSWORD";
@@ -119,40 +112,48 @@ public class LoginActivity extends AppCompatActivity {
             finish();
 
         } else {
+            handleRequestError(authResultTask);
+        }
 
-            Exception exception = authResultTask.getException();
-            String message;
+    }
 
-            if (exception instanceof FirebaseAuthInvalidCredentialsException) {
+    /**
+     * Manages the login attempt error.
+     * @param authResultTask The authentication result task.
+     */
+    private void handleRequestError(@NotNull Task<AuthResult> authResultTask) {
 
-                FirebaseAuthInvalidCredentialsException firebaseEx =
-                        (FirebaseAuthInvalidCredentialsException) exception;
+        Exception exception = authResultTask.getException();
+        String message;
 
-                String errorCode = firebaseEx.getErrorCode();
+        if (exception instanceof FirebaseAuthInvalidCredentialsException) {
 
-                if (errorCode.equals(ERROR_INVALID_EMAIL)) {
-                    message = getResources().getString(R.string.text_auth_incorrect_email);
-                } else if (errorCode.equals(ERROR_INVALID_PASSWORD)) {
-                    message = getResources().getString(R.string.text_auth_incorrect_password);
-                } else {
+            FirebaseAuthInvalidCredentialsException firebaseEx =
+                    (FirebaseAuthInvalidCredentialsException) exception;
 
-                    Log.w(LOGIN_LOG_TAG, "Login error code: " + errorCode);
-                    message = getResources().getString(R.string.incorrect_sign_in);
+            String errorCode = firebaseEx.getErrorCode();
 
-                }
-
-            } else if (exception instanceof FirebaseAuthInvalidUserException) {
+            if (errorCode.equals(ERROR_INVALID_EMAIL)) {
                 message = getResources().getString(R.string.text_auth_incorrect_email);
+            } else if (errorCode.equals(ERROR_INVALID_PASSWORD)) {
+                message = getResources().getString(R.string.text_auth_incorrect_password);
             } else {
 
-                Log.e(LOGIN_LOG_TAG, "Error occurred during logging in", exception);
+                Log.w(LOGIN_LOG_TAG, "Login error code: " + errorCode);
                 message = getResources().getString(R.string.incorrect_sign_in);
 
             }
 
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        } else if (exception instanceof FirebaseAuthInvalidUserException) {
+            message = getResources().getString(R.string.text_auth_incorrect_email);
+        } else {
+
+            Log.e(LOGIN_LOG_TAG, "Error occurred during logging in", exception);
+            message = getResources().getString(R.string.incorrect_sign_in);
 
         }
+
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 
     }
 
@@ -178,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
 
         try {
 
-            return getMD5(text);
+            return DigestUtil.getMD5(text);
 
         } catch (NoSuchAlgorithmException nsaEx) {
             throw new IllegalStateException("Cannot get the MD5 algorithm");
@@ -210,28 +211,6 @@ public class LoginActivity extends AppCompatActivity {
         assert editText != null;
 
         return editText.getText().toString().trim();
-
-    }
-
-    /**
-     * @param text the text that must be converted into md5.
-     * @return The 32 chars md5 string of argument text.
-     * @throws NoSuchAlgorithmException If MD5 digest doesn't be found.
-     */
-    @NotNull
-    public static String getMD5(@NotNull String text) throws NoSuchAlgorithmException {
-
-        MessageDigest md5Digest = MessageDigest.getInstance(MD5_DIGEST);
-        byte[] digest = md5Digest.digest(text.getBytes());
-
-        BigInteger bigInteger = new BigInteger(MD5_POSITIVE_SIGNUM_DIGEST, digest);
-        StringBuilder result = new StringBuilder(bigInteger.toString(MD5_CHAR_LENGTH));
-
-        while (result.length() < MD5_LENGTH) {
-            result.insert(0, "0");
-        }
-
-        return result.toString();
 
     }
 

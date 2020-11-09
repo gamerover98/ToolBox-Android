@@ -16,12 +16,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.security.NoSuchAlgorithmException;
 
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.util.DigestUtil;
 
 import static it.uniba.magr.misurapp.auth.LoginActivity.*;
 
@@ -115,48 +117,73 @@ public class RegistrationActivity extends AppCompatActivity {
             String message = getString(R.string.correct_sign_in);
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
-            AuthActivity.setAnonymousUser(this, false);
-            Intent result = new Intent();
+            AuthResult result = authResultTask.getResult();
+            assert result != null;
 
-            result.putExtra(SUCCESSFUL_OPERATION, true);
-            setResult(REQUEST_CODE_LOGIN_ACTIVITY, result);
-            finish();
+            FirebaseUser firebaseUser = result.getUser();
+            assert firebaseUser != null;
+
+            String displayName = getName() + " " + getSurname();
+
+            Task<Void> updateTask = firebaseUser.updateProfile(
+                    new UserProfileChangeRequest.Builder()
+                    .setDisplayName(displayName).build());
+
+            updateTask.addOnCompleteListener(task -> {
+
+                AuthActivity.setAnonymousUser(this, false);
+
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra(SUCCESSFUL_OPERATION, true);
+                setResult(REQUEST_CODE_LOGIN_ACTIVITY, resultIntent);
+
+                finish();
+
+            });
 
         } else {
+            handleRequestError(authResultTask);
+        }
 
-            Exception exception = authResultTask.getException();
-            String message;
+    }
 
-            if (exception instanceof FirebaseAuthInvalidCredentialsException) {
+    /**
+     * Manages the registration attempt error.
+     * @param authResultTask The authentication result task.
+     */
+    private void handleRequestError(@NotNull Task<AuthResult> authResultTask) {
 
-                FirebaseAuthInvalidCredentialsException firebaseEx =
-                        (FirebaseAuthInvalidCredentialsException) exception;
+        Exception exception = authResultTask.getException();
+        String message;
 
-                String errorCode = firebaseEx.getErrorCode();
+        if (exception instanceof FirebaseAuthInvalidCredentialsException) {
 
-                if (errorCode.equals(ERROR_INVALID_EMAIL)) {
-                    message = getResources().getString(R.string.text_auth_incorrect_email);
-                } else if (errorCode.equals(ERROR_INVALID_PASSWORD)) {
-                    message = getResources().getString(R.string.text_auth_incorrect_password);
-                } else {
+            FirebaseAuthInvalidCredentialsException firebaseEx =
+                    (FirebaseAuthInvalidCredentialsException) exception;
 
-                    Log.w(REGISTRATION_LOG_TAG, "Registration error code: " + errorCode);
-                    message = getResources().getString(R.string.incorrect_sign_in);
+            String errorCode = firebaseEx.getErrorCode();
 
-                }
-
-            } else if (exception instanceof FirebaseAuthInvalidUserException) {
+            if (errorCode.equals(ERROR_INVALID_EMAIL)) {
                 message = getResources().getString(R.string.text_auth_incorrect_email);
+            } else if (errorCode.equals(ERROR_INVALID_PASSWORD)) {
+                message = getResources().getString(R.string.text_auth_incorrect_password);
             } else {
 
-                Log.e(REGISTRATION_LOG_TAG, "Error occurred during sign upping", exception);
+                Log.w(REGISTRATION_LOG_TAG, "Registration error code: " + errorCode);
                 message = getResources().getString(R.string.incorrect_sign_in);
 
             }
 
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        } else if (exception instanceof FirebaseAuthInvalidUserException) {
+            message = getResources().getString(R.string.text_auth_incorrect_email);
+        } else {
+
+            Log.e(REGISTRATION_LOG_TAG, "Error occurred during sign upping", exception);
+            message = getResources().getString(R.string.incorrect_sign_in);
 
         }
+
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 
     }
 
@@ -198,7 +225,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         try {
 
-            return getMD5(text);
+            return DigestUtil.getMD5(text);
 
         } catch (NoSuchAlgorithmException nsaEx) {
             throw new IllegalStateException("Cannot get the MD5 algorithm");
@@ -220,7 +247,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         try {
 
-            return getMD5(text);
+            return DigestUtil.getMD5(text);
 
         } catch (NoSuchAlgorithmException nsaEx) {
             throw new IllegalStateException("Cannot get the MD5 algorithm");
