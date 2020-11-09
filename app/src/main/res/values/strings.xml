@@ -18,8 +18,8 @@
     <string name="text_confirm_pass">Confirm password</string>
     <string name="text_register_layout">Register</string>
     <string name="text_header_layout_your_account">Your account</string>
-    <string name="text_test_page_1">Page 1</string>
-    <string name="text_test_page_2">Page 2</string>
+    <string name="text_nav_main_menu_item">Main menu</string>
+    <string name="text_nav_add_measure_item">Add measure</string>
     <string name="text_insert_email">Insert your e-mail</string>
     <string name="text_login">Sign in</string>
     <string name="text_logout">Sign out</string>

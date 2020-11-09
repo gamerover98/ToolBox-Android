@@ -6,7 +6,7 @@
         <item
             android:id="@+id/drawer_menu_main"
             android:icon="@drawable/icon_launcher"
-            android:title="@string/text_test_page_1" />
+            android:title="@string/text_nav_main_menu_item" />
 
         <item
             android:id="@+id/drawer_menu_login"
@@ -21,8 +21,8 @@
 
         <item
             android:id="@+id/drawer_menu_second"
-            android:icon="@drawable/icon_launcher"
-            android:title="@string/text_test_page_2" />
+            android:icon="@drawable/icon_compass"
+            android:title="@string/text_nav_add_measure_item" />
 
     </group>
 

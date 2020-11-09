@@ -16,8 +16,8 @@
     <string name="text_confirm_pass">Conferma la password</string>
     <string name="text_register_layout">Registrazione</string>
     <string name="text_header_layout_your_account">Il tuo account</string>
-    <string name="text_test_page_1">Pagina 1</string>
-    <string name="text_test_page_2">Pagina 2</string>
+    <string name="text_nav_main_menu_item">Pagina principale</string>
+    <string name="text_nav_add_measure_item">Aggiungi misura</string>
     <string name="text_insert_email">Inserisci la tua e-mail</string>
     <string name="text_login">Accedi</string>
     <string name="text_logout">Esci</string>

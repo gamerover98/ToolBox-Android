@@ -11,14 +11,14 @@ import androidx.fragment.app.Fragment;
 
 import it.uniba.magr.misurapp.R;
 
-public class SecondFragment extends Fragment {
+public class MeasureListFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup parent,
                              @Nullable Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_second_layout,
+        return inflater.inflate(R.layout.fragment_measure_list_layout,
                 parent, false);
 
     }

@@ -24,9 +24,9 @@ public class MainFragment extends Fragment {
 
     private HomeActivity homeActivity;
 
-    private FloatingActionButton buttonFastMeasure;
+    private FloatingActionButton buttonAddMeasure;
 
-    private MaterialTextView buttonFastMeasureTextView;
+    private MaterialTextView buttonAddMeasureTextView;
 
     private Animation animationFabClosing;
     private Animation animationFabOpening;
@@ -64,15 +64,24 @@ public class MainFragment extends Fragment {
 
         FloatingActionButton buttonOperation = homeActivity.findViewById(R.id.fab_button_operation);
 
-        buttonFastMeasure = homeActivity.findViewById(R.id.fab_button_fast_measure);
+        buttonAddMeasure = homeActivity.findViewById(R.id.fab_button_add_measure);
         animationFabOpening = AnimationUtils.loadAnimation(homeActivity, R.anim.fab_open);
         animationFabClosing = AnimationUtils.loadAnimation(homeActivity, R.anim.fab_close);
         animationRotateForward  = AnimationUtils.loadAnimation(homeActivity, R.anim.rotate_forward);
         animationRotateBackward = AnimationUtils.loadAnimation(homeActivity, R.anim.rotate_backward);
 
-        buttonFastMeasureTextView = homeActivity.findViewById(R.id.fab_button_fast_measure_text_view);
+        buttonAddMeasureTextView = homeActivity.findViewById(R.id.fab_button_add_measure_text_view);
+        buttonAddMeasure.setOnClickListener(this :: addMeasureClick);
 
         buttonOperation.setOnClickListener(this :: operationButtonClick);
+
+    }
+
+    private void addMeasureClick(@NotNull View view) {
+
+        homeActivity.getToolbar().setTitle(R.string.text_nav_add_measure_item);
+        homeActivity.getNavController().navigate(R.id.nav_add_measure_fragment);
+        homeActivity.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
     }
 
@@ -82,9 +91,9 @@ public class MainFragment extends Fragment {
 
             view.startAnimation(animationRotateBackward);
 
-            buttonFastMeasure.startAnimation(animationFabClosing);
-            buttonFastMeasureTextView.setVisibility(View.INVISIBLE);
-            buttonFastMeasure.setClickable(false);
+            buttonAddMeasure.startAnimation(animationFabClosing);
+            buttonAddMeasureTextView.setVisibility(View.INVISIBLE);
+            buttonAddMeasure.setClickable(false);
 
             fabOpened = false;
 
@@ -92,9 +101,9 @@ public class MainFragment extends Fragment {
 
             view.startAnimation(animationRotateForward);
 
-            buttonFastMeasure.startAnimation(animationFabOpening);
-            buttonFastMeasureTextView.setVisibility(View.VISIBLE);
-            buttonFastMeasure.setClickable(true);
+            buttonAddMeasure.startAnimation(animationFabOpening);
+            buttonAddMeasureTextView.setVisibility(View.VISIBLE);
+            buttonAddMeasure.setClickable(true);
 
             fabOpened = true;
 

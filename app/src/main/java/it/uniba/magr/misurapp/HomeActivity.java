@@ -283,7 +283,7 @@ public class HomeActivity extends AppCompatActivity implements
 
     private void secondItemNavClick() {
 
-        navController.navigate(R.id.nav_second_fragment);
+        navController.navigate(R.id.nav_add_measure_fragment);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
     }
