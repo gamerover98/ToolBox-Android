@@ -48,8 +48,15 @@ import lombok.Getter;
 public class HomeActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     * The logcat activity prefix.
+     */
     private static final String HOME_LOG_TAG = "Home";
 
+    /**
+     * This map contains the behaviour of each navigation menu item.
+     * It will be execute during the onNavigationItemSelected event.
+     */
     private final Map<MenuItem, Runnable> navItemBehaviourMap = new HashMap<>();
 
     /**
@@ -158,6 +165,11 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
+    /**
+     * This method is called on onResume().
+     * It will refresh some components like navigation view
+     * and check the authentication.
+     */
     public void reload() {
 
         setupNavBehaviourMap();
@@ -180,6 +192,9 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
+    /**
+     * Refresh the navigation view.
+     */
     public void refreshNavigation() {
 
         MenuItem loginItem = navigationView.getMenu().findItem(R.id.drawer_menu_login);
@@ -202,6 +217,10 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
+    /**
+     * Add the respective behaviour of ech navigation menu item
+     * to the local navItemBehaviourMap map.
+     */
     public void setupNavBehaviourMap() {
 
         MenuItem loginItem        = navigationView.getMenu().findItem(R.id.drawer_menu_login);
@@ -263,6 +282,11 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
+    /**
+     * Handle the authentication firebase process to
+     * check if the user is logged in.
+     * If not, it will be brought out to the auth activity.
+     */
     private void handleAuthentication() {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -276,7 +300,7 @@ public class HomeActivity extends AppCompatActivity implements
 
         } else {
 
-            LoadingFragment loadingFragment = new LoadingFragment(this :: checkFirebaseUser);
+            LoadingFragment loadingFragment = new LoadingFragment(this ::checkFirebaseUserAuth);
             fragmentTransaction.replace(R.id.home_frame_layout, loadingFragment);
             fragmentTransaction.commit();
 
@@ -284,7 +308,12 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
-    private void checkFirebaseUser(LoadingFragment fragment) {
+    /**
+     * Check if the firebase user is logged in yet.
+     * If not, it will be logged out and bring out to the auth activity.
+     * @param fragment A not null instance of a loading fragment.
+     */
+    private void checkFirebaseUserAuth(@NotNull LoadingFragment fragment) {
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
