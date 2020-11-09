@@ -39,4 +39,6 @@
     <string name="text_change_functionality">Change functionality</string>
     <string name="text_confirm_button_settings">Confirm</string>
     <string name="text_settings">Settings</string>
+    <string name="text_login_incorrect_email">Incorrect email</string>
+    <string name="text_login_incorrect_password">Incorrect password</string>
 </resources>

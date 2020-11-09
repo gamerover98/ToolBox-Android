@@ -131,7 +131,7 @@ public class AuthActivity extends AppCompatActivity {
 
             message = getString(R.string.correct_sign_in);
 
-            setAnonymousUser(false);
+            setAnonymousUser(this, false);
             finish();
 
         } else {
@@ -194,7 +194,7 @@ public class AuthActivity extends AppCompatActivity {
             return;
         }
 
-        setAnonymousUser(true);
+        setAnonymousUser(this, true);
         finish();
 
     }
@@ -202,9 +202,9 @@ public class AuthActivity extends AppCompatActivity {
     /**
      * @param enabled true if you want to enable anonymous user.
      */
-    private void setAnonymousUser(boolean enabled) {
+    public static void setAnonymousUser(@NotNull Context context, boolean enabled) {
 
-        SharedPreferences.Editor editor = getSharedPreferences(
+        SharedPreferences.Editor editor = context.getSharedPreferences(
                 SHARED_ANONYMOUS_USER_KEY, MODE_PRIVATE).edit();
 
         editor.putBoolean(SHARED_ANONYMOUS_USER_KEY, enabled);

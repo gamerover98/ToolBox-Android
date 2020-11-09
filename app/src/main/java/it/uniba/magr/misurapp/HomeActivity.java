@@ -262,6 +262,7 @@ public class HomeActivity extends AppCompatActivity implements
             firebaseAuth.signOut();
         }
 
+        AuthActivity.setAnonymousUser(this, false);
         Intent intent = new Intent(this, AuthActivity.class);
         startActivity(intent);
 
