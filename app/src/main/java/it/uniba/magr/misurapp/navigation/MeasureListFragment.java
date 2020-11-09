@@ -53,7 +53,12 @@ public class MeasureListFragment extends Fragment {
         private final LinkedList<Card> cards = new LinkedList<>();
 
         public ImageAdapter() {
-            cards.add(new Card(R.mipmap.icon_level_foreground, R.string.app_name));
+
+            //TODO: solo per test, verrà rimosso con la sua implementazione
+            for (int i = 0 ; i < 20 ; i++) {
+                cards.add(new Card(R.mipmap.icon_level_foreground, R.string.app_name));
+            }
+
         }
 
         @Override
