@@ -60,7 +60,7 @@
         android:background="@drawable/button_primary"
         android:text="@string/text_intro_start_button"
         android:textAllCaps="true"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
