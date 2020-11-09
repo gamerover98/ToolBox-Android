@@ -130,6 +130,8 @@ public class HomeActivity extends AppCompatActivity implements
         super.onResume();
         reload();
 
+        toolbar.setTitle(R.string.app_name);
+
     }
 
     /**
