@@ -45,9 +45,9 @@ public class LoginActivity extends AppCompatActivity {
     public static final String SUCCESSFUL_OPERATION = "successful";
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle bundle) {
 
-        super.onCreate(savedInstanceState);
+        super.onCreate(bundle);
         setContentView(R.layout.activity_login);
 
         MaterialTextView regTextView = findViewById(R.id.text_signup);
