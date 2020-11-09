@@ -2,6 +2,7 @@ package it.uniba.magr.misurapp;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
@@ -11,6 +12,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -345,6 +349,17 @@ public class HomeActivity extends AppCompatActivity implements
         NavigationUI.setupWithNavController(navigationView, navController);
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        Resources.Theme theme = new ContextThemeWrapper(getBaseContext(),
+                R.style.LightTheme).getTheme();
+        int iconColor = getResources().getColor(R.color.icons, theme);
+        toolbar.setTitleTextColor(iconColor);
+
+        assert toolbar.getNavigationIcon() != null;
+        Drawable navigationIcon = toolbar.getNavigationIcon().mutate();
+        navigationIcon.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
+
+        toolbar.setNavigationIcon(navigationIcon);
 
     }
 
