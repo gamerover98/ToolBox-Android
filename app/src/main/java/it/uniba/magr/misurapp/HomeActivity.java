@@ -18,9 +18,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
@@ -141,6 +143,45 @@ public class HomeActivity extends AppCompatActivity implements
     public boolean onSupportNavigateUp() {
 
         toolbar.setTitle(R.string.app_name);
+
+        MaterialTextView displayNameTextView = findViewById(R.id.header_display_name);
+        MaterialTextView emailTextView = findViewById(R.id.header_email);
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        if (firebaseUser != null) {
+
+            String displayName = firebaseUser.getDisplayName() == null ?
+                    "" : firebaseUser.getDisplayName().trim();
+            String mail = firebaseUser.getEmail() == null ?
+                    "" : firebaseUser.getEmail().trim();
+
+            if (displayName.isEmpty()) {
+                displayNameTextView.setVisibility(View.GONE);
+            } else {
+
+                displayNameTextView.setVisibility(View.VISIBLE);
+                displayNameTextView.setText(displayName);
+
+            }
+
+            if (mail.isEmpty()) {
+                emailTextView.setVisibility(View.GONE);
+            } else {
+
+                emailTextView.setVisibility(View.VISIBLE);
+                emailTextView.setText(mail);
+
+            }
+
+        } else {
+
+            displayNameTextView.setVisibility(View.GONE);
+            emailTextView.setVisibility(View.GONE);
+
+        }
+
         return NavigationUI.navigateUp(navController, drawerLayout);
 
     }
@@ -216,6 +257,7 @@ public class HomeActivity extends AppCompatActivity implements
             logoutItem.setVisible(false);
 
         }
+
 
     }
 
