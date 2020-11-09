@@ -38,6 +38,8 @@
     <string name="text_change_functionality">Cambia funzionalità</string>
     <string name="text_confirm_button_settings">Conferma</string>
     <string name="text_settings">Impostazioni</string>
+    <string name="text_login_empty_email">Inserisci una e-mail valida</string>
+    <string name="text_login_empty_password">Inserisci la password</string>
     <string name="text_login_incorrect_email">e-mail non corretta</string>
     <string name="text_login_incorrect_password">Password non corretta</string>
 </resources>

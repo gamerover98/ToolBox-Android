@@ -80,15 +80,24 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (email.isEmpty()) {
+
+            Toast.makeText(this,
+                    getResources().getString(R.string.text_login_empty_email),
+                    Toast.LENGTH_LONG).show();
             return;
+
         }
 
         if (hashedPassword.isEmpty()) {
+
+            Toast.makeText(this,
+                    getResources().getString(R.string.text_login_empty_password),
+                    Toast.LENGTH_LONG).show();
             return;
+
         }
 
         Task<AuthResult> loginTask = firebaseAuth.signInWithEmailAndPassword(email, hashedPassword);
-
         loginTask.addOnCompleteListener(this :: completeLogin);
 
     }
