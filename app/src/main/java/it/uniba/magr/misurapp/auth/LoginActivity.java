@@ -1,5 +1,6 @@
 package it.uniba.magr.misurapp.auth;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,23 +34,22 @@ import it.uniba.magr.misurapp.R;
 @SuppressWarnings("squid:S110")
 public class LoginActivity extends AppCompatActivity {
 
+    static final String MD5_DIGEST = "MD5";
+
+    static final int MD5_POSITIVE_SIGNUM_DIGEST = 1;
+    static final int MD5_CHAR_LENGTH            = 16;
+    static final int MD5_LENGTH                 = 32;
+
+    static final String ERROR_INVALID_EMAIL    = "ERROR_INVALID_EMAIL";
+    static final String ERROR_INVALID_PASSWORD = "ERROR_WRONG_PASSWORD";
+
     private static final String LOGIN_LOG_TAG = "Login";
-
-    private static final String MD5_DIGEST = "MD5";
-
-    private static final int MD5_POSITIVE_SIGNUM_DIGEST = 1;
-
-    private static final int MD5_CHAR_LENGTH = 16;
-
-    private static final int MD5_LENGTH = 32;
-
-    private static final String ERROR_INVALID_EMAIL = "ERROR_INVALID_EMAIL";
-
-    private static final String ERROR_INVALID_PASSWORD = "ERROR_INVALID_PASSWORD";
 
     public static final int REQUEST_CODE_LOGIN_ACTIVITY = 200;
 
     public static final String OPEN_REGISTRATION_ACTIVITY = "open_registration";
+
+    public static final String SUCCESSFUL_OPERATION = "successful";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,9 +70,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void performLoginClick(View view) {
 
-        String email = getEmail();
-        String hashedPassword = getHashedPassword();
-
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
@@ -79,10 +77,13 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        String email = getEmail();
+        String hashedPassword = getHashedPassword();
+
         if (email.isEmpty()) {
 
             Toast.makeText(this,
-                    getResources().getString(R.string.text_login_empty_email),
+                    getResources().getString(R.string.text_auth_empty_email),
                     Toast.LENGTH_LONG).show();
             return;
 
@@ -91,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         if (hashedPassword.isEmpty()) {
 
             Toast.makeText(this,
-                    getResources().getString(R.string.text_login_empty_password),
+                    getResources().getString(R.string.text_auth_empty_password),
                     Toast.LENGTH_LONG).show();
             return;
 
@@ -110,6 +111,11 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
             AuthActivity.setAnonymousUser(this, false);
+
+            Intent result = new Intent();
+
+            result.putExtra(SUCCESSFUL_OPERATION, true);
+            setResult(REQUEST_CODE_LOGIN_ACTIVITY, result);
             finish();
 
         } else {
@@ -125,9 +131,9 @@ public class LoginActivity extends AppCompatActivity {
                 String errorCode = firebaseEx.getErrorCode();
 
                 if (errorCode.equals(ERROR_INVALID_EMAIL)) {
-                    message = getResources().getString(R.string.text_login_incorrect_email);
+                    message = getResources().getString(R.string.text_auth_incorrect_email);
                 } else if (errorCode.equals(ERROR_INVALID_PASSWORD)) {
-                    message = getResources().getString(R.string.text_login_incorrect_password);
+                    message = getResources().getString(R.string.text_auth_incorrect_password);
                 } else {
 
                     Log.w(LOGIN_LOG_TAG, "Login error code: " + errorCode);
@@ -136,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
             } else if (exception instanceof FirebaseAuthInvalidUserException) {
-                message = getResources().getString(R.string.text_login_incorrect_email);
+                message = getResources().getString(R.string.text_auth_incorrect_email);
             } else {
 
                 Log.e(LOGIN_LOG_TAG, "Error occurred during logging in", exception);
@@ -155,15 +161,7 @@ public class LoginActivity extends AppCompatActivity {
      */
     @NotNull
     private String getEmail() {
-
-        TextInputLayout emailInput = findViewById(R.id.login_input_text_box_email);
-        assert  emailInput != null;
-
-        EditText editText = emailInput.getEditText();
-        assert editText != null;
-
-        return editText.getText().toString().trim();
-
+        return getTextFromInputLayout(this, R.id.login_input_text_box_email);
     }
 
     /**
@@ -172,13 +170,7 @@ public class LoginActivity extends AppCompatActivity {
     @NotNull
     private String getHashedPassword() {
 
-        TextInputLayout passwordInput = findViewById(R.id.login_input_text_box_password);
-        assert  passwordInput != null;
-
-        EditText editText = passwordInput.getEditText();
-        assert editText != null;
-
-        String text = editText.getText().toString();
+        String text = getTextFromInputLayout(this, R.id.login_input_text_box_password);
 
         if (text.trim().isEmpty()) {
             return "";
@@ -186,17 +178,7 @@ public class LoginActivity extends AppCompatActivity {
 
         try {
 
-            MessageDigest md5Digest = MessageDigest.getInstance(MD5_DIGEST);
-            byte[] digest = md5Digest.digest(text.getBytes());
-
-            BigInteger bigInteger = new BigInteger(MD5_POSITIVE_SIGNUM_DIGEST, digest);
-            StringBuilder result = new StringBuilder(bigInteger.toString(MD5_CHAR_LENGTH));
-
-            while (result.length() < MD5_LENGTH) {
-                result.insert(0, "0");
-            }
-
-            return result.toString();
+            return getMD5(text);
 
         } catch (NoSuchAlgorithmException nsaEx) {
             throw new IllegalStateException("Cannot get the MD5 algorithm");
@@ -216,6 +198,40 @@ public class LoginActivity extends AppCompatActivity {
         setResult(REQUEST_CODE_LOGIN_ACTIVITY, result);
 
         finish();
+
+    }
+
+    static String getTextFromInputLayout(@NotNull Activity activity, @IdRes int textInputLayoutID) {
+
+        TextInputLayout surnameInput = activity.findViewById(textInputLayoutID);
+        assert surnameInput != null;
+
+        EditText editText = surnameInput.getEditText();
+        assert editText != null;
+
+        return editText.getText().toString().trim();
+
+    }
+
+    /**
+     * @param text the text that must be converted into md5.
+     * @return The 32 chars md5 string of argument text.
+     * @throws NoSuchAlgorithmException If MD5 digest doesn't be found.
+     */
+    @NotNull
+    public static String getMD5(@NotNull String text) throws NoSuchAlgorithmException {
+
+        MessageDigest md5Digest = MessageDigest.getInstance(MD5_DIGEST);
+        byte[] digest = md5Digest.digest(text.getBytes());
+
+        BigInteger bigInteger = new BigInteger(MD5_POSITIVE_SIGNUM_DIGEST, digest);
+        StringBuilder result = new StringBuilder(bigInteger.toString(MD5_CHAR_LENGTH));
+
+        while (result.length() < MD5_LENGTH) {
+            result.insert(0, "0");
+        }
+
+        return result.toString();
 
     }
 

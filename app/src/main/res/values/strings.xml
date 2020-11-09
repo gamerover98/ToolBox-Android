@@ -39,8 +39,11 @@
     <string name="text_change_functionality">Change functionality</string>
     <string name="text_confirm_button_settings">Confirm</string>
     <string name="text_settings">Settings</string>
-    <string name="text_login_empty_email">Insert an email</string>
-    <string name="text_login_empty_password">Insert the password</string>
-    <string name="text_login_incorrect_email">Incorrect email</string>
-    <string name="text_login_incorrect_password">Incorrect password</string>
+    <string name="text_auth_empty_name">Insert your name</string>
+    <string name="text_auth_empty_surname">Insert your surname</string>
+    <string name="text_auth_empty_email">Insert an email</string>
+    <string name="text_auth_empty_password">Insert the password</string>
+    <string name="text_auth_incorrect_email">Incorrect email</string>
+    <string name="text_auth_incorrect_password">Incorrect password</string>
+    <string name="text_auth_mismatch_password">Password must be identical</string>
 </resources>

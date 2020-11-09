@@ -25,6 +25,7 @@ import it.uniba.magr.misurapp.R;
 import lombok.Getter;
 
 import static it.uniba.magr.misurapp.auth.LoginActivity.*;
+import static it.uniba.magr.misurapp.auth.RegistrationActivity.*;
 
 /**
  * The authentication activity.
@@ -109,10 +110,14 @@ public class AuthActivity extends AppCompatActivity {
                 break;
 
             case REQUEST_CODE_LOGIN_ACTIVITY:
+            case REQUEST_CODE_REGISTRATION_ACTIVITY:
 
                 if (data.hasExtra(OPEN_REGISTRATION_ACTIVITY)
                         && data.getBooleanExtra(OPEN_REGISTRATION_ACTIVITY, false)) {
                     registrationClick();
+                } else if (data.hasExtra(SUCCESSFUL_OPERATION)
+                        && data.getBooleanExtra(SUCCESSFUL_OPERATION, false)) {
+                    finish();
                 }
 
                 break;
@@ -178,7 +183,8 @@ public class AuthActivity extends AppCompatActivity {
     private void registrationClick() {
 
         Intent intent = new Intent(this, RegistrationActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_REGISTRATION_ACTIVITY);
+
 
     }
 
