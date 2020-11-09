@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -23,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import java.security.NoSuchAlgorithmException;
 
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.navigation.SettingsFragment;
 import it.uniba.magr.misurapp.util.DigestUtil;
 
 import static it.uniba.magr.misurapp.auth.LoginActivity.*;
@@ -35,13 +37,17 @@ public class RegistrationActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_REGISTRATION_ACTIVITY = 300;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle bundle) {
 
-        super.onCreate(savedInstanceState);
+        super.onCreate(bundle);
         setContentView(R.layout.activity_registration);
 
         MaterialButton loginButton = findViewById(R.id.registration_button);
         loginButton.setOnClickListener(this :: performRegistrationClick);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.registration_frame_layout, new SettingsFragment());
+        fragmentTransaction.commit();
 
     }
 

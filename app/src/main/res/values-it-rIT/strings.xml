@@ -35,7 +35,10 @@
     <string name="correct_sign_in">Accesso eseguito correttamente</string>
     <string name="incorrect_sign_in">Errore imprevisto durante l\'autenticazione, riprova</string>
     <string name="text_no_connection">Controlla la tua connessione ad internet</string>
-    <string name="text_change_functionality">Cambia funzionalità</string>
+    <string name="text_complete_functionality_title">Usa tutte le funzioni</string>
+    <string name="text_complete_functionality_summary">Tutte le funzioni dell\'applicazione saranno accessibili</string>
+    <string name="text_essentials_functionality_title">Usa solo le funzioni essenziali</string>
+    <string name="text_essentials_functionality_summary">Puoi usare solo le funzioni essenziali dell\'applicazione</string>
     <string name="text_confirm_button_settings">Conferma</string>
     <string name="text_settings">Impostazioni</string>
     <string name="text_auth_empty_name">Inserisci il tuo nome</string>

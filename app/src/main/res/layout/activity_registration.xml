@@ -159,48 +159,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/registration_text_view_select_functionality"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/alegreya_sc_bold"
-        android:text="@string/text_radio_functionality"
-        android:textColor="@color/primary_dark"
-        android:textSize="30sp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration_input_text_box_confirm_password" />
-
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/registration_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration_text_view_select_functionality"
-        app:layout_constraintVertical_bias="0.10">
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/registration_radio_button_complete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:text="@string/text_radio_complete"
-            android:textSize="20sp" />
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/registration_radio_button_essential"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:text="@string/text_radio_essential"
-            android:textSize="20sp" />
-    </RadioGroup>
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registration_button"
         android:layout_width="match_parent"
@@ -214,4 +172,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <FrameLayout
+        android:id="@+id/registration_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/registration_button"
+        app:layout_constraintTop_toBottomOf="@+id/registration_input_text_box_confirm_password">
+
+    </FrameLayout>
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
