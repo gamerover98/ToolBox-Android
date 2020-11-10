@@ -13,10 +13,21 @@
     <fragment
         android:id="@+id/nav_add_measure_fragment"
         android:name="it.uniba.magr.misurapp.navigation.measure.MeasureListFragment"
-        tools:layout="@layout/fragment_measure_list_layout" />
+        tools:layout="@layout/fragment_measure_list_layout">
+
+        <action
+            android:id="@+id/action_nav_add_measure_fragment_to_ruler"
+            app:destination="@id/rulerFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/nav_settings_fragment"
         android:name="it.uniba.magr.misurapp.navigation.SettingsFragment" />
+
+    <fragment
+        android:id="@+id/rulerFragment"
+        android:name="it.uniba.magr.misurapp.tool.ruler.RulerFragment"
+        android:label="RulerFragment" />
 
 </navigation>

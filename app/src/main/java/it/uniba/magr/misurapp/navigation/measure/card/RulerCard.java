@@ -1,10 +1,12 @@
 package it.uniba.magr.misurapp.navigation.measure.card;
 
 import android.content.Context;
-import android.widget.Toast;
+
+import androidx.navigation.NavController;
 
 import org.jetbrains.annotations.NotNull;
 
+import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
 
 public class RulerCard implements MeasureCard {
@@ -26,7 +28,12 @@ public class RulerCard implements MeasureCard {
 
     @Override
     public void onClick(@NotNull Context context) {
-        Toast.makeText(context, "ruler", Toast.LENGTH_SHORT).show();
+
+        HomeActivity activity = (HomeActivity) context;
+        NavController navController = activity.getNavController();
+
+        navController.navigate(R.id.action_nav_add_measure_fragment_to_ruler);
+
     }
     
 }
