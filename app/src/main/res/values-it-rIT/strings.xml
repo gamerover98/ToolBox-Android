@@ -48,4 +48,8 @@
     <string name="text_auth_incorrect_email">e-mail non corretta</string>
     <string name="text_auth_incorrect_password">Password non corretta</string>
     <string name="text_auth_mismatch_password">Le password non coincidono</string>
+    <string name="text_level">Livella</string>
+    <string name="text_level_description">Con questo strumento puoi misurare l\'inclinazione dei tuoi piani</string>
+    <string name="text_ruler">Righello</string>
+    <string name="text_ruler_description">Misura la lunghezza di qualcosa</string>
 </resources>

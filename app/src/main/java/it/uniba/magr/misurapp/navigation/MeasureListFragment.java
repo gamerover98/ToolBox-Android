@@ -54,10 +54,14 @@ public class MeasureListFragment extends Fragment {
 
         public ImageAdapter() {
 
-            //TODO: solo per test, verrà rimosso con la sua implementazione
-            for (int i = 0 ; i < 20 ; i++) {
-                cards.add(new Card(R.mipmap.icon_level_foreground, R.string.app_name));
-            }
+            cards.add(new Card(
+                    R.mipmap.icon_level_foreground,
+                    R.string.text_level,
+                    R.string.text_level_description));
+
+            cards.add(new Card(R.mipmap.icon_ruler_foreground,
+                    R.string.text_ruler,
+                    R.string.text_ruler_description));
 
         }
 
@@ -80,6 +84,8 @@ public class MeasureListFragment extends Fragment {
         @SuppressLint("InflateParams")
         public View getView(int position, View gridView, ViewGroup parent) {
 
+            Card card = cards.get(position);
+
             if (gridView == null) {
 
                 assert getContext() != null;
@@ -91,11 +97,14 @@ public class MeasureListFragment extends Fragment {
             }
 
             ImageView imageView = gridView.findViewById(R.id.measure_grid_view_image_view);
-            MaterialTextView textView = gridView.findViewById(R.id.measure_grid_view_text);
-            Card card = cards.get(position);
+            MaterialTextView titleTextView = gridView
+                    .findViewById(R.id.measure_grid_title_view_text);
+            MaterialTextView descTextView = gridView
+                    .findViewById(R.id.measure_grid_description_text_view);
 
             imageView.setImageResource(card.imageID);
-            textView.setText(card.textID);
+            titleTextView.setText(card.titleID);
+            descTextView.setText(card.descriptionID);
 
             return gridView;
 
@@ -106,7 +115,8 @@ public class MeasureListFragment extends Fragment {
         private class Card {
 
             private final int imageID;
-            private final int textID;
+            private final int titleID;
+            private final int descriptionID;
 
         }
 

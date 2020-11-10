@@ -35,24 +35,38 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/icon_level_foreground"
-                    app:layout_constraintBottom_toTopOf="@+id/measure_grid_view_text"
+                    app:layout_constraintBottom_toTopOf="@+id/measure_grid_title_view_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="ContentDescription" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/measure_grid_view_text"
+                    android:id="@+id/measure_grid_title_view_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:background="@color/accent"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/text_level"
                     android:textColor="@color/icons"
-                    android:textSize="20sp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:textSize="25sp"
+                    app:layout_constraintBottom_toTopOf="@+id/measure_grid_description_text_view"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/measure_grid_description_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/accent"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/text_level_description"
+                    android:textColor="@color/icons"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
