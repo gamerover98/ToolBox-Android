@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">MisurApp</string>
+    <string name="empty" translatable="false"/>
     <string name="text_intro_first_title">Welcome!</string>
     <string name="text_intro_first_text">Welcome to MisurApp! This app will help you make simple and quick measurements, organize them and manage them as you see for convenience</string>
     <string name="text_intro_second_title">Full control</string>

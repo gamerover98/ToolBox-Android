@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@color/primary_text">
 
     <View
         android:id="@+id/ruler_segment_edge"
@@ -29,7 +30,7 @@
         android:layout_gravity="center"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/ruler_segment_marker"
-        android:text="Segment Value"/>
+        android:text="@string/empty"/>
 
 
 </RelativeLayout>

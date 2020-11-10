@@ -87,29 +87,21 @@ class RulerValueAdapter extends ArrayAdapter<Integer> {
 
         // Customize segment display
         TextView markerTextView = convertView.findViewById(R.id.ruler_segment_value);
-        String markerText;
         markerTextView.setTypeface(null, Typeface.BOLD);
         int markerTextSize;
 
         if (position % 2 == 0) {
 
             // Whole inch
-            markerText = Integer.toString(position / 2);
+            String markerText = Integer.toString(position / 2);
+            markerTextSize = 15;
+
+            // Apply segment properties
             markerTextView.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
-            markerTextSize = 20;
-
-        } else {
-
-            // Half inch
-            markerText = "1/2";
-            markerTextView.setTypeface(null, Typeface.NORMAL);
-            markerTextSize = 8;
+            markerTextView.setText(markerText);
+            markerTextView.setTextSize(markerTextSize);
 
         }
-
-        // Apply segment properties
-        markerTextView.setText(markerText);
-        markerTextView.setTextSize(markerTextSize);
 
         return convertView;
 

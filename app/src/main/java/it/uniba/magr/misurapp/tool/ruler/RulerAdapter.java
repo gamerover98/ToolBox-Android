@@ -22,11 +22,11 @@ class RulerAdapter extends ArrayAdapter<Integer> {
 
     private static final int SEGMENT_UNIT_FRACTION = 16;
 
-    private static final double WHOLE_INCH_MULTIPLIER     = 6;
-    private static final double HALF_INCH_MULTIPLIER      = 5;
-    private static final double QUARTER_INCH_MULTIPLIER   = 4;
-    private static final double EIGHTH_INCH_MULTIPLIER    = 3;
-    private static final double SIXTEENTH_INCH_MULTIPLIER = 2;
+    private static final double WHOLE_INCH_MULTIPLIER     = 32;
+    private static final double HALF_INCH_MULTIPLIER      = 24;
+    private static final double QUARTER_INCH_MULTIPLIER   = 16;
+    private static final double EIGHTH_INCH_MULTIPLIER    = 8;
+    private static final double SIXTEENTH_INCH_MULTIPLIER = 4;
 
     private final int segmentPixels;
     private final double segmentFraction;

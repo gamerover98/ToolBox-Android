@@ -40,7 +40,7 @@ public class RulerFragment extends Fragment {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
         int density;
-        float segmentWidth = 0.4f;
+        float segmentWidth = 1.8f;
 
         if (isInch()) {
             density = (int) displayMetrics.xdpi;
@@ -103,6 +103,9 @@ public class RulerFragment extends Fragment {
             rulerValueView.setAdapter(rulerValueAdapter);
 
         }
+
+        rulerListView.setEnabled(false);
+        rulerValueView.setEnabled(false);
 
     }
 
