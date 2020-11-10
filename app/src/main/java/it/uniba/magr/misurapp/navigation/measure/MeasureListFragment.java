@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.navigation;
+package it.uniba.magr.misurapp.navigation.measure;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -16,11 +17,14 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textview.MaterialTextView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.LinkedList;
 
 import it.uniba.magr.misurapp.R;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import it.uniba.magr.misurapp.navigation.measure.card.LevelCard;
+import it.uniba.magr.misurapp.navigation.measure.card.MeasureCard;
+import it.uniba.magr.misurapp.navigation.measure.card.RulerCard;
 
 public class MeasureListFragment extends Fragment {
 
@@ -44,24 +48,31 @@ public class MeasureListFragment extends Fragment {
         GridView gridView = getActivity().findViewById(R.id.measure_list_grid_view);
         assert gridView != null;
 
-        gridView.setAdapter(new ImageAdapter());
+        gridView.setAdapter(new MeasureCardAdapter());
+        gridView.setOnItemClickListener(this :: itemClick);
 
     }
 
-    public class ImageAdapter extends BaseAdapter {
+    private void itemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        private final LinkedList<Card> cards = new LinkedList<>();
+        assert getContext() != null;
 
-        public ImageAdapter() {
+        GridView gridView = (GridView) parent;
+        MeasureCardAdapter cardAdapter = (MeasureCardAdapter) gridView.getAdapter();
 
-            cards.add(new Card(
-                    R.mipmap.icon_level_foreground,
-                    R.string.text_level,
-                    R.string.text_level_description));
+        MeasureCard measureCard = cardAdapter.getMeasureCard(position);
+        measureCard.onClick(getContext());
 
-            cards.add(new Card(R.mipmap.icon_ruler_foreground,
-                    R.string.text_ruler,
-                    R.string.text_ruler_description));
+    }
+
+    public class MeasureCardAdapter extends BaseAdapter {
+
+        private final LinkedList<MeasureCard> cards = new LinkedList<>();
+
+        public MeasureCardAdapter() {
+
+            cards.add(new LevelCard());
+            cards.add(new RulerCard());
 
         }
 
@@ -72,7 +83,7 @@ public class MeasureListFragment extends Fragment {
 
         @Override
         public Object getItem(int position) {
-            return cards.get(position).imageID;
+            return cards.get(position).getImageID();
         }
 
         @Override
@@ -80,11 +91,16 @@ public class MeasureListFragment extends Fragment {
             return position;
         }
 
+        @NotNull
+        public MeasureCard getMeasureCard(int position) {
+            return cards.get(position);
+        }
+
         @Override
         @SuppressLint("InflateParams")
         public View getView(int position, View gridView, ViewGroup parent) {
 
-            Card card = cards.get(position);
+            MeasureCard measureCard = cards.get(position);
 
             if (gridView == null) {
 
@@ -102,21 +118,11 @@ public class MeasureListFragment extends Fragment {
             MaterialTextView descTextView = gridView
                     .findViewById(R.id.measure_grid_description_text_view);
 
-            imageView.setImageResource(card.imageID);
-            titleTextView.setText(card.titleID);
-            descTextView.setText(card.descriptionID);
+            imageView.setImageResource(measureCard.getImageID());
+            titleTextView.setText(measureCard.getTitleID());
+            descTextView.setText(measureCard.getDescriptionID());
 
             return gridView;
-
-        }
-
-        @Getter
-        @RequiredArgsConstructor
-        private class Card {
-
-            private final int imageID;
-            private final int titleID;
-            private final int descriptionID;
 
         }
 
