@@ -34,7 +34,7 @@
                     android:id="@+id/measure_grid_view_image_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_level_foreground"
+                    android:src="@drawable/icon_level"
                     app:layout_constraintBottom_toTopOf="@+id/measure_grid_title_view_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
