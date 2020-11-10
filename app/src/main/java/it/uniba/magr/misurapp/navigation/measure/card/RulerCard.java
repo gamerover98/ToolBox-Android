@@ -11,7 +11,7 @@ public class RulerCard implements MeasureCard {
 
     @Override
     public int getImageID() {
-        return R.mipmap.icon_ruler_foreground;
+        return R.drawable.icon_ruler;
     }
 
     @Override

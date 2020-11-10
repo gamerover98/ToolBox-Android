@@ -11,7 +11,7 @@ public class LevelCard implements MeasureCard {
 
     @Override
     public int getImageID() {
-        return R.mipmap.icon_level_foreground;
+        return R.drawable.icon_level;
     }
 
     @Override
