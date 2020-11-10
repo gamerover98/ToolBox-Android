@@ -39,19 +39,12 @@ public class RulerFragment extends Fragment {
         ViewGroup.LayoutParams segmentParams = rulerListView.getLayoutParams();
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
 
-        int density;
-        float segmentWidth = 1.8f;
 
-        if (isInch()) {
-            density = (int) displayMetrics.xdpi;
-        } else {
+        float millimeterPixel = displayMetrics.xdpi * (1.0f / 25.4f);
+        float centimeterPixel = millimeterPixel * 10;
 
-            float millimeterPixel = displayMetrics.xdpi * (1.0f / 25.4f);
-            float centimeterPixel = millimeterPixel * 10;
-
-            density = (int) centimeterPixel;
-
-        }
+        int density = (int) centimeterPixel;
+        float segmentWidth = 2.2f;
 
         segmentParams.width = (int) (density * segmentWidth);
         rulerListView.setLayoutParams(segmentParams);
@@ -62,10 +55,6 @@ public class RulerFragment extends Fragment {
 
         return rootView;
 
-    }
-
-    private boolean isInch() {
-        return false;
     }
 
     private void globalLayoutListener(int density) {
