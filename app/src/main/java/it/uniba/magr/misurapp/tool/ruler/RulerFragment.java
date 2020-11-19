@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import org.jetbrains.annotations.NotNull;
 
+import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
 
 public class RulerFragment extends Fragment {
@@ -53,7 +54,26 @@ public class RulerFragment extends Fragment {
         globalLayoutListener = () -> globalLayoutListener(density);
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(globalLayoutListener);
 
+        if (container != null) {
+
+            HomeActivity homeActivity = (HomeActivity) container.getContext();
+            homeActivity.getToolbar().setTitle(R.string.text_ruler);
+
+        }
+
         return rootView;
+
+    }
+
+    @Override
+    public void onDetach() {
+
+        super.onDetach();
+
+        HomeActivity homeActivity = (HomeActivity) getContext();
+        assert homeActivity != null;
+
+        homeActivity.getToolbar().setTitle(R.string.text_nav_add_measure_item);
 
     }
 
