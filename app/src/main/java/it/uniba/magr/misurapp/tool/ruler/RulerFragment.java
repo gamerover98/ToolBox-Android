@@ -10,6 +10,9 @@ import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -37,9 +40,11 @@ public class RulerFragment extends Fragment {
         rulerListView  = rootView.findViewById(R.id.ruler_list_view);
         rulerValueView = rootView.findViewById(R.id.ruler_value_view);
 
+        FloatingActionButton saveButton = rootView.findViewById(R.id.ruler_fab_button_save);
+        saveButton.setOnClickListener(view -> onSaveButtonClick());
+
         ViewGroup.LayoutParams segmentParams = rulerListView.getLayoutParams();
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-
 
         float millimeterPixel = displayMetrics.xdpi * (1.0f / 25.4f);
         float centimeterPixel = millimeterPixel * 10;
@@ -62,6 +67,16 @@ public class RulerFragment extends Fragment {
         }
 
         return rootView;
+
+    }
+
+    private void onSaveButtonClick() {
+
+        HomeActivity activity = (HomeActivity) getContext();
+        assert activity != null;
+
+        NavController navController = activity.getNavController();
+        navController.navigate(R.id.action_nav_save_measure_fragment_to_ruler);
 
     }
 

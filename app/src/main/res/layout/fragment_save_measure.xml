@@ -6,20 +6,6 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_add_measure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:fontFamily="@font/alegreya_sc_bold"
-        android:gravity="center"
-        android:text="@string/text_add_measure"
-        android:textColor="@color/primary_dark"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/measurement_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,14 +24,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="70dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/rounded_field"
         android:textColorHint="@color/secondary_text"
+        android:layout_marginTop="50dp"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_add_measure">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/measure_text_input_title_edit_text"
@@ -74,14 +60,13 @@
         android:id="@+id/measure_text_input_description_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
         android:background="@drawable/rounded_field"
         android:textColorHint="@color/secondary_text"
         app:hintEnabled="false"
-        app:layout_constraintBottom_toTopOf="@+id/confirm_measure_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/measure_text_input_title_layout">
