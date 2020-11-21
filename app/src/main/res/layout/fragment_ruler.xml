@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ruler_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/ruler_layout">
+    android:layout_height="match_parent">
 
-    <ListView
+    <it.uniba.magr.misurapp.tool.ruler.RulerCanvasView
+        android:id="@+id/rulerCanvasView"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<ListView
         android:id="@+id/ruler_list_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,22 +33,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent">-->
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/ruler_fab_button_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="30dp"
-            android:backgroundTint="@color/fab_color"
-            android:src="@drawable/icon_save"
-            app:elevation="6dp"
-            app:tint="@color/icons"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="ContentDescription"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ruler_fab_button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/fab_color"
+        android:src="@drawable/icon_save"
+        app:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/icons"
+        tools:ignore="ContentDescription" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
