@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/nav_settings_fragment"
-        android:name="it.uniba.magr.misurapp.navigation.SettingsFragment" />
+        android:name="it.uniba.magr.misurapp.navigation.settings.SettingsFragment" />
 
     <fragment
         android:id="@+id/rulerFragment"

@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import java.security.NoSuchAlgorithmException;
 
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.navigation.SettingsFragment;
+import it.uniba.magr.misurapp.navigation.settings.SettingsFragment;
 import it.uniba.magr.misurapp.util.DigestUtil;
 
 import static it.uniba.magr.misurapp.auth.LoginActivity.*;

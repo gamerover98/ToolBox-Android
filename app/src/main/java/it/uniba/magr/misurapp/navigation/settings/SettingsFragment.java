@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.navigation;
+package it.uniba.magr.misurapp.navigation.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
