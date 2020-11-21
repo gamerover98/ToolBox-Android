@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.navigation.measure;
+package it.uniba.magr.misurapp.navigation.tools;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,9 +22,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.LinkedList;
 
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.navigation.measure.card.LevelCard;
-import it.uniba.magr.misurapp.navigation.measure.card.MeasureCard;
-import it.uniba.magr.misurapp.navigation.measure.card.RulerCard;
+import it.uniba.magr.misurapp.navigation.tools.card.LevelCard;
+import it.uniba.magr.misurapp.navigation.tools.card.MeasureCard;
+import it.uniba.magr.misurapp.navigation.tools.card.RulerCard;
 
 public class MeasureListFragment extends Fragment {
 

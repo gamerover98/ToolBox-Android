@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/nav_list_tools_fragment"
-        android:name="it.uniba.magr.misurapp.navigation.measure.MeasureListFragment"
+        android:name="it.uniba.magr.misurapp.navigation.tools.MeasureListFragment"
         tools:layout="@layout/fragment_measure_list_layout">
 
         <action
@@ -47,7 +47,7 @@
 
     <fragment
         android:id="@+id/saveMeasureFragment"
-        android:name="it.uniba.magr.misurapp.navigation.measure.SaveMeasureFragment"
+        android:name="it.uniba.magr.misurapp.navigation.tools.SaveMeasureFragment"
         android:label="SaveFragment" />
 
 </navigation>

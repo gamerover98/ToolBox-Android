@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.navigation.measure;
+package it.uniba.magr.misurapp.navigation.tools;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
