@@ -45,7 +45,7 @@ public class MeasureListFragment extends Fragment {
         super.onActivityCreated(bundle);
         assert getActivity() != null;
 
-        GridView gridView = getActivity().findViewById(R.id.measure_list_grid_view);
+        GridView gridView = getActivity().findViewById(R.id.tools_list_grid_view);
         assert gridView != null;
 
         gridView.setAdapter(new MeasureCardAdapter());

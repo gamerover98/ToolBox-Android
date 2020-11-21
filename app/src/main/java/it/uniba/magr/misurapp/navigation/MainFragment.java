@@ -79,8 +79,8 @@ public class MainFragment extends Fragment {
 
     private void addMeasureClick(@NotNull View view) {
 
-        homeActivity.getToolbar().setTitle(R.string.text_nav_add_measure_item);
-        homeActivity.getNavController().navigate(R.id.nav_add_measure_fragment);
+        homeActivity.getToolbar().setTitle(R.string.text_list_tools);
+        homeActivity.getNavController().navigate(R.id.nav_list_tools_fragment);
         homeActivity.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
     }

@@ -31,6 +31,7 @@
     <string name="text_description">Description</string>
     <string name="text_add_measure">Add measure</string>
     <string name="text_save_measure">Save measure</string>
+    <string name="text_list_tools">List tools</string>
     <string name="text_access_no_authentication"><u>Use MisurApp without authentication</u></string>
     <string name="text_radio_complete">Complete</string>
     <string name="text_radio_essential">Essential</string>
