@@ -8,7 +8,7 @@
 
     <it.uniba.magr.misurapp.tool.ruler.RulerCanvasView
         android:id="@+id/rulerCanvasView"
-        android:layout_width="150dp"
+        android:layout_width="200dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

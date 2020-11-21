@@ -174,7 +174,10 @@ public class RulerCanvasView extends View {
         double value = 0;
 
         if (textPaint != null) {
+
+            textPaint.setAntiAlias(true);
             textPaint.setTextSize(VALUE_TEXT_SIZE / lineNumber);
+
         }
 
         for (float height = LINE_MARGIN_TOP ; height < displayHeight ; height += centimeterPixel) {
