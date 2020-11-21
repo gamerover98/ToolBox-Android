@@ -1,26 +1,24 @@
-package it.uniba.magr.misurapp.navigation;
+package it.uniba.magr.misurapp.navigation.main;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textview.MaterialTextView;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.navigation.Navigable;
 
-public class MainFragment extends Fragment {
+public class MainNavigation implements Navigable {
 
     private HomeActivity homeActivity;
 
@@ -35,24 +33,17 @@ public class MainFragment extends Fragment {
 
     boolean fabOpened = false;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup parent,
-                             @Nullable Bundle savedInstanceState) {
-
-        homeActivity = (HomeActivity) inflater.getContext();
-        fabOpened = false;
-
-        return inflater.inflate(R.layout.fragment_main_layout,
-                parent, false);
-
+    public int getLayoutId() {
+        return R.layout.fragment_main_layout;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle bundle) {
+    public void onActivityCreated(@NotNull Activity activity, @Nullable Bundle bundle) {
 
-        super.onActivityCreated(bundle);
+        fabOpened = false;
+        homeActivity = (HomeActivity) activity;
+
         setupFloatingButtons();
 
         DrawerLayout drawerLayout = homeActivity.getDrawerLayout();

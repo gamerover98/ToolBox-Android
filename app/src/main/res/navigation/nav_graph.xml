@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/nav_main_fragment"
-        android:name="it.uniba.magr.misurapp.navigation.MainFragment"
-        tools:layout="@layout/fragment_main_layout" >
+        android:name="it.uniba.magr.misurapp.navigation.main.MainFragment"
+        tools:layout="@layout/fragment_main_layout">
 
         <action
             android:id="@+id/action_nav_main_fragment_to_nav_add_measure_fragment"
