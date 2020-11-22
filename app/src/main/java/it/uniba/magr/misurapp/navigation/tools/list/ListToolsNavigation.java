@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.navigation.tools;
+package it.uniba.magr.misurapp.navigation.tools.list;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +14,7 @@ import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.Navigable;
 import it.uniba.magr.misurapp.navigation.tools.card.MeasureCard;
 
-public class ToolsNavigation implements Navigable {
+public class ListToolsNavigation implements Navigable {
 
     private Context context;
 
@@ -37,7 +37,7 @@ public class ToolsNavigation implements Navigable {
         GridView gridView = activity.findViewById(R.id.tools_list_grid_view);
         assert gridView != null;
 
-        gridView.setAdapter(new ToolsCardAdapter(context));
+        gridView.setAdapter(new ListToolsCardAdapter(context));
         gridView.setOnItemClickListener(this :: itemClick);
 
     }
@@ -45,7 +45,7 @@ public class ToolsNavigation implements Navigable {
     private void itemClick(AdapterView<?> parent, View view, int position, long id) {
 
         GridView gridView = (GridView) parent;
-        ToolsCardAdapter cardAdapter = (ToolsCardAdapter) gridView.getAdapter();
+        ListToolsCardAdapter cardAdapter = (ListToolsCardAdapter) gridView.getAdapter();
 
         MeasureCard measureCard = cardAdapter.getMeasureCard(position);
         measureCard.onClick(context);

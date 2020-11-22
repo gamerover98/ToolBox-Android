@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.navigation.tools;
+package it.uniba.magr.misurapp.navigation.tools.list;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -19,7 +19,7 @@ import it.uniba.magr.misurapp.navigation.tools.card.LevelCard;
 import it.uniba.magr.misurapp.navigation.tools.card.MeasureCard;
 import it.uniba.magr.misurapp.navigation.tools.card.RulerCard;
 
-public class ToolsCardAdapter extends BaseAdapter {
+public class ListToolsCardAdapter extends BaseAdapter {
 
     @NotNull
     private final Context context;
@@ -27,7 +27,7 @@ public class ToolsCardAdapter extends BaseAdapter {
     @NotNull
     private final LinkedList<MeasureCard> cards = new LinkedList<>();
 
-    public ToolsCardAdapter(@NotNull Context context) {
+    public ListToolsCardAdapter(@NotNull Context context) {
 
         this.context = context;
 
