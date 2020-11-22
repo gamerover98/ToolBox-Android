@@ -24,8 +24,14 @@ public class RulerCanvasView extends View {
      */
     private static final float BACKGROUND_CORNER_LINE_FORCE = 20f;
 
+    /**
+     * The ruler background color.
+     */
     private static final int BACKGROUND_COLOR = Color.rgb(255, 201, 0);
 
+    /**
+     * The ruler edge and thickness line color.
+     */
     private static final int LINE_COLOR = Color.BLACK;
 
     /**
@@ -103,6 +109,9 @@ public class RulerCanvasView extends View {
 
     }
 
+    /**
+     * Draw the ruler background.
+     */
     protected void drawBackground() {
 
         assert canvas != null;
@@ -128,6 +137,9 @@ public class RulerCanvasView extends View {
 
     }
 
+    /**
+     * Draw the ruler lines.
+     */
     protected void drawLines() {
 
         Paint linePaint = new Paint();
@@ -139,12 +151,21 @@ public class RulerCanvasView extends View {
 
         int maxLineLength = getWidth() / 2;
 
+        // 1/1 centimeter lines
         drawCentimeterLines(linePaint, textPaint,
-                maxLineLength, 1, true);
-        drawCentimeterLines(linePaint, textPaint,
-                maxLineLength / 2, 2, false);
+                maxLineLength, 1);
+
+        // 1/2 centimeter lines
         drawCentimeterLines(linePaint, null,
-                maxLineLength / 4, 4, false);
+                maxLineLength / 2, 2);
+
+        // 1/4 centimeter lines
+        drawCentimeterLines(linePaint, null,
+                maxLineLength / 4, 4);
+
+        // 1/8 centimeter lines
+        drawCentimeterLines(linePaint, null,
+                maxLineLength / 8, 8);
 
     }
 
@@ -155,10 +176,9 @@ public class RulerCanvasView extends View {
      * @param textPaint A not null instance for text Paint.
      * @param lineLength The line length that will be drawn.
      * @param lineNumber The line number.
-     * @param drawValue True if you want the number beside the line.
      */
     private void drawCentimeterLines(@NotNull Paint linePaint, @Nullable Paint textPaint,
-                                     int lineLength, int lineNumber, boolean drawValue) {
+                                     int lineLength, int lineNumber) {
 
         assert canvas != null;
         linePaint.setStrokeWidth(lineNumber == 1 ? PRIMARY_MEASURE_LINE_FORCE : MEASURE_LINE_FORCE);
@@ -184,7 +204,7 @@ public class RulerCanvasView extends View {
 
             canvas.drawLine(0, height, lineLength, height, linePaint);
 
-            if (drawValue && textPaint != null) {
+            if (textPaint != null) {
 
                 String textValue = value == (long) value ?
                         String.format(Locale.getDefault(), "%d", (long) value)
