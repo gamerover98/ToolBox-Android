@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.navigation.tools.card;
+package it.uniba.magr.misurapp.navigation.tools.list.card;
 
 import android.content.Context;
 import android.widget.Toast;

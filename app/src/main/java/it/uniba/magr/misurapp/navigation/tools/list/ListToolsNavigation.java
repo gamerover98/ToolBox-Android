@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.Navigable;
-import it.uniba.magr.misurapp.navigation.tools.card.MeasureCard;
+import it.uniba.magr.misurapp.navigation.tools.list.card.MeasureCard;
 
 public class ListToolsNavigation implements Navigable {
 

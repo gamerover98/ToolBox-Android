@@ -15,9 +15,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.LinkedList;
 
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.navigation.tools.card.LevelCard;
-import it.uniba.magr.misurapp.navigation.tools.card.MeasureCard;
-import it.uniba.magr.misurapp.navigation.tools.card.RulerCard;
+import it.uniba.magr.misurapp.navigation.tools.list.card.LevelCard;
+import it.uniba.magr.misurapp.navigation.tools.list.card.MeasureCard;
+import it.uniba.magr.misurapp.navigation.tools.list.card.RulerCard;
 
 public class ListToolsCardAdapter extends BaseAdapter {
 
