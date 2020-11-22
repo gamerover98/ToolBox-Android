@@ -132,8 +132,6 @@ public class HomeActivity extends AppCompatActivity implements
         super.onResume();
         reload();
 
-        toolbar.setTitle(R.string.app_name);
-
     }
 
     /**
@@ -141,8 +139,6 @@ public class HomeActivity extends AppCompatActivity implements
      */
     @Override
     public boolean onSupportNavigateUp() {
-
-        toolbar.setTitle(R.string.app_name);
 
         MaterialTextView displayNameTextView = findViewById(R.id.header_display_name);
         MaterialTextView emailTextView = findViewById(R.id.header_email);
@@ -196,7 +192,6 @@ public class HomeActivity extends AppCompatActivity implements
 
         clickedItem.ifPresent(menuItem -> {
 
-            toolbar.setTitle(menuItem.getTitle());
             Runnable behaviour = navItemBehaviourMap.get(menuItem);
 
             assert behaviour != null;
@@ -283,7 +278,6 @@ public class HomeActivity extends AppCompatActivity implements
 
     private void addMeasureItemNavClick() {
 
-        toolbar.setTitle(R.string.text_list_tools);
         navController.navigate(R.id.nav_list_tools_fragment);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
@@ -291,7 +285,6 @@ public class HomeActivity extends AppCompatActivity implements
 
     private void settingsItemNavClick() {
 
-        toolbar.setTitle(R.string.text_settings);
         navController.navigate(R.id.nav_settings_fragment);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 

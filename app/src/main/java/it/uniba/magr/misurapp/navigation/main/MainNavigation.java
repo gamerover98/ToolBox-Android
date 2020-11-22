@@ -1,6 +1,7 @@
 package it.uniba.magr.misurapp.navigation.main;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -38,6 +39,12 @@ public class MainNavigation implements Navigable {
         return R.layout.fragment_main_layout;
     }
 
+    @NotNull
+    @Override
+    public String getToolbarName(@NotNull Context rootContext) {
+        return rootContext.getResources().getString(R.string.app_name);
+    }
+
     @Override
     public void onActivityCreated(@NotNull Activity activity, @Nullable Bundle bundle) {
 
@@ -70,7 +77,6 @@ public class MainNavigation implements Navigable {
 
     private void addMeasureClick(@NotNull View view) {
 
-        homeActivity.getToolbar().setTitle(R.string.text_list_tools);
         homeActivity.getNavController().navigate(R.id.nav_list_tools_fragment);
         homeActivity.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 

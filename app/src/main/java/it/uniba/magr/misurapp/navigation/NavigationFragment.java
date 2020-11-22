@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import org.jetbrains.annotations.NotNull;
 
+import it.uniba.magr.misurapp.HomeActivity;
 import lombok.Getter;
 
 public class NavigationFragment extends Fragment {
@@ -22,6 +24,9 @@ public class NavigationFragment extends Fragment {
      */
     @Getter @NotNull
     private final Navigable navigable;
+
+    @Getter @Nullable
+    private Toolbar toolbar;
 
     public NavigationFragment(@NotNull Navigable navigable) {
         this.navigable = navigable;
@@ -55,6 +60,16 @@ public class NavigationFragment extends Fragment {
 
         Context context = parent.getContext();
         navigable.onCreateView(context, bundle);
+
+        if (context instanceof HomeActivity) {
+
+            HomeActivity homeActivity = (HomeActivity) context;
+            this.toolbar = homeActivity.getToolbar();
+
+            String toolbarTitle = navigable.getToolbarName(homeActivity);
+            toolbar.setTitle(toolbarTitle);
+
+        }
 
         int layoutID = navigable.getLayoutId();
         return inflater.inflate(layoutID, parent, false);

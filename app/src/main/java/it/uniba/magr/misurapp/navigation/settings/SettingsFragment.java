@@ -14,6 +14,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import org.jetbrains.annotations.NotNull;
 
+import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
 
 /**
@@ -48,6 +49,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                              @Nullable ViewGroup container,
                              @Nullable Bundle bundle) {
 
+
         completeFunctionalitySwitch   = findPreference(COMPLETE_FUNCTIONALITY_KEY);
         essentialsFunctionalitySwitch = findPreference(ESSENTIALS_FUNCTIONALITY_KEY);
 
@@ -55,7 +57,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         essentialsFunctionalitySwitch.setOnPreferenceChangeListener(this :: switchEssentialsClick);
 
         assert getContext() != null;
-        Functionality functionality = getFunctionality(getContext());
+
+        Context context = getContext();
+
+        if (context instanceof HomeActivity) {
+
+            HomeActivity homeActivity = (HomeActivity) context;
+            homeActivity.getToolbar().setTitle(R.string.text_settings);
+
+        }
+
+        Functionality functionality = getFunctionality(context);
 
         if (functionality == Functionality.COMPLETE) {
 

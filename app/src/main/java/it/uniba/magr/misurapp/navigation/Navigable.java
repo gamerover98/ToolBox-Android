@@ -19,6 +19,13 @@ public interface Navigable {
     int getLayoutId();
 
     /**
+     * @param rootContext The root context of the activity.
+     * @return The interface name for the toolbar title.
+     */
+    @NotNull
+    String getToolbarName(@NotNull Context rootContext);
+
+    /**
      * The first method called from the fragment lifecycle.
      * @param context The parent context where the fragment is placed.
      */

@@ -69,8 +69,6 @@ public class RulerFragment extends Fragment {
         HomeActivity homeActivity = (HomeActivity) getContext();
         assert homeActivity != null;
 
-        homeActivity.getToolbar().setTitle(R.string.text_nav_add_measure_item);
-
         Window window = homeActivity.getWindow();
         View decoder = window.getDecorView();
 

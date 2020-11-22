@@ -23,6 +23,12 @@ public class ToolsNavigation implements Navigable {
         return R.layout.fragment_measure_list_layout;
     }
 
+    @NotNull
+    @Override
+    public String getToolbarName(@NotNull Context rootContext) {
+        return rootContext.getResources().getString(R.string.text_list_tools);
+    }
+
     @Override
     public void onActivityCreated(@NotNull Activity activity, @Nullable Bundle bundle) {
 
