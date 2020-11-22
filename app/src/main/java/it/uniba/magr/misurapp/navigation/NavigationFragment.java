@@ -54,6 +54,9 @@ public class NavigationFragment extends Fragment {
                              @Nullable ViewGroup parent,
                              @Nullable Bundle bundle) {
 
+        int layoutID = navigable.getLayoutId();
+        View rootView = inflater.inflate(layoutID, parent, false);
+
         if (parent == null) {
             throw new IllegalArgumentException("The parent argument cannot be null");
         }
@@ -71,8 +74,7 @@ public class NavigationFragment extends Fragment {
 
         }
 
-        int layoutID = navigable.getLayoutId();
-        return inflater.inflate(layoutID, parent, false);
+        return rootView;
 
     }
 
