@@ -31,8 +31,8 @@ public class ListToolsCardAdapter extends BaseAdapter {
 
         this.context = context;
 
-        cards.add(new LevelCard());
         cards.add(new RulerCard());
+        cards.add(new LevelCard());
 
     }
 

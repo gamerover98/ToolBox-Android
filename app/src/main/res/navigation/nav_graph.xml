@@ -47,7 +47,7 @@
 
     <fragment
         android:id="@+id/saveMeasureFragment"
-        android:name="it.uniba.magr.misurapp.navigation.tools.SaveMeasureFragment"
+        android:name="it.uniba.magr.misurapp.navigation.save.SaveMeasureFragment"
         android:label="SaveFragment" />
 
 </navigation>
