@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_main_fragment"
         android:name="it.uniba.magr.misurapp.navigation.main.MainFragment"
-        tools:layout="@layout/fragment_main_layout">
+        tools:layout="@layout/fragment_main">
 
         <action
             android:id="@+id/action_nav_main_fragment_to_nav_add_measure_fragment"
@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/nav_list_tools_fragment"
         android:name="it.uniba.magr.misurapp.navigation.tools.list.ListToolsFragment"
-        tools:layout="@layout/fragment_measure_list_layout">
+        tools:layout="@layout/fragment_tools_list">
 
         <action
             android:id="@+id/action_nav_add_measure_fragment_to_ruler"

@@ -54,4 +54,6 @@
     <string name="text_level_description">Con questo strumento puoi misurare l\'inclinazione dei tuoi piani</string>
     <string name="text_ruler">Righello</string>
     <string name="text_ruler_description">Misura la lunghezza di qualcosa</string>
+    <string name="text_length">Lunghezza</string>
+    <string name="text_insert_centimeters">Inserisci lunghezza in centimetri</string>
 </resources>

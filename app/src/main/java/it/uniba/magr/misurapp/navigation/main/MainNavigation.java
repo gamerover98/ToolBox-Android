@@ -36,7 +36,7 @@ public class MainNavigation implements Navigable {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_main_layout;
+        return R.layout.fragment_main;
     }
 
     @NotNull

@@ -14,7 +14,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/measurement_title_text"
+                android:id="@+id/save_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -49,21 +49,22 @@
                     android:layout_marginEnd="10dp"
                     android:background="@android:color/transparent"
                     android:hint="@string/text_insert_title" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <FrameLayout
                 android:id="@+id/save_parameters_fragment_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="50dp"
                 app:layout_constraintBottom_toTopOf="@+id/save_description_input_text_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/save_title_input_text_layout" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/save_description_text_view"
+                android:id="@+id/save_description_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -87,7 +88,8 @@
                 app:hintEnabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginBottom="60dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/save_description_input_text"
@@ -100,6 +102,7 @@
                     android:background="@android:color/transparent"
                     android:gravity="start"
                     android:hint="@string/text_insert_description" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

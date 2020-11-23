@@ -20,7 +20,7 @@ public class ListToolsNavigation implements Navigable {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_measure_list_layout;
+        return R.layout.fragment_tools_list;
     }
 
     @NotNull

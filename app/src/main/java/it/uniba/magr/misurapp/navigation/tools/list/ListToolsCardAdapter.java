@@ -67,7 +67,7 @@ public class ListToolsCardAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            gridView = inflater.inflate(R.layout.measure_grid_view_image_layout, null);
+            gridView = inflater.inflate(R.layout.tools_grid_image_layout, null);
 
         }
 

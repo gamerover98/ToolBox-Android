@@ -2,7 +2,7 @@ package it.uniba.magr.misurapp.navigation.save;
 
 import android.content.Context;
 
-import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,7 +26,7 @@ public interface SaveMeasureNavigable extends Navigable {
      * @return The GroupView ID of items that will
      * be added to the generic save measure fragment layout.
      */
-    @IdRes
+    @LayoutRes
     int getParameterViewId();
 
 }
