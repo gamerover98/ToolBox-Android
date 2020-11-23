@@ -2,22 +2,31 @@ package it.uniba.magr.misurapp.navigation.save;
 
 import android.content.Context;
 
+import androidx.annotation.IdRes;
+
 import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.Navigable;
 
-public class SaveMeasureNavigation implements Navigable {
+public interface SaveMeasureNavigable extends Navigable {
 
     @Override
-    public int getLayoutId() {
+    default int getLayoutId() {
         return R.layout.fragment_save_measure;
     }
 
     @NotNull
     @Override
-    public String getToolbarName(@NotNull Context rootContext) {
+    default String getToolbarName(@NotNull Context rootContext) {
         return rootContext.getResources().getString(R.string.text_save_measure);
     }
+
+    /**
+     * @return The GroupView ID of items that will
+     * be added to the generic save measure fragment layout.
+     */
+    @IdRes
+    int getParameterViewId();
 
 }

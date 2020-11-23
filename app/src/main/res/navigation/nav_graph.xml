@@ -41,13 +41,13 @@
 
         <action
             android:id="@+id/action_nav_save_measure_fragment_to_ruler"
-            app:destination="@id/saveMeasureFragment" />
+            app:destination="@id/saveRulerFragment" />
 
     </fragment>
 
     <fragment
-        android:id="@+id/saveMeasureFragment"
-        android:name="it.uniba.magr.misurapp.navigation.save.SaveMeasureFragment"
+        android:id="@+id/saveRulerFragment"
+        android:name="it.uniba.magr.misurapp.tool.ruler.save.SaveRulerFragment"
         android:label="SaveFragment" />
 
 </navigation>
