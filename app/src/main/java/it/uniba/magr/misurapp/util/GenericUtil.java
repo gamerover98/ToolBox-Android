@@ -13,7 +13,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.jetbrains.annotations.NotNull;
 
-public class GenericUtil {
+public final class GenericUtil {
 
     private GenericUtil() {
         throw new IllegalStateException("This is a static class");
@@ -52,6 +52,27 @@ public class GenericUtil {
     }
 
     /**
+     * Gets the int value of an input text component.
+     *
+     * @param activity A not null instance of an Activity.
+     * @param textInputLayoutID The resource id of the input text layout.
+     * @return A not null string that contains the content of the input text.
+     */
+    public static Number getNumberFromInputLayout(@NotNull Activity activity,
+                                                  @IdRes int textInputLayoutID) {
+
+        TextInputLayout inputLayout = activity.findViewById(textInputLayoutID);
+        assert inputLayout != null;
+
+        EditText editText = inputLayout.getEditText();
+        assert editText != null;
+
+        String number = editText.getText().toString().trim();
+        return MathUtil.getNumber(number);
+
+    }
+
+    /**
      * Gets the text of an input text component.
      *
      * @param activity A not null instance of an Activity.
@@ -73,14 +94,15 @@ public class GenericUtil {
     }
 
     /**
-     * Gets the int value of an input text component.
+     * Gets the text of an input text component.
      *
      * @param activity A not null instance of an Activity.
      * @param textInputLayoutID The resource id of the input text layout.
-     * @return A not null string that contains the content of the input text.
+     * @param value The long value.
      */
-    public static int getIntFromInputLayout(@NotNull Activity activity,
-                                            @IdRes int textInputLayoutID) {
+    public static void setNumberToInputLayout(@NotNull Activity activity,
+                                              @IdRes int textInputLayoutID,
+                                              long value) {
 
         TextInputLayout inputLayout = activity.findViewById(textInputLayoutID);
         assert inputLayout != null;
@@ -88,7 +110,7 @@ public class GenericUtil {
         EditText editText = inputLayout.getEditText();
         assert editText != null;
 
-        return Integer.parseInt(editText.getText().toString().trim());
+        editText.setText(String.valueOf(value));
 
     }
 
@@ -97,11 +119,11 @@ public class GenericUtil {
      *
      * @param activity A not null instance of an Activity.
      * @param textInputLayoutID The resource id of the input text layout.
-     * @param value The not null text.
+     * @param value The decimal value.
      */
-    public static void setIntToInputLayout(@NotNull Activity activity,
-                                           @IdRes int textInputLayoutID,
-                                           int value) {
+    public static void setNumberToInputLayout(@NotNull Activity activity,
+                                              @IdRes int textInputLayoutID,
+                                              double value) {
 
         TextInputLayout inputLayout = activity.findViewById(textInputLayoutID);
         assert inputLayout != null;

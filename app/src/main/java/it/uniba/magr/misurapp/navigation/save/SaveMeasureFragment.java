@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.LayoutRes;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.NavigationFragment;
@@ -22,8 +22,12 @@ import lombok.RequiredArgsConstructor;
 import static it.uniba.magr.misurapp.util.GenericUtil.getTextFromInputLayout;
 import static it.uniba.magr.misurapp.util.GenericUtil.setTextToInputLayout;
 
+@SuppressWarnings("unused") // unused methods
 public abstract class SaveMeasureFragment extends NavigationFragment {
 
+    /**
+     * The no parameters rule.
+     */
     public static final int NO_PARAMETERS = 0;
 
     public SaveMeasureFragment(SaveMeasureNavigable navigable) {
@@ -49,10 +53,16 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         fragmentTransaction.replace(R.id.save_parameters_fragment_view,
-                new ParametersFragment(parametersViewId));
+                new ParametersFragment(parametersViewId, this :: handleParametersCreation));
         fragmentTransaction.commit();
 
     }
+
+    /**
+     * The method that will be executed
+     * during the onActivityCreated() lifecycle event.
+     */
+    protected abstract void handleParametersCreation();
 
     /**
      * @return the inserted title.
@@ -96,11 +106,24 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
 
     }
 
+    /**
+     * The fragment class that will be placed between the title and description views.
+     */
     @RequiredArgsConstructor
     public static class ParametersFragment extends Fragment {
 
+        /**
+         * The layout ID.
+         */
         @Getter @LayoutRes
         private final int parameterViewId;
+
+        /**
+         * The method that will be executed
+         * during the onActivityCreated() lifecycle event.
+         */
+        @Getter @NotNull
+        private final Runnable behaviourMethod;
 
         @Nullable
         @Override
@@ -108,6 +131,14 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
                                  @Nullable ViewGroup parent,
                                  @Nullable Bundle bundle) {
             return inflater.inflate(parameterViewId, parent, false);
+        }
+
+        @Override
+        public void onActivityCreated(@Nullable Bundle bundle) {
+
+            super.onActivityCreated(bundle);
+            behaviourMethod.run();
+
         }
 
     }

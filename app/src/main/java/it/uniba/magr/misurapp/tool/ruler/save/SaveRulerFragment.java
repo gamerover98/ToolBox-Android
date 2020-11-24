@@ -12,6 +12,7 @@ import it.uniba.magr.misurapp.util.GenericUtil;
 
 import static it.uniba.magr.misurapp.util.GenericUtil.*;
 
+@SuppressWarnings("unused") // unused methods
 public class SaveRulerFragment extends SaveMeasureFragment {
 
     public SaveRulerFragment() {
@@ -42,23 +43,40 @@ public class SaveRulerFragment extends SaveMeasureFragment {
 
     }
 
+    @Override
+    protected void handleParametersCreation() {
+        // noting to do
+    }
+
     /**
      * @return the inserted centimeters length.
      */
-    public int getLength() {
+    public double getLength() {
 
         assert getActivity() != null;
-        return getIntFromInputLayout(getActivity(), R.id.save_ruler_input_text_box_length);
+        return getNumberFromInputLayout(getActivity(),
+                R.id.save_ruler_input_text_box_length).doubleValue();
 
     }
 
     /**
      * Set the length in centimeters.
      */
-    public void setLength(int value) {
+    public void setLength(double value) {
 
         assert getActivity() != null;
-        setIntToInputLayout(getActivity(), R.id.save_ruler_input_text_box_length, value);
+
+        if (value == (long) value) {
+
+            setNumberToInputLayout(getActivity(),
+                    R.id.save_ruler_input_text_box_length, (long) value);
+
+        } else {
+
+            setNumberToInputLayout(getActivity(),
+                    R.id.save_ruler_input_text_box_length, value);
+
+        }
 
     }
 
