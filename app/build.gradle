@@ -53,6 +53,8 @@ dependencies {
     // FirebaseUI for login with google
     implementation 'com.firebaseui:firebase-ui-auth:6.3.0'
 
+    implementation 'com.squareup.okhttp:okhttp:2.7.5'
+
     // lombok: https://projectlombok.org/setup/gradle
     // Note: Don't change compileOnly with implementation, it doesn't work!
     //noinspection AnnotationProcessorOnCompilePath
