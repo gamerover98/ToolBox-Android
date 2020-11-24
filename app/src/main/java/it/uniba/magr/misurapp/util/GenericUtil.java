@@ -52,6 +52,27 @@ public class GenericUtil {
     }
 
     /**
+     * Gets the text of an input text component.
+     *
+     * @param activity A not null instance of an Activity.
+     * @param textInputLayoutID The resource id of the input text layout.
+     * @param text The not null text.
+     */
+    public static void setTextToInputLayout(@NotNull Activity activity,
+                                            @IdRes int textInputLayoutID,
+                                            @NotNull String text) {
+
+        TextInputLayout inputLayout = activity.findViewById(textInputLayoutID);
+        assert inputLayout != null;
+
+        EditText editText = inputLayout.getEditText();
+        assert editText != null;
+
+        editText.setText(text);
+
+    }
+
+    /**
      * Gets the int value of an input text component.
      *
      * @param activity A not null instance of an Activity.
