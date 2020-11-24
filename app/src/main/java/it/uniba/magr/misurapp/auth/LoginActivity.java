@@ -1,21 +1,17 @@
 package it.uniba.magr.misurapp.auth;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +25,8 @@ import java.security.NoSuchAlgorithmException;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.util.DigestUtil;
+
+import static it.uniba.magr.misurapp.util.GenericUtil.*;
 
 @SuppressWarnings("squid:S110")
 public class LoginActivity extends AppCompatActivity {
@@ -202,16 +200,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    static String getTextFromInputLayout(@NotNull Activity activity, @IdRes int textInputLayoutID) {
 
-        TextInputLayout surnameInput = activity.findViewById(textInputLayoutID);
-        assert surnameInput != null;
-
-        EditText editText = surnameInput.getEditText();
-        assert editText != null;
-
-        return editText.getText().toString().trim();
-
-    }
 
 }

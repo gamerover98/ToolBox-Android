@@ -28,6 +28,7 @@ import it.uniba.magr.misurapp.navigation.settings.SettingsFragment;
 import it.uniba.magr.misurapp.util.DigestUtil;
 
 import static it.uniba.magr.misurapp.auth.LoginActivity.*;
+import static it.uniba.magr.misurapp.util.GenericUtil.*;
 
 @SuppressWarnings("squid:S110")
 public class RegistrationActivity extends AppCompatActivity {

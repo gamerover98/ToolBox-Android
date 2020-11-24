@@ -19,6 +19,9 @@ import it.uniba.magr.misurapp.navigation.NavigationFragment;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import static it.uniba.magr.misurapp.util.GenericUtil.getTextFromInputLayout;
+import static it.uniba.magr.misurapp.util.GenericUtil.setTextToInputLayout;
+
 public abstract class SaveMeasureFragment extends NavigationFragment {
 
     public static final int NO_PARAMETERS = 0;
@@ -48,6 +51,48 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
         fragmentTransaction.replace(R.id.save_parameters_fragment_view,
                 new ParametersFragment(parametersViewId));
         fragmentTransaction.commit();
+
+    }
+
+    /**
+     * @return the inserted title.
+     */
+    @NotNull
+    public String getTitle() {
+
+        assert getActivity() != null;
+        return getTextFromInputLayout(getActivity(), R.id.save_input_text_box_title);
+
+    }
+
+    /**
+     * @return the inserted description.
+     */
+    @NotNull
+    public String getDescription() {
+
+        assert getActivity() != null;
+        return getTextFromInputLayout(getActivity(), R.id.save_input_text_box_description);
+
+    }
+
+    /**
+     * @param title The title text.
+     */
+    public void setTitle(@NotNull String title) {
+
+        assert getActivity() != null;
+        setTextToInputLayout(getActivity(), R.id.save_input_text_box_title, title);
+
+    }
+
+    /**
+     * @param description The description text.
+     */
+    public void setDescription(@NotNull String description) {
+
+        assert getActivity() != null;
+        setTextToInputLayout(getActivity(), R.id.save_input_text_box_description, description);
 
     }
 

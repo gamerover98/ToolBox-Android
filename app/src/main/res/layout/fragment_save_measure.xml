@@ -23,11 +23,11 @@
                 android:text="@string/text_title"
                 android:textColor="@color/primary_dark"
                 android:textSize="25sp"
-                app:layout_constraintBottom_toTopOf="@+id/save_title_input_text_layout"
+                app:layout_constraintBottom_toTopOf="@+id/save_input_text_box_title"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/save_title_input_text_layout"
+                android:id="@+id/save_input_text_box_title"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/save_title_input_text"
+                    android:id="@+id/save_input_text_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
@@ -58,10 +58,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
                 android:layout_marginBottom="50dp"
-                app:layout_constraintBottom_toTopOf="@+id/save_description_input_text_layout"
+                app:layout_constraintBottom_toTopOf="@+id/save_input_text_box_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/save_title_input_text_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/save_input_text_box_title" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/save_description_text"
@@ -73,14 +73,14 @@
                 android:text="@string/text_description"
                 android:textColor="@color/primary_dark"
                 android:textSize="25sp"
-                app:layout_constraintBottom_toTopOf="@+id/save_description_input_text_layout"
+                app:layout_constraintBottom_toTopOf="@+id/save_input_text_box_description"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/save_description_input_text_layout"
+                android:id="@+id/save_input_text_box_description"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="280dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/rounded_field"
@@ -92,7 +92,7 @@
                 android:layout_marginBottom="60dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/save_description_input_text"
+                    android:id="@+id/save_input_text_description"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
@@ -110,7 +110,7 @@
     </ScrollView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/confirm_measure_button"
+        android:id="@+id/save_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_primary"
