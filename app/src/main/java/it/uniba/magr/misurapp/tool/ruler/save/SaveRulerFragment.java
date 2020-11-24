@@ -6,8 +6,11 @@ import android.view.Window;
 
 import org.jetbrains.annotations.NotNull;
 
+import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.save.SaveMeasureFragment;
 import it.uniba.magr.misurapp.util.GenericUtil;
+
+import static it.uniba.magr.misurapp.util.GenericUtil.*;
 
 public class SaveRulerFragment extends SaveMeasureFragment {
 
@@ -36,6 +39,26 @@ public class SaveRulerFragment extends SaveMeasureFragment {
 
         Window window = homeActivity.getWindow();
         GenericUtil.hideSystemUI(window);
+
+    }
+
+    /**
+     * @return the inserted centimeters length.
+     */
+    public int getLength() {
+
+        assert getActivity() != null;
+        return getIntFromInputLayout(getActivity(), R.id.save_ruler_input_text_box_length);
+
+    }
+
+    /**
+     * Set the length in centimeters.
+     */
+    public void setLength(int value) {
+
+        assert getActivity() != null;
+        setIntToInputLayout(getActivity(), R.id.save_ruler_input_text_box_length, value);
 
     }
 

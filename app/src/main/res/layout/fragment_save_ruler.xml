@@ -15,11 +15,11 @@
         android:text="@string/text_length"
         android:textColor="@color/primary_dark"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/save_ruler_length_input_text_layout"
+        app:layout_constraintBottom_toTopOf="@+id/save_ruler_input_text_box_length"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/save_ruler_length_input_text_layout"
+        android:id="@+id/save_ruler_input_text_box_length"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/save_ruler_title_input_text"
+            android:id="@+id/save_ruler_input_text_length"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"

@@ -52,15 +52,14 @@ public class GenericUtil {
     }
 
     /**
-     * Gets the text of an input text component.
+     * Gets the int value of an input text component.
      *
      * @param activity A not null instance of an Activity.
      * @param textInputLayoutID The resource id of the input text layout.
-     * @param text The not null text.
+     * @return A not null string that contains the content of the input text.
      */
-    public static void setTextToInputLayout(@NotNull Activity activity,
-                                            @IdRes int textInputLayoutID,
-                                            @NotNull String text) {
+    public static int getIntFromInputLayout(@NotNull Activity activity,
+                                            @IdRes int textInputLayoutID) {
 
         TextInputLayout inputLayout = activity.findViewById(textInputLayoutID);
         assert inputLayout != null;
@@ -68,7 +67,28 @@ public class GenericUtil {
         EditText editText = inputLayout.getEditText();
         assert editText != null;
 
-        editText.setText(text);
+        return Integer.parseInt(editText.getText().toString().trim());
+
+    }
+
+    /**
+     * Gets the text of an input text component.
+     *
+     * @param activity A not null instance of an Activity.
+     * @param textInputLayoutID The resource id of the input text layout.
+     * @param value The not null text.
+     */
+    public static void setIntToInputLayout(@NotNull Activity activity,
+                                           @IdRes int textInputLayoutID,
+                                           int value) {
+
+        TextInputLayout inputLayout = activity.findViewById(textInputLayoutID);
+        assert inputLayout != null;
+
+        EditText editText = inputLayout.getEditText();
+        assert editText != null;
+
+        editText.setText(String.valueOf(value));
 
     }
 
