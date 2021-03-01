@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "599676596933-4sptn662gieclo4q93bvb5hfs0r5u1id.apps.googleusercontent.com",
+          "client_id": "599676596933-q9bcfsu5alpnl2q1fvnt4u1hdt5f62r5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "it.uniba.magr.misurapp",
-            "certificate_hash": "1828be0076e557f10b0ea4f32bfdfbb9d405f436"
+            "certificate_hash": "3567f6bc8bf01c8cad0ecf622d28791c3f40d0f8"
           }
         },
         {
