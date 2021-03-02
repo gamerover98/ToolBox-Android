@@ -45,7 +45,7 @@ public class SaveRulerFragment extends SaveMeasureFragment {
 
     @Override
     protected void handleParametersCreation() {
-        // noting to do
+        // nothing to do
     }
 
     /**

@@ -226,6 +226,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         String text = getTextFromInputLayout(this, R.id.registration_input_text_box_password);
 
+        //TODO: edit this implementation to grant the correct password hashing.
         if (text.trim().isEmpty()) {
             return "";
         }

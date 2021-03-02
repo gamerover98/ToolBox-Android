@@ -20,7 +20,7 @@ public final class GenericUtil {
     }
 
     /**
-     * @param context A not null instance of a cotext.
+     * @param context A not null instance of a context.
      * @return Size in millimetres of one pixel of the device's display.
      */
     public static float getPixelSize(@NotNull Context context) {

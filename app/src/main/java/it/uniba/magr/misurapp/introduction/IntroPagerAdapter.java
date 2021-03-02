@@ -18,6 +18,7 @@ public class IntroPagerAdapter extends FragmentStatePagerAdapter {
 
     private static final int PAGES = 3;
 
+    //TODO: change this array with a List.
     private final Fragment[] pagesArray = new Fragment[PAGES];
 
     @SuppressWarnings("squid:S1874")

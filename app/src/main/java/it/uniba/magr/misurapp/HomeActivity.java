@@ -247,7 +247,7 @@ public class HomeActivity extends AppCompatActivity implements
      */
     public void refreshNavigation() {
 
-        MenuItem loginItem = navigationView.getMenu().findItem(R.id.drawer_menu_login);
+        MenuItem loginItem  = navigationView.getMenu().findItem(R.id.drawer_menu_login);
         MenuItem logoutItem = navigationView.getMenu().findItem(R.id.drawer_menu_logout);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -283,7 +283,7 @@ public class HomeActivity extends AppCompatActivity implements
 
         navItemBehaviourMap.put(loginItem,          this :: loginNavClick);
         navItemBehaviourMap.put(logoutItem,         this :: logoutNavClick);
-        navItemBehaviourMap.put(addMeasureMenuItem, this ::addMeasureItemNavClick);
+        navItemBehaviourMap.put(addMeasureMenuItem, this :: addMeasureItemNavClick);
         navItemBehaviourMap.put(settingsMenuItem,   this :: settingsItemNavClick);
 
     }
