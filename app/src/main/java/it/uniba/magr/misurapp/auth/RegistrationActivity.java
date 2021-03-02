@@ -64,8 +64,21 @@ public class RegistrationActivity extends AppCompatActivity {
         String name = getName();
         String surname = getSurname();
         String email = getEmail();
-        String hashedPassword = getHashedPassword();
+        String hashedPassword;
         String confirmedHashedPassword = getConfirmHashedPassword();
+
+        try {
+
+            hashedPassword = getHashedPassword();
+
+        } catch (IllegalStateException isEx) {
+
+            Toast.makeText(this,
+                    getResources().getString(R.string.text_auth_incorrect_password),
+                    Toast.LENGTH_LONG).show();
+            return;
+
+        }
 
         if (name.isEmpty()) {
 
@@ -225,9 +238,13 @@ public class RegistrationActivity extends AppCompatActivity {
     private String getHashedPassword() {
 
         String text = getTextFromInputLayout(this, R.id.registration_input_text_box_password);
+        text = text.trim();
 
-        //TODO: edit this implementation to grant the correct password hashing.
-        if (text.trim().isEmpty()) {
+        if (text.contains(" ")) {
+            throw new IllegalStateException("The password contains spaces");
+        }
+
+        if (text.isEmpty()) {
             return "";
         }
 
