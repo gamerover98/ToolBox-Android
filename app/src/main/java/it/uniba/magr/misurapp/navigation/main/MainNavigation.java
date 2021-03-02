@@ -56,11 +56,21 @@ public class MainNavigation implements Navigable {
         DrawerLayout drawerLayout = homeActivity.getDrawerLayout();
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
+        View mainLayout = homeActivity.findViewById(R.id.fragment_main_layout);
+
+        // click the entire layout
+        mainLayout.setOnClickListener(this :: performMainLayoutClick);
+
+        // click toolbar title
+        homeActivity.getToolbar().setOnClickListener(this :: performMainLayoutClick);
+
+        // click navbar button
+        homeActivity.setNavigationButtonClick(this :: navigationButtonClick);
     }
 
     private void setupFloatingButtons() {
 
-        FloatingActionButton buttonOperation = homeActivity.findViewById(R.id.fab_button_operation);
+        FloatingActionButton fabButton = homeActivity.findViewById(R.id.fab_button_operation);
 
         buttonAddMeasure = homeActivity.findViewById(R.id.fab_button_add_measure);
         animationFabOpening = AnimationUtils.loadAnimation(homeActivity, R.anim.fab_open);
@@ -69,42 +79,78 @@ public class MainNavigation implements Navigable {
         animationRotateBackward = AnimationUtils.loadAnimation(homeActivity, R.anim.rotate_backward);
 
         buttonAddMeasureTextView = homeActivity.findViewById(R.id.fab_button_add_measure_text_view);
-        buttonAddMeasure.setOnClickListener(this :: addMeasureClick);
+        buttonAddMeasure.setOnClickListener(this :: performAddMeasureClick);
 
-        buttonOperation.setOnClickListener(this :: operationButtonClick);
+        fabButton.setOnClickListener(this :: performFabClick);
 
     }
 
-    private void addMeasureClick(@NotNull View view) {
+
+    private void performMainLayoutClick(@NotNull View view) {
+
+        FloatingActionButton fabButton = homeActivity.findViewById(R.id.fab_button_operation);
+
+        if (fabOpened) {
+            closeFabButton(fabButton);
+        }
+
+    }
+
+    private void navigationButtonClick() {
+
+        View mainLayout = homeActivity.findViewById(R.id.fragment_main_layout);
+        performMainLayoutClick(mainLayout);
+
+    }
+
+    private void performAddMeasureClick(@NotNull View view) {
 
         homeActivity.getNavController().navigate(R.id.nav_list_tools_fragment);
         homeActivity.getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
     }
 
-    private void operationButtonClick(@NotNull View view) {
+    private void performFabClick(@NotNull View view) {
+
+        FloatingActionButton fabButton = homeActivity.findViewById(R.id.fab_button_operation);
 
         if (fabOpened) {
-
-            view.startAnimation(animationRotateBackward);
-
-            buttonAddMeasure.startAnimation(animationFabClosing);
-            buttonAddMeasureTextView.setVisibility(View.INVISIBLE);
-            buttonAddMeasure.setClickable(false);
-
-            fabOpened = false;
-
+            closeFabButton(fabButton);
         } else {
-
-            view.startAnimation(animationRotateForward);
-
-            buttonAddMeasure.startAnimation(animationFabOpening);
-            buttonAddMeasureTextView.setVisibility(View.VISIBLE);
-            buttonAddMeasure.setClickable(true);
-
-            fabOpened = true;
-
+            openFabButton(fabButton);
         }
+
+    }
+
+    /**
+     * Close the floating button with its properly animation.
+     * @param fabButton The not null instance of the floating button.
+     */
+    private void closeFabButton(@NotNull FloatingActionButton fabButton) {
+
+        fabButton.startAnimation(animationRotateBackward);
+
+        buttonAddMeasure.startAnimation(animationFabClosing);
+        buttonAddMeasureTextView.setVisibility(View.INVISIBLE);
+        buttonAddMeasure.setClickable(false);
+
+        fabOpened = false;
+
+    }
+
+    /**
+     * Open the floating button with its properly animation.
+     * @param fabButton The not null instance of the floating button.
+     */
+    private void openFabButton(@NotNull FloatingActionButton fabButton) {
+
+        fabButton.startAnimation(animationRotateForward);
+
+        buttonAddMeasure.startAnimation(animationFabOpening);
+        buttonAddMeasureTextView.setVisibility(View.VISIBLE);
+        buttonAddMeasure.setClickable(true);
+
+        fabOpened = true;
 
     }
 

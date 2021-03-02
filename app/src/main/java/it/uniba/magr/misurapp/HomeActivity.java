@@ -39,6 +39,7 @@ import it.uniba.magr.misurapp.auth.AuthActivity;
 import it.uniba.magr.misurapp.introduction.IntroductionFragment;
 import it.uniba.magr.misurapp.loading.LoadingFragment;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * The Main Activity layout of the application.
@@ -97,6 +98,13 @@ public class HomeActivity extends AppCompatActivity implements
      */
     @Getter @NotNull
     private NavController navController;
+
+    /**
+     * Set or get the navigation button behaviour click that will be executed
+     * during the click of the hamburger or back arrow button of the navbar.
+     */
+    @Getter @Setter @Nullable
+    private Runnable navigationButtonClick = null;
 
     /**
      * Application layout and navigation initialization.
@@ -176,6 +184,10 @@ public class HomeActivity extends AppCompatActivity implements
             displayNameTextView.setVisibility(View.GONE);
             emailTextView.setVisibility(View.GONE);
 
+        }
+
+        if (navigationButtonClick != null) {
+            navigationButtonClick.run();
         }
 
         return NavigationUI.navigateUp(navController, drawerLayout);
