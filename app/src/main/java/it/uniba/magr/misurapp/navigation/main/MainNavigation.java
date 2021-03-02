@@ -99,7 +99,10 @@ public class MainNavigation implements Navigable {
     private void navigationButtonClick() {
 
         View mainLayout = homeActivity.findViewById(R.id.fragment_main_layout);
-        performMainLayoutClick(mainLayout);
+
+        if (mainLayout != null) {
+            performMainLayoutClick(mainLayout);
+        }
 
     }
 
