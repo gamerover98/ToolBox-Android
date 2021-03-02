@@ -171,14 +171,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <FrameLayout
-        android:id="@+id/registration_frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/registration_button"
-        app:layout_constraintTop_toBottomOf="@+id/registration_input_text_box_confirm_password">
-
-    </FrameLayout>
     
 </androidx.constraintlayout.widget.ConstraintLayout>
