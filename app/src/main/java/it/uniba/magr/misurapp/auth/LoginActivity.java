@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -47,6 +48,9 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onCreate(bundle);
         setContentView(R.layout.activity_login);
+
+        AppCompatImageView closeImageView = findViewById(R.id.login_image_close);
+        closeImageView.setOnClickListener(this :: performCloseClick);
 
         MaterialTextView regTextView = findViewById(R.id.text_signup);
 
@@ -200,6 +204,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
+    private void performCloseClick(@NotNull View view) {
+        finish();
+    }
 
 }

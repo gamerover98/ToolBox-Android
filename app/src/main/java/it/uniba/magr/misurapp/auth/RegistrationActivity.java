@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
@@ -40,6 +41,9 @@ public class RegistrationActivity extends AppCompatActivity {
 
         super.onCreate(bundle);
         setContentView(R.layout.activity_registration);
+
+        AppCompatImageView closeImageView = findViewById(R.id.registration_image_close);
+        closeImageView.setOnClickListener(this :: performCloseClick);
 
         MaterialButton loginButton = findViewById(R.id.registration_button);
         loginButton.setOnClickListener(this :: performRegistrationClick);
@@ -272,6 +276,10 @@ public class RegistrationActivity extends AppCompatActivity {
             throw new IllegalStateException("Cannot get the MD5 algorithm");
         }
 
+    }
+
+    private void performCloseClick(@NotNull View view) {
+        finish();
     }
 
 }
