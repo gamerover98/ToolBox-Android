@@ -30,7 +30,7 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
      */
     public static final int NO_PARAMETERS = 0;
 
-    public SaveMeasureFragment(SaveMeasureNavigable navigable) {
+    protected SaveMeasureFragment(SaveMeasureNavigable navigable) {
         super(navigable);
     }
 
