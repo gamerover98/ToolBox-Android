@@ -11,6 +11,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
@@ -38,6 +39,7 @@ import java.util.Optional;
 import it.uniba.magr.misurapp.auth.AuthActivity;
 import it.uniba.magr.misurapp.introduction.IntroductionFragment;
 import it.uniba.magr.misurapp.loading.LoadingFragment;
+import it.uniba.magr.misurapp.util.LocaleUtil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -47,7 +49,7 @@ import lombok.Setter;
  * This class will manage the interfaces and components
  * of the project.
  */
-@SuppressWarnings({"squid:S110", "NotNullFieldNotInitialized"})
+@SuppressWarnings("squid:S110")
 public class HomeActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
@@ -67,7 +69,7 @@ public class HomeActivity extends AppCompatActivity implements
      * It will be initialized since the activity layout
      * doesn't have an XML default toolbar property.
      */
-    @Getter @NotNull
+    @Getter
     private Toolbar toolbar;
 
     /**
@@ -75,7 +77,7 @@ public class HomeActivity extends AppCompatActivity implements
      * The DrawerLayout thought to be the base of the dynamic
      * graph layout managed by the Navigation Controller.
      */
-    @Getter @NotNull
+    @Getter
     private DrawerLayout drawerLayout;
 
     /**
@@ -84,19 +86,19 @@ public class HomeActivity extends AppCompatActivity implements
      *
      * <p>You can consider this as the navigation menu.</p>
      */
-    @Getter @NotNull
+    @Getter
     private NavigationView navigationView;
 
     /**
      * Gets the Navigation Host Fragment instance.
      */
-    @Getter @NotNull
+    @Getter
     private NavHostFragment navHostFragment;
 
     /**
      * Gets the Navigation Controller instance.
      */
-    @Getter @NotNull
+    @Getter
     private NavController navController;
 
     /**
@@ -105,6 +107,11 @@ public class HomeActivity extends AppCompatActivity implements
      */
     @Getter @Setter @Nullable
     private Runnable navigationButtonClick = null;
+
+    /**
+     * If true, the update settings fragment will be updated.
+     */
+    private boolean updateSettingsFragment;
 
     /**
      * Application layout and navigation initialization.
@@ -116,6 +123,7 @@ public class HomeActivity extends AppCompatActivity implements
         super.onCreate(bundle);
         setContentView(R.layout.activity_home);
 
+        LocaleUtil.onActivityCreated();
         setupNavigation();
 
     }
@@ -138,6 +146,8 @@ public class HomeActivity extends AppCompatActivity implements
     protected void onResume() {
 
         super.onResume();
+
+        LocaleUtil.onActivityCreated();
         reload();
 
     }
@@ -265,6 +275,12 @@ public class HomeActivity extends AppCompatActivity implements
 
         }
 
+        if (updateSettingsFragment) {
+
+            updateSettingsFragment = false;
+            toolbar.setTitle(R.string.text_settings);
+
+        }
 
     }
 
@@ -285,6 +301,23 @@ public class HomeActivity extends AppCompatActivity implements
         navItemBehaviourMap.put(logoutItem,         this :: logoutNavClick);
         navItemBehaviourMap.put(addMeasureMenuItem, this :: addMeasureItemNavClick);
         navItemBehaviourMap.put(settingsMenuItem,   this :: settingsItemNavClick);
+
+    }
+
+    /**
+     * Update the settings fragment.
+     *
+     * <p>
+     *     Useful after its creation or recreation.
+     * </p>
+     */
+    public void updateSettingsFragment() {
+
+        if (toolbar != null) {
+            toolbar.setTitle(R.string.text_settings);
+        } else {
+            updateSettingsFragment = true;
+        }
 
     }
 
@@ -441,6 +474,11 @@ public class HomeActivity extends AppCompatActivity implements
 
         toolbar.setNavigationIcon(navigationIcon);
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleUtil.onAttach(newBase));
     }
 
 }

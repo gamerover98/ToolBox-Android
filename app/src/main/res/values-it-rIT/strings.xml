@@ -56,4 +56,7 @@
     <string name="text_ruler_description">Misura la lunghezza di qualcosa</string>
     <string name="text_length">Lunghezza</string>
     <string name="text_insert_centimeters">Inserisci lunghezza in centimetri</string>
+    <string name="text_system_language">Lingua di sistema</string>
+    <string name="text_language">Lingua</string>
+    <string name="text_select_language">Seleziona la tua lingua</string>
 </resources>

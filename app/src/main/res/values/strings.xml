@@ -58,4 +58,7 @@
     <string name="text_ruler_description">Use the ruler</string>
     <string name="text_length">Length</string>
     <string name="text_insert_centimeters">Insert centimeters</string>
+    <string name="text_system_language">System language</string>
+    <string name="text_language">Language</string>
+    <string name="text_select_language">Select your language</string>
 </resources>

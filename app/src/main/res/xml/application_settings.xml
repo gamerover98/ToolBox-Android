@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <SwitchPreferenceCompat
-        android:key="switch_complete_functionality"
-        android:title="@string/text_complete_functionality_title"
-        android:summary="@string/text_complete_functionality_summary"
-        android:icon="@drawable/icon_pencil"/>
-
-    <SwitchPreferenceCompat
-        android:key="switch_essentials_functionality"
-        android:title="@string/text_essentials_functionality_title"
-        android:summary="@string/text_essentials_functionality_summary"
-        android:icon="@drawable/icon_pencil"/>
+    <ListPreference
+        android:key="list_select_language"
+        android:title="@string/text_language"
+        android:summary="@string/text_select_language"
+        android:icon="@drawable/icon_flag"
+        android:entries="@array/languages"
+        android:entryValues="@array/languages_values"
+        />
 
 </PreferenceScreen>
