@@ -70,6 +70,8 @@ public class NavigationFragment extends Fragment {
             this.toolbar = homeActivity.getToolbar();
 
             String toolbarTitle = navigable.getToolbarName(homeActivity);
+
+            assert toolbar != null;
             toolbar.setTitle(toolbarTitle);
 
         }

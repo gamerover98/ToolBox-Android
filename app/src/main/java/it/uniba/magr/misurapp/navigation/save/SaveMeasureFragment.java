@@ -1,15 +1,19 @@
 package it.uniba.magr.misurapp.navigation.save;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.button.MaterialButton;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -56,6 +60,9 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
                 new ParametersFragment(parametersViewId, this :: handleParametersCreation));
         fragmentTransaction.commit();
 
+        MaterialButton saveButton = activity.findViewById(R.id.save_button);
+        saveButton.setOnClickListener(this :: handleSaveClick);
+
     }
 
     /**
@@ -63,6 +70,11 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
      * during the onActivityCreated() lifecycle event.
      */
     protected abstract void handleParametersCreation();
+
+    /**
+     * Save additional parameters such as ruler length.
+     */
+    protected abstract void save();
 
     /**
      * @return the inserted title.
@@ -103,6 +115,29 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
 
         assert getActivity() != null;
         setTextToInputLayout(getActivity(), R.id.save_input_text_box_description, description);
+
+    }
+
+
+    public void handleSaveClick(@NotNull View view) {
+
+        Context context = getContext();
+
+        String title = getTitle();
+        String description = getDescription();
+
+        if (title.isEmpty()) {
+
+            Toast.makeText(context, R.string.text_insert_title, Toast.LENGTH_LONG).show();
+            return;
+
+        }
+
+        title = title.trim();
+        Toast.makeText(context, title + " - " + description, Toast.LENGTH_LONG).show();
+
+        //TODO: it must be implemented to save title and description and its custom parameters.
+        save();
 
     }
 

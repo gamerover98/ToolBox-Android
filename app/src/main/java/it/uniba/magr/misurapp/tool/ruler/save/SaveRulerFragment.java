@@ -48,6 +48,11 @@ public class SaveRulerFragment extends SaveMeasureFragment {
         // nothing to do
     }
 
+    @Override
+    protected void save() {
+        //TODO: add length param.
+    }
+
     /**
      * @return the inserted centimeters length.
      */
