@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.Room;
 
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +38,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import it.uniba.magr.misurapp.auth.AuthActivity;
+import it.uniba.magr.misurapp.database.DatabaseManager;
 import it.uniba.magr.misurapp.introduction.IntroductionFragment;
 import it.uniba.magr.misurapp.loading.LoadingFragment;
 import it.uniba.magr.misurapp.util.LocaleUtil;
@@ -114,6 +116,12 @@ public class HomeActivity extends AppCompatActivity implements
     private boolean updateSettingsFragment;
 
     /**
+     * Gets the SQLite database manager of this application.
+     */
+    @Getter
+    private DatabaseManager databaseManager;
+
+    /**
      * Application layout and navigation initialization.
      * @param bundle The bundle of this activity.
      */
@@ -122,6 +130,14 @@ public class HomeActivity extends AppCompatActivity implements
 
         super.onCreate(bundle);
         setContentView(R.layout.activity_home);
+
+        databaseManager = Room.databaseBuilder(getApplicationContext(),
+                DatabaseManager.class, "MisurApp").build();
+
+
+        //TODO: [Temporary code]
+        // this thread is useful to check the first database integrity.
+        new Thread(() -> databaseManager.measureDao().getAll()).start();
 
         LocaleUtil.onActivityCreated();
         setupNavigation();
