@@ -14,7 +14,8 @@
         android:numColumns="1"
         android:stretchMode="columnWidth"
         android:listSelector="#00000000"
-        android:background="#2AAAAAAA"/>
+        android:background="#2AAAAAAA">
+    </GridView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment_main_layout"
@@ -22,19 +23,26 @@
         android:layout_gravity="bottom"
         android:layout_height="wrap_content">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:alpha="0.9"
+            android:background="@drawable/main_bottom_panel"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_button_operation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="25dp"
             android:backgroundTint="@color/fab_color"
             android:src="@drawable/icon_add"
             app:elevation="6dp"
-            app:tint="@color/icons"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="ContentDescription"/>
+            app:tint="@color/icons"
+            tools:ignore="ContentDescription" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_button_add_measure"
@@ -58,7 +66,10 @@
             android:layout_marginEnd="10dp"
             android:gravity="center"
             android:text="@string/text_add_measure"
+            android:textColor="@color/primary_text"
             android:visibility="invisible"
+            android:background="@drawable/rounded_box_white"
+            android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/fab_button_add_measure"
             app:layout_constraintEnd_toStartOf="@+id/fab_button_add_measure"
             app:layout_constraintTop_toTopOf="@+id/fab_button_add_measure" />
