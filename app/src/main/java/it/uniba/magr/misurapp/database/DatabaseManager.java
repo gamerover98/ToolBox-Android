@@ -14,6 +14,6 @@ public abstract class DatabaseManager extends RoomDatabase {
     /**
      * @return The DAO of the Measurements class.
      */
-    public abstract MeasurementsDao measureDao();
+    public abstract MeasurementsDao measurementsDao();
 
 }

@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
+import lombok.ToString;
+
 /**
  * A single entry (row's table) of the Measurements table.
  * In this database version will be:
@@ -22,6 +24,7 @@ import java.util.Date;
  *     the type conversions.
  * </p>
  */
+@ToString
 @Entity(tableName = "Measurements")
 public class Measure {
 

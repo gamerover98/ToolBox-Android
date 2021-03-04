@@ -134,11 +134,6 @@ public class HomeActivity extends AppCompatActivity implements
         databaseManager = Room.databaseBuilder(getApplicationContext(),
                 DatabaseManager.class, "MisurApp").build();
 
-
-        //TODO: [Temporary code]
-        // this thread is useful to check the first database integrity.
-        new Thread(() -> databaseManager.measureDao().getAll()).start();
-
         LocaleUtil.onActivityCreated();
         setupNavigation();
 
