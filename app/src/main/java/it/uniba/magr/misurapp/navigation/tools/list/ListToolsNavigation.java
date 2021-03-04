@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.Navigable;
-import it.uniba.magr.misurapp.navigation.tools.list.card.MeasureCard;
+import it.uniba.magr.misurapp.navigation.tools.list.card.ToolCard;
 
 public class ListToolsNavigation implements Navigable {
 
@@ -47,8 +47,8 @@ public class ListToolsNavigation implements Navigable {
         GridView gridView = (GridView) parent;
         ListToolsCardAdapter cardAdapter = (ListToolsCardAdapter) gridView.getAdapter();
 
-        MeasureCard measureCard = cardAdapter.getMeasureCard(position);
-        measureCard.onClick(context);
+        ToolCard toolCard = cardAdapter.getToolCard(position);
+        toolCard.onClick(context);
 
     }
 

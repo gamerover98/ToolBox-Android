@@ -15,9 +15,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.LinkedList;
 
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.navigation.tools.list.card.LevelCard;
-import it.uniba.magr.misurapp.navigation.tools.list.card.MeasureCard;
-import it.uniba.magr.misurapp.navigation.tools.list.card.RulerCard;
+import it.uniba.magr.misurapp.navigation.tools.list.card.LevelToolCard;
+import it.uniba.magr.misurapp.navigation.tools.list.card.ToolCard;
+import it.uniba.magr.misurapp.navigation.tools.list.card.RulerToolCard;
 
 public class ListToolsCardAdapter extends BaseAdapter {
 
@@ -25,14 +25,14 @@ public class ListToolsCardAdapter extends BaseAdapter {
     private final Context context;
 
     @NotNull
-    private final LinkedList<MeasureCard> cards = new LinkedList<>();
+    private final LinkedList<ToolCard> cards = new LinkedList<>();
 
     public ListToolsCardAdapter(@NotNull Context context) {
 
         this.context = context;
 
-        cards.add(new RulerCard());
-        cards.add(new LevelCard());
+        cards.add(new RulerToolCard());
+        cards.add(new LevelToolCard());
 
     }
 
@@ -43,7 +43,7 @@ public class ListToolsCardAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return cards.get(position).getImageID();
+        return getToolCard(position).getImageID();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ListToolsCardAdapter extends BaseAdapter {
     }
 
     @NotNull
-    public MeasureCard getMeasureCard(int position) {
+    public ToolCard getToolCard(int position) {
         return cards.get(position);
     }
 
@@ -60,7 +60,7 @@ public class ListToolsCardAdapter extends BaseAdapter {
     @SuppressLint("InflateParams")
     public View getView(int position, View gridView, ViewGroup parent) {
 
-        MeasureCard measureCard = cards.get(position);
+        ToolCard toolCard = getToolCard(position);
 
         if (gridView == null) {
 
@@ -71,15 +71,15 @@ public class ListToolsCardAdapter extends BaseAdapter {
 
         }
 
-        ImageView imageView = gridView.findViewById(R.id.measure_grid_view_image_view);
+        ImageView imageView = gridView.findViewById(R.id.tool_grid_view_image_view);
         MaterialTextView titleTextView = gridView
-                .findViewById(R.id.measure_grid_title_view_text);
+                .findViewById(R.id.tool_grid_title_view_text);
         MaterialTextView descTextView = gridView
-                .findViewById(R.id.measure_grid_description_text_view);
+                .findViewById(R.id.tool_grid_description_text_view);
 
-        imageView.setImageResource(measureCard.getImageID());
-        titleTextView.setText(measureCard.getTitleID());
-        descTextView.setText(measureCard.getDescriptionID());
+        imageView.setImageResource(toolCard.getImageID());
+        titleTextView.setText(toolCard.getTitleID());
+        descTextView.setText(toolCard.getDescriptionID());
 
         return gridView;
 

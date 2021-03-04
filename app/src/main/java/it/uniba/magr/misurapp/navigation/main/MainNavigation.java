@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.GridView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -18,8 +19,15 @@ import org.jetbrains.annotations.Nullable;
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.Navigable;
+import lombok.Getter;
 
 public class MainNavigation implements Navigable {
+
+    /**
+     * Gets a static access to this instance.
+     */
+    @Getter
+    private static MainNavigation instance;
 
     private HomeActivity homeActivity;
 
@@ -46,6 +54,12 @@ public class MainNavigation implements Navigable {
     }
 
     @Override
+    @SuppressWarnings("squid:S2696")
+    public void onAttach(@NotNull Context context) {
+        instance = this;
+    }
+
+    @Override
     public void onActivityCreated(@NotNull Activity activity, @Nullable Bundle bundle) {
 
         fabOpened = false;
@@ -53,19 +67,20 @@ public class MainNavigation implements Navigable {
 
         setupFloatingButtons();
 
+        GridView gridView = activity.findViewById(R.id.measure_list_grid_view);
+        assert gridView != null;
+
+        gridView.setAdapter(new ListMeasuresCardAdapter(homeActivity));
+
         DrawerLayout drawerLayout = homeActivity.getDrawerLayout();
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-
-        View mainLayout = homeActivity.findViewById(R.id.fragment_main_layout);
-
-        // click the entire layout
-        mainLayout.setOnClickListener(this :: performMainLayoutClick);
 
         // click toolbar title
         homeActivity.getToolbar().setOnClickListener(this :: performMainLayoutClick);
 
         // click navbar button
         homeActivity.setNavigationButtonClick(this :: navigationButtonClick);
+
     }
 
     private void setupFloatingButtons() {
@@ -85,8 +100,7 @@ public class MainNavigation implements Navigable {
 
     }
 
-
-    private void performMainLayoutClick(@NotNull View view) {
+    public void performMainLayoutClick(@NotNull View view) {
 
         FloatingActionButton fabButton = homeActivity.findViewById(R.id.fab_button_operation);
 

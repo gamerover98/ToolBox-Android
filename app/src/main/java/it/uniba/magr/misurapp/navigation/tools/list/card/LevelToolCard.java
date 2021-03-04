@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.R;
 
-public class LevelCard implements MeasureCard {
+public class LevelToolCard implements ToolCard {
 
     @Override
     public int getImageID() {

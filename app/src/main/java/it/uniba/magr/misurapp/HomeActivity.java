@@ -41,6 +41,7 @@ import it.uniba.magr.misurapp.auth.AuthActivity;
 import it.uniba.magr.misurapp.database.DatabaseManager;
 import it.uniba.magr.misurapp.introduction.IntroductionFragment;
 import it.uniba.magr.misurapp.loading.LoadingFragment;
+import it.uniba.magr.misurapp.navigation.main.MainNavigation;
 import it.uniba.magr.misurapp.util.LocaleUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -490,6 +491,19 @@ public class HomeActivity extends AppCompatActivity implements
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(LocaleUtil.onAttach(newBase));
+    }
+
+    /**
+     * Handle the grid item click.
+     * @param view The not null view instance.
+     */
+    public void handleMeasureGridItemClick(@NotNull View view) {
+
+        MainNavigation mainNavigation = MainNavigation.getInstance();
+        assert mainNavigation != null;
+
+        mainNavigation.performMainLayoutClick(view);
+
     }
 
 }

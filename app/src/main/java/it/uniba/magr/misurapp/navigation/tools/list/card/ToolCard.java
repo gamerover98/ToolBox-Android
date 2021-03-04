@@ -2,13 +2,16 @@ package it.uniba.magr.misurapp.navigation.tools.list.card;
 
 import android.content.Context;
 
+import androidx.annotation.DrawableRes;
+
 import org.jetbrains.annotations.NotNull;
 
-public interface MeasureCard {
+public interface ToolCard {
 
     /**
      * @return The resource image id.
      */
+    @DrawableRes
     int getImageID();
 
     /**

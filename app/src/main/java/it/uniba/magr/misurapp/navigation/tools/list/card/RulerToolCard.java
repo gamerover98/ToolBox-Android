@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
 
-public class RulerCard implements MeasureCard {
+public class RulerToolCard implements ToolCard {
 
     @Override
     public int getImageID() {

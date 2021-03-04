@@ -9,6 +9,7 @@
     <color name="secondary_text">#757575</color>
     <color name="button_text">#FFF</color>
     <color name="fab_color">#C2185B</color>
+    <color name="button_delete">#B00020</color>
     <color name="icons">#FFF</color>
     <color name="divider">#BDBDBD</color>
     <color name="loading_fragment_background">#FFF</color>
