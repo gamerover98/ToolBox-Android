@@ -143,7 +143,11 @@ public class MainNavigation implements Navigable {
      * Close the floating button with its properly animation.
      * @param fabButton The not null instance of the floating button.
      */
-    private void closeFabButton(@NotNull FloatingActionButton fabButton) {
+    private void closeFabButton(FloatingActionButton fabButton) {
+
+        if (fabButton == null) {
+            return;
+        }
 
         fabButton.startAnimation(animationRotateBackward);
 
