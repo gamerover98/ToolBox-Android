@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,13 +22,14 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:onClick="handleMeasureGridItemClick"
-                app:cardElevation="2dp"
+                app:cardElevation="6dp"
                 app:cardUseCompatPadding="true">
 
                 <!-- Full constraint layout -->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    style="@style/card">
 
                     <!-- Top bar Layout -->
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,8 +43,6 @@
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
-                            android:background="@color/primary_dark"
-                            android:alpha="0.9"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,13 +51,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
-                            android:background="@drawable/rounded_box_red"
                             android:padding="2dp"
                             android:scaleType="center"
-                            android:scaleX="1.5"
-                            android:scaleY="1.5"
+                            android:scaleX="1.6"
+                            android:scaleY="1.6"
                             android:src="@drawable/icon_garbage"
-                            android:tint="@android:color/white"
+                            style="@style/grid_view_red_button"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -69,14 +66,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="25dp"
-                            android:background="@drawable/rounded_box_white"
                             android:padding="3dp"
-                            android:rotation="270"
                             android:scaleType="center"
                             android:scaleX="1.5"
                             android:scaleY="1.5"
                             android:src="@drawable/icon_sync"
-                            android:tint="@color/primary_text"
+                            style="@style/grid_view_button"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/measure_grid_edit_icon"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -86,14 +81,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="20dp"
-                            android:background="@drawable/rounded_box_white"
                             android:padding="3dp"
                             android:rotation="270"
                             android:scaleType="center"
                             android:scaleX="1.5"
                             android:scaleY="1.5"
                             android:src="@drawable/icon_pencil"
-                            android:tint="@color/primary_text"
+                            style="@style/grid_view_button"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -110,35 +104,34 @@
                         app:layout_constraintTop_toBottomOf="@+id/measure_card_constraint_layout_icons">
 
                         <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/appCompatImageView"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:alpha="0.7"
-                            android:background="@color/primary"
+                            android:layout_height="45dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/measure_grid_view_text_view_title"
+                            style="@style/grid_view_title"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="20dp"
                             android:text="@string/text_title"
-                            android:textSize="30sp"
-                            android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/measure_grid_view_image_view_icon"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:src="@drawable/icon_level"
+                        <View
+                            android:id="@+id/divider_bottom"
+                            style="@style/grid_view_divider"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:background="?android:attr/listDivider"
+                            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="ContentDescription" />
+                            app:layout_constraintStart_toStartOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -166,20 +159,22 @@
 
                     <!-- Description layout -->
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/measure_card_constraint_layout_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/measure_card_constraint_layout_parameters">
+                        app:layout_constraintTop_toBottomOf="@+id/measure_card_constraint_layout_parameters"
+                        style="@style/grid_view_description">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/measure_grid_view_text_view_description"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="20dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
+                            android:layout_marginEnd="20dp"
                             android:layout_marginBottom="10dp"
                             android:paddingTop="20dp"
                             android:paddingBottom="20dp"
@@ -188,6 +183,43 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Description layout -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        style="@style/grid_view_bottom_layout">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/materialTextView"
+                            style="@style/grid_view_bottom_layout_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="80dp"
+                            android:paddingTop="20dp"
+                            android:paddingBottom="20dp"
+                            android:text="@string/text_ruler"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/measure_grid_view_image_view_icon"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/measure_grid_view_image_view_icon"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginEnd="20dp"
+                            android:src="@drawable/icon_level"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

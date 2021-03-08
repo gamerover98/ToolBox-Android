@@ -4,8 +4,58 @@
     <style name="LightTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/grey_dark</item>
         <item name="colorAccent">@color/accent</item>
+    </style>
+
+    <style name="background">
+        <item name="android:background">@color/primary_light</item>
+    </style>
+
+    <style name="card">
+        <item name="android:background">@color/background_darker</item>
+    </style>
+
+    <style name="grid_view">
+        <item name="backgroundTint">@color/primary_light</item>
+        <item name="android:listSelector">@color/primary_light</item>
+    </style>
+
+    <style name="grid_view_button">
+        <item name="android:background">@drawable/grid_view_button_shadow</item>
+        <item name="tint">@color/primary_text</item>
+    </style>
+
+    <style name="grid_view_red_button" parent="grid_view_button">
+        <item name="android:background">@drawable/grid_view_button_red_shadow</item>
+        <item name="tint">@color/button_delete</item>
+    </style>
+
+    <style name="grid_view_divider">
+        <item name="background">@color/background_darker</item>
+    </style>
+
+    <style name="grid_view_title">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="grid_view_bottom_layout">
+        <item name="android:background">@color/grey_dark</item>
+    </style>
+
+    <style name="grid_view_description">
+        <item name="android:background">@drawable/text_view_rounded</item>
+        <item name="android:layout_margin">20dp</item>
+    </style>
+
+    <style name="grid_view_bottom_layout_text">
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">30sp</item>
     </style>
 
     <!-- For size of the TextInputLayout. -->

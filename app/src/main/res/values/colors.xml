@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Palette generate da Material Palette - materialpalette.com/indigo/light-blue -->
 <resources>
-    <color name="primary">#3F51B5</color>
-    <color name="primary_dark">#303F9F</color>
+    <!-- Generics -->
+    <color name="transparent">#00000000</color>
+    <color name="primary">#5751FF</color>
+    <color name="primary_dark">#0026cb</color>
     <color name="primary_light">#C5CAE9</color>
-    <color name="accent">#03A9F4</color>
     <color name="primary_text">#212121</color>
+    <color name="color_accent">@color/colorPrimary</color>
+    <color name="status_bar_light">#00FFFFFF</color>
+    <color name="ripple_color_light">#1AFFFFFF</color>
+    <color name="ripple_color_dark">#1A000000</color>
+    <!-- Figma Colors -->
     <color name="secondary_text">#757575</color>
+    <color name="accent">#03A9F4</color>
     <color name="button_text">#FFF</color>
     <color name="fab_color">#C2185B</color>
-    <color name="button_delete">#B00020</color>
+    <color name="button_delete">#FF5252</color>
     <color name="icons">#FFF</color>
     <color name="divider">#BDBDBD</color>
+    <color name="shadow">#66BDBDBD</color>
     <color name="loading_fragment_background">#FFF</color>
+    <color name="background">#FFFFFF</color>
+    <color name="background_light">#F9FBFF</color>
+    <color name="background_darker">#F6F9FF</color>
+    <color name="danger">#F22959</color>
+    <color name="warning">#FF4F28</color>
+    <color name="warning_active">#FB927A</color>
+    <color name="text_error_red">@color/danger</color>
+    <color name="button_label">@color/colorPrimary</color>
+    <color name="card_light">#FFFFFF</color>
+    <color name="card_dark">#675AFF</color>
+    <color name="popup_mask">#333F4A73</color>
+    <color name="data_upload_vertical_divider">#995751FF</color>
+    <color name="grey_normal">#627890</color>
+    <color name="grey_dark">#2F4F75</color>
+    <color name="light_blue">#E9EFFF</color>
+    <color name="toolbarSeparator">#E3E3EB</color>
+    <color name="text_light">#FFFFFF</color>
 </resources>

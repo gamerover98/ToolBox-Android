@@ -32,12 +32,6 @@ public class ListMeasuresCardAdapter extends BaseAdapter {
 
         this.context = context;
         addCard(new RulerMeasureCard());
-        addCard(new RulerMeasureCard());
-        addCard(new RulerMeasureCard());
-        addCard(new RulerMeasureCard());
-        addCard(new RulerMeasureCard());
-        addCard(new RulerMeasureCard());
-        addCard(new RulerMeasureCard());
 
     }
 
