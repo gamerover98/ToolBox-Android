@@ -12,6 +12,41 @@
         <item name="android:background">@color/primary_light</item>
     </style>
 
+    <style name="text_input_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/primary_dark</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="text_input_layout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:background">@drawable/input_text_rounded</item>
+        <item name="android:textColorHint">@color/secondary_text</item>
+    </style>
+
+    <style name="text_input_area_layout" parent="text_input_layout">
+        <item name="android:layout_height">280dp</item>
+    </style>
+
+    <style name="text_input_edit_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
+
+    <style name="text_input_layout_label" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">5sp</item>
+    </style>
+
     <style name="card">
         <item name="android:background">@color/background_darker</item>
     </style>
@@ -43,6 +78,7 @@
 
     <style name="grid_view_bottom_layout">
         <item name="android:background">@color/grey_dark</item>
+        <item name="android:alpha">0.9</item>
     </style>
 
     <style name="grid_view_description">
@@ -58,9 +94,28 @@
         <item name="android:textSize">30sp</item>
     </style>
 
-    <!-- For size of the TextInputLayout. -->
-    <style name="TextLabel" parent="TextAppearance.Design.Hint">
-        <item name="android:textSize">5sp</item>
+    <style name="fab_button">
+        <item name="borderWidth">0dp</item>
+        <item name="android:background">@color/fab_color</item>
+        <item name="android:backgroundTint">@color/fab_color</item>
+        <item name="android:tint">@color/icons</item>
+    </style>
+
+    <style name="fab_button_item" parent="fab_button">
+        <!-- Add some staff if it needed -->
+    </style>
+
+    <style name="fab_button_item_description">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/fab_item_desc_box</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:elevation">6dp</item>
     </style>
 
 </resources>

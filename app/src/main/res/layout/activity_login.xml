@@ -37,57 +37,37 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/login_input_text_box_email"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_field"
-        android:textColorHint="@color/secondary_text"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_text_view_title">
+        app:layout_constraintTop_toBottomOf="@+id/login_text_view_title"
+        style="@style/text_input_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_input_text_email"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@android:color/transparent"
             android:drawableEnd="@drawable/icon_email"
             android:hint="@string/text_insert_email"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            style="@style/text_input_edit_text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/login_input_text_box_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_field"
-        android:textColorHint="@color/secondary_text"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_input_text_box_email">
+        app:layout_constraintTop_toBottomOf="@+id/login_input_text_box_email"
+        style="@style/text_input_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_input_text_password"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@android:color/transparent"
             android:drawableEnd="@drawable/icon_lock"
             android:hint="@string/text_insert_password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            style="@style/text_input_edit_text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

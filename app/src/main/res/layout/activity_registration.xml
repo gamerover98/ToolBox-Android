@@ -36,84 +36,56 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/registration_input_text_box_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_field"
-        android:textColorHint="@color/secondary_text"
-        app:hintTextAppearance="@style/TextLabel"
+        android:layout_marginTop="20dp"
+        app:hintTextAppearance="@style/text_input_layout_label"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registration_text_view_title"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/text_input_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/registration_input_text_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@android:color/transparent"
-            android:hint="@string/text_insert_name" />
+            android:drawableEnd="@drawable/icon_username"
+            android:hint="@string/text_insert_name"
+            style="@style/text_input_edit_text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/registration_input_text_box_surname"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_field"
-        android:textColorHint="@color/secondary_text"
-        app:hintTextAppearance="@style/TextLabel"
+        app:hintTextAppearance="@style/text_input_layout_label"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registration_input_text_box_name"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/text_input_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/registration_input_text_surname"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@android:color/transparent"
-            android:hint="@string/text_insert_surname" />
+            android:drawableEnd="@drawable/icon_username"
+            android:hint="@string/text_insert_surname"
+            style="@style/text_input_edit_text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/registration_input_text_box_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_field"
-        android:textColorHint="@color/secondary_text"
-        app:hintTextAppearance="@style/TextLabel"
+        app:hintTextAppearance="@style/text_input_layout_label"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registration_input_text_box_surname"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/text_input_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/registration_input_text_email"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@android:color/transparent"
             android:drawableEnd="@drawable/icon_email"
             android:hint="@string/text_insert_email"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            style="@style/text_input_edit_text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,53 +96,41 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_field"
+        android:background="@drawable/input_text_rounded"
         android:textColorHint="@color/secondary_text"
-        app:hintTextAppearance="@style/TextLabel"
+        app:hintTextAppearance="@style/text_input_layout_label"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registration_input_text_box_email"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/text_input_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/registration_input_text_password"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@android:color/transparent"
             android:drawableEnd="@drawable/icon_lock"
             android:hint="@string/text_insert_password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            style="@style/text_input_edit_text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/registration_input_text_box_confirm_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/rounded_field"
         android:textColorHint="@color/secondary_text"
-        app:hintTextAppearance="@style/TextLabel"
+        app:hintTextAppearance="@style/text_input_layout_label"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registration_input_text_box_password">
+        app:layout_constraintTop_toBottomOf="@+id/registration_input_text_box_password"
+        style="@style/text_input_layout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/registration_input_text_confirm_password"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@android:color/transparent"
+            android:drawableEnd="@drawable/icon_lock"
             android:hint="@string/text_confirm_pass"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            style="@style/text_input_edit_text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

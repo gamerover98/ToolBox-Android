@@ -15,40 +15,25 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/save_title_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
                 android:text="@string/text_title"
-                android:textColor="@color/primary_dark"
-                android:textSize="25sp"
                 app:layout_constraintBottom_toTopOf="@+id/save_input_text_box_title"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                style="@style/text_input_title"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/save_input_text_box_title"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="50dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/rounded_field"
-                android:textColorHint="@color/secondary_text"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/text_input_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/save_input_text_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
                     android:background="@android:color/transparent"
-                    android:hint="@string/text_insert_title" />
+                    android:hint="@string/text_insert_title"
+                    style="@style/text_input_edit_text"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,31 +50,19 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/save_description_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
                 android:text="@string/text_description"
-                android:textColor="@color/primary_dark"
-                android:textSize="25sp"
                 app:layout_constraintBottom_toTopOf="@+id/save_input_text_box_description"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                style="@style/text_input_title"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/save_input_text_box_description"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="280dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/rounded_field"
-                android:textColorHint="@color/secondary_text"
                 app:hintEnabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginBottom="60dp">
+                android:layout_marginBottom="60dp"
+                style="@style/text_input_area_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/save_input_text_description"

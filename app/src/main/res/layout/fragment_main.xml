@@ -22,26 +22,18 @@
         android:layout_gravity="bottom"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:alpha="0.9"
-            android:background="@drawable/main_bottom_panel"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_button_operation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="25dp"
-            android:backgroundTint="@color/fab_color"
             android:src="@drawable/icon_add"
+            tools:ignore="ContentDescription"
             app:elevation="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/icons"
-            tools:ignore="ContentDescription" />
+            style="@style/fab_button"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_button_add_measure"
@@ -49,29 +41,21 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/fab_margin"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/fab_color"
             android:src="@drawable/icon_compass"
             android:visibility="invisible"
             app:elevation="6dp"
             app:layout_constraintBottom_toTopOf="@+id/fab_button_operation"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/icons"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            style="@style/fab_button_item"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/fab_button_add_measure_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:gravity="center"
             android:text="@string/text_add_measure"
-            android:textColor="@color/primary_text"
-            android:visibility="invisible"
-            android:background="@drawable/rounded_box_white"
-            android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/fab_button_add_measure"
             app:layout_constraintEnd_toStartOf="@+id/fab_button_add_measure"
-            app:layout_constraintTop_toTopOf="@+id/fab_button_add_measure" />
+            app:layout_constraintTop_toTopOf="@+id/fab_button_add_measure"
+            style="@style/fab_button_item_description"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

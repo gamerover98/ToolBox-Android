@@ -27,7 +27,7 @@
         app:layout_constraintBottom_toTopOf="@+id/intro_button_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tabBackground="@drawable/tab_selector"
+        app:tabBackground="@drawable/intro_dot"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"/>
 
