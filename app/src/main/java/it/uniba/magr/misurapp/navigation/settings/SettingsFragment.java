@@ -57,7 +57,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         }
 
-        return super.onCreateView(inflater, container, bundle);
+        View settingsView = super.onCreateView(inflater, container, bundle);
+
+        /*
+         * Due to the lack of XML properties to edit ListPreference view colour,
+         * it must be done by an hot code.
+         */
+        assert settingsView != null;
+        settingsView.setBackgroundColor(getResources().getColor(R.color.white, context.getTheme()));
+
+        return settingsView;
 
     }
 
