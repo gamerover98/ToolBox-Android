@@ -16,7 +16,7 @@
     <color name="accent">#03A9F4</color>
     <color name="button_text">@color/white</color>
     <color name="fab_color">#8BC34A</color>
-    <color name="nav_top_background">#8BC34A</color>
+    <color name="nav_top_background">@color/grey_dark</color>
     <color name="button_delete">#FF5252</color>
     <color name="icons">@color/white</color>
     <color name="divider">#BDBDBD</color>

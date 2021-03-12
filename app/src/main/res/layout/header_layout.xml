@@ -5,17 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/nav_top_background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:src="@drawable/nav_background">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/header_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/icon_account_circle"
-        android:scaleX="3.5"
-        android:scaleY="3.5"
-        android:scaleType="center"
-        android:padding="50dp"
+        android:id="@+id/header_background"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:src="@drawable/nav_background"
+        android:alpha="0.1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,21 +23,23 @@
         android:id="@+id/header_display_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:textColor="@color/primary_text"
+        android:text="@string/app_name"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_icon" />
+        android:textColor="@color/white"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/header_email"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/header_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="2dp"
         android:paddingBottom="5dp"
+        android:text="@string/app_name"
         android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_display_name" />
+        android:textColor="@color/white"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
