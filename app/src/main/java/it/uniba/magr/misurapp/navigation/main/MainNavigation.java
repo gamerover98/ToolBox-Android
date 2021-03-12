@@ -81,6 +81,9 @@ public class MainNavigation implements Navigable {
         // click navbar button
         homeActivity.setNavigationButtonClick(this :: navigationButtonClick);
 
+        View fabBackgroundLayout = homeActivity.findViewById(R.id.fab_button_layout_background);
+        fabBackgroundLayout.setOnClickListener(this :: performFabBackgroundLayoutClick);
+
     }
 
     private void setupFloatingButtons() {
@@ -139,6 +142,13 @@ public class MainNavigation implements Navigable {
 
     }
 
+    private void performFabBackgroundLayoutClick(@NotNull View view) {
+
+        FloatingActionButton fabButton = homeActivity.findViewById(R.id.fab_button_operation);
+        closeFabButton(fabButton);
+
+    }
+
     /**
      * Close the floating button with its properly animation.
      * @param fabButton The not null instance of the floating button.
@@ -149,12 +159,14 @@ public class MainNavigation implements Navigable {
             return;
         }
 
+        View fabBackgroundLayout = homeActivity.findViewById(R.id.fab_button_layout_background);
         fabButton.startAnimation(animationRotateBackward);
 
         buttonAddMeasure.startAnimation(animationFabClosing);
         buttonAddMeasureTextView.setVisibility(View.INVISIBLE);
         buttonAddMeasure.setClickable(false);
 
+        fabBackgroundLayout.setVisibility(View.GONE);
         fabOpened = false;
 
     }
@@ -165,12 +177,14 @@ public class MainNavigation implements Navigable {
      */
     private void openFabButton(@NotNull FloatingActionButton fabButton) {
 
+        View fabBackgroundLayout = homeActivity.findViewById(R.id.fab_button_layout_background);
         fabButton.startAnimation(animationRotateForward);
 
         buttonAddMeasure.startAnimation(animationFabOpening);
         buttonAddMeasureTextView.setVisibility(View.VISIBLE);
         buttonAddMeasure.setClickable(true);
 
+        fabBackgroundLayout.setVisibility(View.VISIBLE);
         fabOpened = true;
 
     }
