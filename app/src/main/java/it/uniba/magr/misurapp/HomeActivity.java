@@ -18,16 +18,13 @@ import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -59,6 +56,7 @@ public class HomeActivity extends AppCompatActivity implements
     /**
      * The logcat activity prefix.
      */
+    @SuppressWarnings("unused")
     private static final String HOME_LOG_TAG = "Home";
 
     /**
@@ -123,6 +121,13 @@ public class HomeActivity extends AppCompatActivity implements
     private DatabaseManager databaseManager;
 
     /**
+     * The loading fragment that will be replaced
+     * when the activity is starting.
+     */
+    @Getter
+    private LoadingFragment loadingFragment;
+
+    /**
      * Application layout and navigation initialization.
      * @param bundle The bundle of this activity.
      */
@@ -151,6 +156,8 @@ public class HomeActivity extends AppCompatActivity implements
         if (menuItem != null) {
             navigationView.getMenu().removeItem(menuItem.getItemId());
         }
+
+        attachLoadingFragment();
 
     }
 
@@ -257,8 +264,15 @@ public class HomeActivity extends AppCompatActivity implements
 
         } else if (!AuthActivity.isAuthenticated() && !AuthActivity.isAnonymousUser(this)) {
 
+            attachLoadingFragment();
+
             Intent intent = new Intent(this, AuthActivity.class);
             startActivity(intent);
+
+        } else {
+
+            loadingFragment.close();
+            loadingFragment = null;
 
         }
 
@@ -379,74 +393,6 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
     /**
-     * Handle the authentication firebase process to
-     * check if the user is logged in.
-     * If not, it will be brought out to the auth activity.
-     */
-    private void handleAuthentication() {
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        if (!AuthActivity.isAuthenticated() && !AuthActivity.isAnonymousUser(this)) {
-
-            // open authentication activity
-            Intent intent = new Intent(this, AuthActivity.class);
-            startActivity(intent);
-
-        } else {
-
-            LoadingFragment loadingFragment = new LoadingFragment(this ::checkFirebaseUserAuth);
-            fragmentTransaction.replace(R.id.home_frame_layout, loadingFragment);
-            fragmentTransaction.commit();
-
-        }
-
-    }
-
-    /**
-     * Check if the firebase user is logged in yet.
-     * If not, it will be logged out and bring out to the auth activity.
-     * @param fragment A not null instance of a loading fragment.
-     */
-    private void checkFirebaseUserAuth(@NotNull LoadingFragment fragment) {
-
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        assert firebaseUser != null;
-
-        Task<GetTokenResult> resultTask = firebaseUser.getIdToken(true);
-
-        resultTask.addOnCanceledListener(this, () -> {
-
-            Log.w(HOME_LOG_TAG, "Cannot get token result due to a cancellation");
-            fragment.close();
-
-        });
-
-        resultTask.addOnFailureListener(this, task -> {
-
-            Log.w(HOME_LOG_TAG, "Cannot get token result due to a failure");
-            fragment.close();
-
-        });
-
-        resultTask.addOnCompleteListener(this, task -> {
-
-            if (!task.isSuccessful()) {
-
-                firebaseAuth.signOut();
-                handleAuthentication();
-
-            }
-
-            fragment.close();
-
-        });
-
-    }
-
-    /**
      * Setup the ActionBar (ToolBar) with the hamburger button and
      * the navigation menu from left side.
      */
@@ -503,6 +449,26 @@ public class HomeActivity extends AppCompatActivity implements
         assert mainNavigation != null;
 
         mainNavigation.performMainLayoutClick(view);
+
+    }
+
+    /**
+     * Create and attach the loading fragment.
+     */
+    private void attachLoadingFragment() {
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        if (loadingFragment != null && loadingFragment.isAdded()) {
+
+            loadingFragment.close();
+            loadingFragment = null;
+
+        }
+
+        loadingFragment = new LoadingFragment();
+        fragmentTransaction.replace(R.id.home_frame_layout, loadingFragment);
+        fragmentTransaction.commit();
 
     }
 

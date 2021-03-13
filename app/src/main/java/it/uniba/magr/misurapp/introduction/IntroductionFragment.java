@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.loading.LoadingFragment;
 
 import static android.app.Activity.*;
 
@@ -88,17 +87,7 @@ public class IntroductionFragment extends Fragment {
         HomeActivity homeActivity = (HomeActivity) getActivity();
         assert homeActivity != null;
 
-        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-
-        LoadingFragment loadingFragment = new LoadingFragment(fragment -> {
-
-            homeActivity.reload();
-            fragment.close();
-
-        });
-
-        fragmentTransaction.replace(R.id.home_frame_layout, loadingFragment);
-        fragmentTransaction.commit();
+        homeActivity.reload();
 
     }
 

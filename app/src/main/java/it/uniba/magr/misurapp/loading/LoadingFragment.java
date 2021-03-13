@@ -19,17 +19,29 @@ import java.util.function.Consumer;
 
 import it.uniba.magr.misurapp.R;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+/**
+ * A fragment used as SplashScreen.
+ *
+ * This prevents that when the application starts, the main layout
+ * is shown.
+ */
 @SuppressWarnings("squid:S110")
 public class LoadingFragment extends Fragment {
 
     /**
      * The consumer that will be accepted when the fragment is resumed.
      */
-    @Getter @NotNull
+    @Getter @Nullable
     private final Consumer<LoadingFragment> consumer;
+
+    public LoadingFragment() {
+        this(null);
+    }
+
+    public LoadingFragment(@Nullable Consumer<LoadingFragment> consumer) {
+        this.consumer = consumer;
+    }
 
     @Nullable
     @Override
@@ -56,7 +68,10 @@ public class LoadingFragment extends Fragment {
     public void onResume() {
 
         super.onResume();
-        consumer.accept(this);
+
+        if (consumer != null) {
+            consumer.accept(this);
+        }
 
     }
 
@@ -66,12 +81,15 @@ public class LoadingFragment extends Fragment {
     public void close() {
 
         FragmentActivity activity = getActivity();
-        assert activity != null;
 
-        FragmentManager fragmentManager = activity.getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (activity != null) {
 
-        fragmentTransaction.remove(this).commit();
+            FragmentManager fragmentManager = activity.getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            fragmentTransaction.remove(this).commit();
+
+        }
 
     }
 
