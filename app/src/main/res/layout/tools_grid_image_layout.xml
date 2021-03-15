@@ -50,7 +50,7 @@
                     android:id="@+id/tool_grid_title_view_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/accent"
+                    android:background="@color/grey_dark"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="@string/text_level"
