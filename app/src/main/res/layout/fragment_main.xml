@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:numColumns="1"
         android:stretchMode="columnWidth"
-        style="@style/grid_view">
-    </GridView>
+        style="@style/grid_view"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment_main_layout"

@@ -8,9 +8,9 @@
     <GridView
         android:id="@+id/tools_list_grid_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnWidth="200dp"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth" />
+        android:layout_height="wrap_content"
+        android:numColumns="2"
+        android:stretchMode="columnWidth"
+        style="@style/grid_view"/>
 
 </FrameLayout>
