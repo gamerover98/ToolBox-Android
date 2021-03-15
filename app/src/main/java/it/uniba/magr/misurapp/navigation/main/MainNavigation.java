@@ -4,14 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.GridView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textview.MaterialTextView;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,15 +27,6 @@ public class MainNavigation implements Navigable {
     private static MainNavigation instance;
 
     private HomeActivity homeActivity;
-
-    private FloatingActionButton buttonAddMeasure;
-
-    private MaterialTextView buttonAddMeasureTextView;
-
-    private Animation animationFabClosing;
-    private Animation animationFabOpening;
-    private Animation animationRotateBackward;
-    private Animation animationRotateForward;
 
     boolean fabOpened = false;
 
@@ -75,53 +63,12 @@ public class MainNavigation implements Navigable {
         DrawerLayout drawerLayout = homeActivity.getDrawerLayout();
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
-        // click toolbar title
-        homeActivity.getToolbar().setOnClickListener(this :: performMainLayoutClick);
-
-        // click navbar button
-        homeActivity.setNavigationButtonClick(this :: navigationButtonClick);
-
-        View fabBackgroundLayout = homeActivity.findViewById(R.id.fab_button_layout_background);
-        fabBackgroundLayout.setOnClickListener(this :: performFabBackgroundLayoutClick);
-
     }
 
     private void setupFloatingButtons() {
 
         FloatingActionButton fabButton = homeActivity.findViewById(R.id.fab_button_operation);
-
-        buttonAddMeasure = homeActivity.findViewById(R.id.fab_button_add_measure);
-        animationFabOpening = AnimationUtils.loadAnimation(homeActivity, R.anim.fab_open);
-        animationFabClosing = AnimationUtils.loadAnimation(homeActivity, R.anim.fab_close);
-        animationRotateForward  = AnimationUtils.loadAnimation(homeActivity, R.anim.rotate_forward);
-        animationRotateBackward = AnimationUtils.loadAnimation(homeActivity, R.anim.rotate_backward);
-
-        buttonAddMeasureTextView = homeActivity.findViewById(R.id.fab_button_add_measure_text_view);
-
-        buttonAddMeasure.setOnClickListener(this :: performAddMeasureClick);
-        buttonAddMeasureTextView.setOnClickListener(this :: performAddMeasureClick);
-
-        fabButton.setOnClickListener(this :: performFabClick);
-
-    }
-
-    public void performMainLayoutClick(@NotNull View view) {
-
-        FloatingActionButton fabButton = homeActivity.findViewById(R.id.fab_button_operation);
-
-        if (fabOpened) {
-            closeFabButton(fabButton);
-        }
-
-    }
-
-    private void navigationButtonClick() {
-
-        View mainLayout = homeActivity.findViewById(R.id.fragment_main_layout);
-
-        if (mainLayout != null) {
-            performMainLayoutClick(mainLayout);
-        }
+        fabButton.setOnClickListener(this :: performAddMeasureClick);
 
     }
 
@@ -132,63 +79,8 @@ public class MainNavigation implements Navigable {
 
     }
 
-    private void performFabClick(@NotNull View view) {
-
-        FloatingActionButton fabButton = homeActivity.findViewById(R.id.fab_button_operation);
-
-        if (fabOpened) {
-            closeFabButton(fabButton);
-        } else {
-            openFabButton(fabButton);
-        }
-
-    }
-
-    private void performFabBackgroundLayoutClick(@NotNull View view) {
-
-        FloatingActionButton fabButton = homeActivity.findViewById(R.id.fab_button_operation);
-        closeFabButton(fabButton);
-
-    }
-
-    /**
-     * Close the floating button with its properly animation.
-     * @param fabButton The not null instance of the floating button.
-     */
-    private void closeFabButton(FloatingActionButton fabButton) {
-
-        if (fabButton == null) {
-            return;
-        }
-
-        View fabBackgroundLayout = homeActivity.findViewById(R.id.fab_button_layout_background);
-        fabButton.startAnimation(animationRotateBackward);
-
-        buttonAddMeasure.startAnimation(animationFabClosing);
-        buttonAddMeasureTextView.setVisibility(View.INVISIBLE);
-        buttonAddMeasure.setClickable(false);
-
-        fabBackgroundLayout.setVisibility(View.GONE);
-        fabOpened = false;
-
-    }
-
-    /**
-     * Open the floating button with its properly animation.
-     * @param fabButton The not null instance of the floating button.
-     */
-    private void openFabButton(@NotNull FloatingActionButton fabButton) {
-
-        View fabBackgroundLayout = homeActivity.findViewById(R.id.fab_button_layout_background);
-        fabButton.startAnimation(animationRotateForward);
-
-        buttonAddMeasure.startAnimation(animationFabOpening);
-        buttonAddMeasureTextView.setVisibility(View.VISIBLE);
-        buttonAddMeasure.setClickable(true);
-
-        fabBackgroundLayout.setVisibility(View.VISIBLE);
-        fabOpened = true;
-
+    public void performMeasureGridItemClick(@NotNull View view) {
+        // TODO: will be implemented soon.
     }
 
 }

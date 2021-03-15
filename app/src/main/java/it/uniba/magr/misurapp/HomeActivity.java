@@ -380,7 +380,7 @@ public class HomeActivity extends AppCompatActivity implements
         MainNavigation mainNavigation = MainNavigation.getInstance();
         assert mainNavigation != null;
 
-        mainNavigation.performMainLayoutClick(view);
+        mainNavigation.performMeasureGridItemClick(view);
 
     }
 

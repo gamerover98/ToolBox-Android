@@ -21,19 +21,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="bottom">
 
-        <RelativeLayout
-            android:id="@+id/fab_button_layout_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            android:background="@color/black"
-            android:alpha="0.5"
-            android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_button_operation"
             android:layout_width="wrap_content"
@@ -46,28 +33,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             style="@style/fab_button"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_button_add_measure"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/icon_compass"
-            android:visibility="invisible"
-            app:elevation="6dp"
-            app:layout_constraintBottom_toTopOf="@+id/fab_button_operation"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="ContentDescription"
-            style="@style/fab_button_item"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/fab_button_add_measure_text_view"
-            android:text="@string/text_add_measure"
-            app:layout_constraintBottom_toBottomOf="@+id/fab_button_add_measure"
-            app:layout_constraintEnd_toStartOf="@+id/fab_button_add_measure"
-            app:layout_constraintTop_toTopOf="@+id/fab_button_add_measure"
-            style="@style/fab_button_item_description"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
