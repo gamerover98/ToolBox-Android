@@ -10,12 +10,21 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.transition.TransitionInflater;
 
 import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.HomeActivity;
+import it.uniba.magr.misurapp.R;
 import lombok.Getter;
 
+/**
+ * The fragment that manage the {@link Navigable} interface.
+ * With this class, you can easily manage the navigation of the application
+ * (the left side menu).
+ *
+ * <p>Let's see /res/navigation/nav_graph.xml file</p>
+ */
 public class NavigationFragment extends Fragment {
 
     /**
@@ -25,9 +34,15 @@ public class NavigationFragment extends Fragment {
     @Getter @NotNull
     private final Navigable navigable;
 
+    /**
+     * The toolbar instance.
+     */
     @Getter @Nullable
     private Toolbar toolbar;
 
+    /**
+     * @param navigable The not null navigable interface.
+     */
     public NavigationFragment(@NotNull Navigable navigable) {
         this.navigable = navigable;
     }
@@ -45,6 +60,8 @@ public class NavigationFragment extends Fragment {
 
         super.onCreate(bundle);
         navigable.onCreate(bundle);
+
+        performTransactions();
 
     }
 
@@ -145,6 +162,17 @@ public class NavigationFragment extends Fragment {
 
         super.onDetach();
         navigable.onDetach();
+
+    }
+
+    /**
+     * Execute enter and exit fade transactions.
+     */
+    protected void performTransactions() {
+
+        TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setEnterTransition(inflater.inflateTransition(R.transition.fade));
+        setExitTransition(inflater.inflateTransition(R.transition.fade));
 
     }
 

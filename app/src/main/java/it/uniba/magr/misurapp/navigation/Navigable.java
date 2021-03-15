@@ -9,7 +9,11 @@ import androidx.annotation.LayoutRes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("unused")
+/**
+ * Create your own navigable interface to attach into your navigable application.
+ * <p>Let's see /res/navigation/nav_graph.xml file</p>
+ */
+@SuppressWarnings("unused") // unused default methods arguments.
 public interface Navigable {
 
     /**

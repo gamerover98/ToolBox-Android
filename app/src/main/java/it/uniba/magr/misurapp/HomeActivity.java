@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.ActivityNavigator;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
@@ -246,6 +247,28 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
     /**
+     * Invoked when the application ends.
+     */
+    @Override
+    public void finish() {
+
+        super.finish();
+
+        // complete pending transactions
+        ActivityNavigator.applyPopAnimationsToPendingTransition(this);
+
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleUtil.onAttach(newBase));
+    }
+
+    //
+    // PUBLIC METHODS
+    //
+
+    /**
      * This method is called on onResume().
      * It will refresh some components like navigation view
      * and check the authentication.
@@ -348,50 +371,35 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
-    private void addMeasureItemNavClick() {
+    /**
+     * Handle the grid item click of the main menu.
+     * @param view The not null view instance.
+     */
+    public void handleMeasureGridItemClick(@NotNull View view) {
 
-        navController.navigate(R.id.nav_list_tools_fragment);
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        MainNavigation mainNavigation = MainNavigation.getInstance();
+        assert mainNavigation != null;
 
-    }
-
-    private void settingsItemNavClick() {
-
-        navController.navigate(R.id.nav_settings_fragment);
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
-    }
-
-    @SuppressWarnings("squid:S4144")
-    private void loginNavClick() {
-
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-
-        if (firebaseUser != null) {
-            firebaseAuth.signOut();
-        }
-
-        AuthActivity.setAnonymousUser(this, false);
-        Intent intent = new Intent(this, AuthActivity.class);
-        startActivity(intent);
+        mainNavigation.performMainLayoutClick(view);
 
     }
 
-    @SuppressWarnings("squid:S4144")
-    private void logoutNavClick() {
+    /**
+     * Handle the grid item click of the tool's menu.
+     * @param view The not null view instance.
+     */
+    public void handleToolGridItemClick(@NotNull View view) {
 
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        ListToolsNavigation listToolsNavigation = ListToolsNavigation.getInstance();
+        assert listToolsNavigation != null;
 
-        if (firebaseUser != null) {
-            firebaseAuth.signOut();
-        }
-
-        Intent intent = new Intent(this, AuthActivity.class);
-        startActivity(intent);
+        listToolsNavigation.performToolItemClick(view);
 
     }
+
+    //
+    // PRIVATE METHODS
+    //
 
     /**
      * Setup the ActionBar (ToolBar) with the hamburger button and
@@ -402,7 +410,7 @@ public class HomeActivity extends AppCompatActivity implements
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //ActionBar is initialized by toolbar.
+        // ActionBar is initialized by toolbar.
         ActionBar actionBar = getSupportActionBar();
 
         assert actionBar != null; // ActionBar cannot be null
@@ -435,39 +443,52 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(LocaleUtil.onAttach(newBase));
-    }
+    private void loginNavClick() {
 
-    /**
-     * Handle the grid item click of the main's menu.
-     * @param view The not null view instance.
-     */
-    public void handleMeasureGridItemClick(@NotNull View view) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-        MainNavigation mainNavigation = MainNavigation.getInstance();
-        assert mainNavigation != null;
+        if (firebaseUser != null) {
+            firebaseAuth.signOut();
+        }
 
-        mainNavigation.performMainLayoutClick(view);
+        AuthActivity.setAnonymousUser(this, false);
+        Intent intent = new Intent(this, AuthActivity.class);
+        startActivity(intent);
 
     }
 
-    /**
-     * Handle the grid item click of the tool's menu.
-     * @param view The not null view instance.
-     */
-    public void handleToolGridItemClick(@NotNull View view) {
+    private void logoutNavClick() {
 
-        ListToolsNavigation listToolsNavigation = ListToolsNavigation.getInstance();
-        assert listToolsNavigation != null;
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-        listToolsNavigation.performToolItemClick(view);
+        if (firebaseUser != null) {
+            firebaseAuth.signOut();
+        }
+
+        Intent intent = new Intent(this, AuthActivity.class);
+        startActivity(intent);
+
+    }
+
+    private void addMeasureItemNavClick() {
+
+        navController.navigate(R.id.nav_list_tools_fragment);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+    }
+
+    private void settingsItemNavClick() {
+
+        navController.navigate(R.id.nav_settings_fragment);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
     }
 
     /**
      * Create and attach the loading fragment.
+     * The loading fragment is a placeholder to keep hide the main application interface.
      */
     private void attachLoadingFragment() {
 

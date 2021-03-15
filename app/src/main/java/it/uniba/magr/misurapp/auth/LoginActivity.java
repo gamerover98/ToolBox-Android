@@ -37,7 +37,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String LOGIN_LOG_TAG = "Login";
 
-    public static final int REQUEST_CODE_LOGIN_ACTIVITY = 200;
+    /**
+     * The firebase login request code.
+     * <p>It's invented</p>.
+     *
+     * Requests:
+     * - Google:                200
+     * - firebase login:        201
+     * - firebase registration: 202
+     *
+     */
+    public static final int REQUEST_CODE_LOGIN_ACTIVITY = 201;
 
     public static final String OPEN_REGISTRATION_ACTIVITY = "open_registration";
 

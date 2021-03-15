@@ -97,7 +97,9 @@ public class MainNavigation implements Navigable {
         animationRotateBackward = AnimationUtils.loadAnimation(homeActivity, R.anim.rotate_backward);
 
         buttonAddMeasureTextView = homeActivity.findViewById(R.id.fab_button_add_measure_text_view);
+
         buttonAddMeasure.setOnClickListener(this :: performAddMeasureClick);
+        buttonAddMeasureTextView.setOnClickListener(this :: performAddMeasureClick);
 
         fabButton.setOnClickListener(this :: performFabClick);
 

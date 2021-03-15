@@ -34,7 +34,17 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private static final String REGISTRATION_LOG_TAG = "Registration";
 
-    public static final int REQUEST_CODE_REGISTRATION_ACTIVITY = 300;
+    /**
+     * The firebase registration request code.
+     * <p>It's invented</p>.
+     *
+     * Requests:
+     * - Google:                200
+     * - firebase login:        201
+     * - firebase registration: 202
+     *
+     */
+    public static final int REQUEST_CODE_REGISTRATION_ACTIVITY = 202;
 
     @Override
     protected void onCreate(@Nullable Bundle bundle) {

@@ -38,7 +38,17 @@ public class AuthActivity extends AppCompatActivity {
 
     private static final String SHARED_ANONYMOUS_USER_KEY = "anonymous_user";
 
-    private static final int REQUEST_CODE_SIGN_IN = 123;
+    /**
+     * The google auth request code.
+     * <p>It's invented</p>.
+     *
+     * Requests:
+     * - Google:                200
+     * - firebase login:        201
+     * - firebase registration: 202
+     *
+     */
+    private static final int REQUEST_CODE_GOOGLE_SIGN_IN = 200;
 
     /**
      * Gets the not null instance of the login button.
@@ -90,7 +100,7 @@ public class AuthActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        // noting to do
+        // nothing to do
     }
 
     @Override
@@ -104,7 +114,7 @@ public class AuthActivity extends AppCompatActivity {
 
         switch (requestCode) {
 
-            case REQUEST_CODE_SIGN_IN:
+            case REQUEST_CODE_GOOGLE_SIGN_IN:
 
                 handleGoogleLogin(resultCode);
                 break;
@@ -171,7 +181,7 @@ public class AuthActivity extends AppCompatActivity {
             AuthUI.SignInIntentBuilder builder = AuthUI.getInstance().createSignInIntentBuilder();
 
             builder.setAvailableProviders(Collections.singletonList(googleAuthUI));
-            startActivityForResult(builder.build(), REQUEST_CODE_SIGN_IN);
+            startActivityForResult(builder.build(), REQUEST_CODE_GOOGLE_SIGN_IN);
 
         }
 
@@ -236,7 +246,6 @@ public class AuthActivity extends AppCompatActivity {
     /**
      * @return True if user is logged in (also in anonymous user).
      */
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isAuthenticated() {
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
