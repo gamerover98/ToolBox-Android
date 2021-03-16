@@ -7,14 +7,23 @@
     android:layout_height="match_parent"
     android:id="@+id/nav_fragment">
 
-    <GridView
-        android:id="@+id/measure_list_grid_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="1"
-        android:stretchMode="columnWidth"
-        style="@style/grid_view"/>
+        android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_measure_recycler_view"
+            style="@style/main_recycler_view"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- bottom layout (fab button layout) -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragment_main_layout"
         android:layout_width="match_parent"

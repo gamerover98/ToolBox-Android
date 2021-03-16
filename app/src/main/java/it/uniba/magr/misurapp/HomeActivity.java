@@ -39,7 +39,6 @@ import it.uniba.magr.misurapp.auth.AuthActivity;
 import it.uniba.magr.misurapp.database.DatabaseManager;
 import it.uniba.magr.misurapp.introduction.IntroductionFragment;
 import it.uniba.magr.misurapp.loading.LoadingFragment;
-import it.uniba.magr.misurapp.navigation.main.MainNavigation;
 import it.uniba.magr.misurapp.navigation.tools.list.ListToolsNavigation;
 import it.uniba.magr.misurapp.util.LocaleUtil;
 import lombok.Getter;
@@ -368,19 +367,6 @@ public class HomeActivity extends AppCompatActivity implements
         } else {
             updateSettingsFragment = true;
         }
-
-    }
-
-    /**
-     * Handle the grid item click of the main menu.
-     * @param view The not null view instance.
-     */
-    public void handleMeasureGridItemClick(@NotNull View view) {
-
-        MainNavigation mainNavigation = MainNavigation.getInstance();
-        assert mainNavigation != null;
-
-        mainNavigation.performMeasureGridItemClick(view);
 
     }
 

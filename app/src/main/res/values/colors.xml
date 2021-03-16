@@ -26,6 +26,7 @@
     <color name="background">@color/white</color>
     <color name="background_light">#F9FBFF</color>
     <color name="background_darker">#F6F9FF</color>
+    <color name="background_dragged">#C7C7CD</color>
     <color name="danger">#F22959</color>
     <color name="warning">#FF4F28</color>
     <color name="warning_active">#FB927A</color>
