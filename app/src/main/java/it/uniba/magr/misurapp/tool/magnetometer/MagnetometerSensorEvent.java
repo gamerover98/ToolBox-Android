@@ -6,7 +6,7 @@ import android.hardware.SensorEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
-public class MagnetometerSensorEvent implements SensorEventListener {
+public class MagnetometerSensorEvent {
 
     /**
      * The not null magnetometer fragment instance.
@@ -16,16 +16,6 @@ public class MagnetometerSensorEvent implements SensorEventListener {
 
     public MagnetometerSensorEvent(@NotNull MagnetometerFragment magnetometerFragment) {
         this.magnetometerFragment = magnetometerFragment;
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        //TODO: must be implemented.
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        //TODO: must be implemented.
     }
 
 }
