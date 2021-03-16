@@ -55,6 +55,7 @@
     <string name="text_level">Level</string>
     <string name="text_level_description">You can measure the level of your plains</string>
     <string name="text_ruler">Ruler</string>
+    <string name="text_magnetometer">Magnetometer</string>
     <string name="text_ruler_description">Use the ruler</string>
     <string name="text_length">Length</string>
     <string name="text_insert_centimeters">Insert centimeters</string>

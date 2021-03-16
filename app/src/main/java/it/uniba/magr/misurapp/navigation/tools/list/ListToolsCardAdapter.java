@@ -16,6 +16,7 @@ import java.util.LinkedList;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.tools.list.card.LevelToolCard;
+import it.uniba.magr.misurapp.navigation.tools.list.card.MagnetometerToolCard;
 import it.uniba.magr.misurapp.navigation.tools.list.card.ToolCard;
 import it.uniba.magr.misurapp.navigation.tools.list.card.RulerToolCard;
 
@@ -33,6 +34,8 @@ public class ListToolsCardAdapter extends BaseAdapter {
 
         cards.add(new RulerToolCard());
         cards.add(new LevelToolCard());
+        cards.add(new MagnetometerToolCard());
+
 
     }
 

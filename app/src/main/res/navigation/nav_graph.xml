@@ -28,11 +28,17 @@
             android:id="@+id/action_nav_add_measure_fragment_to_ruler"
             app:destination="@id/rulerFragment" />
 
+        <action
+            android:id="@+id/action_nav_add_measure_fragment_to_magnetometer"
+            app:destination="@id/magnetometerFragment" />
+
     </fragment>
 
     <fragment
         android:id="@+id/nav_settings_fragment"
         android:name="it.uniba.magr.misurapp.navigation.settings.SettingsFragment" />
+
+    <!-- ruler fragment -->
 
     <fragment
         android:id="@+id/rulerFragment"
@@ -49,5 +55,13 @@
         android:id="@+id/saveRulerFragment"
         android:name="it.uniba.magr.misurapp.tool.ruler.save.SaveRulerFragment"
         android:label="SaveFragment" />
+
+    <!-- magnetometer fragment -->
+
+    <fragment
+        android:id="@+id/magnetometerFragment"
+        android:name="it.uniba.magr.misurapp.tool.magnetometer.MagnetometerFragment"
+        android:label="MagnetometerFragment" />
+
 
 </navigation>
