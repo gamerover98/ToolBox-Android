@@ -60,4 +60,6 @@
     <string name="text_system_language">Lingua di sistema</string>
     <string name="text_language">Lingua</string>
     <string name="text_select_language">Seleziona la tua lingua</string>
+    <string name="tesla_unit">µTesla</string>
+    <string name="tesla_chart_label">Valori in µTesla</string>
 </resources>

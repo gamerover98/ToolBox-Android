@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/magnetometer_layout"
     android:padding="16dp"
     android:layout_width="match_parent"
@@ -19,6 +18,8 @@
             android:id="@+id/tesla_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:text="@string/app_name"
             android:textColor="@color/black"
             android:textSize="23sp"
             android:textStyle="bold"
@@ -27,13 +28,24 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tesla_unit"
+            android:textColor="@color/black"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tesla_value"
+            app:layout_constraintStart_toStartOf="@+id/tesla_value"
+            app:layout_constraintTop_toBottomOf="@+id/tesla_value" />
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="240dp"
             android:layout_height="240dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:contentDescription="magnetometer"
+            android:contentDescription="@string/text_magnetometer"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
