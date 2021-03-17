@@ -43,6 +43,7 @@
             android:id="@+id/nav_view"
             app:headerLayout="@layout/navigation_menu_layout"
             app:menu="@menu/drawer_menu"
+            app:insetForeground="@null"
             style="@style/navigation_view"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
