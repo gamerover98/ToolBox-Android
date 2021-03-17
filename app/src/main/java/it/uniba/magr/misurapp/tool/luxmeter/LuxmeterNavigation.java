@@ -31,6 +31,12 @@ import it.uniba.magr.misurapp.navigation.Navigable;
 
 public class LuxmeterNavigation implements Navigable, SensorEventListener {
 
+    /*
+    Change MIN_PLOT_VALUE and VALUE_BOUND for the max and min range of plottable data in the
+    graph.
+    TODO: adapt these values to fit real life sensor values
+     */
+
     /**
      * The minimum light plot value.
      */
@@ -39,7 +45,7 @@ public class LuxmeterNavigation implements Navigable, SensorEventListener {
     /**
      * The light bound to be added into the plot value to avoid pinnacles.
      */
-    private static final float VALUE_BOUND = 100;
+    private static final float VALUE_BOUND = 5000;
 
     /**
      * The sensor manager instance from the application context.
