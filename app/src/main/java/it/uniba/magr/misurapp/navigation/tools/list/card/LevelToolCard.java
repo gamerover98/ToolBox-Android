@@ -29,4 +29,9 @@ public class LevelToolCard implements ToolCard {
         Toast.makeText(context, "level", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public boolean isSupported(@NotNull Context context) {
+        return false;
+    }
+
 }

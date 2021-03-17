@@ -29,4 +29,10 @@ public interface ToolCard {
      */
     void onClick(@NotNull Context context);
 
+    /**
+     * @param context The not null context of the activity.
+     * @return Ture if the tool is supported by the system.
+     */
+    boolean isSupported(@NotNull Context context);
+
 }

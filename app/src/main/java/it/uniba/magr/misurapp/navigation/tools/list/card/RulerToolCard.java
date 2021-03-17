@@ -35,5 +35,10 @@ public class RulerToolCard implements ToolCard {
         navController.navigate(R.id.action_nav_add_measure_fragment_to_ruler);
 
     }
-    
+
+    @Override
+    public boolean isSupported(@NotNull Context context) {
+        return true;
+    }
+
 }

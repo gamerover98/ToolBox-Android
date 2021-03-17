@@ -32,9 +32,9 @@ public class ListToolsCardAdapter extends BaseAdapter {
 
         this.context = context;
 
-        cards.add(new RulerToolCard());
-        cards.add(new LevelToolCard());
-        cards.add(new MagnetometerToolCard());
+        addTool(context, new RulerToolCard());
+        addTool(context, new LevelToolCard());
+        addTool(context, new MagnetometerToolCard());
 
 
     }
@@ -85,6 +85,18 @@ public class ListToolsCardAdapter extends BaseAdapter {
         descTextView.setText(toolCard.getDescriptionID());
 
         return gridView;
+
+    }
+
+    private void addTool(@NotNull Context context, @NotNull ToolCard toolCard) {
+
+        if (toolCard.isSupported(context)) {
+
+            synchronized (cards) {
+                cards.add(toolCard);
+            }
+
+        }
 
     }
 
