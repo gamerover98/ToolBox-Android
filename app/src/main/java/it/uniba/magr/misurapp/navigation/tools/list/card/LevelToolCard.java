@@ -20,11 +20,6 @@ public class LevelToolCard implements ToolCard {
     }
 
     @Override
-    public int getDescriptionID() {
-        return R.string.text_level_description;
-    }
-
-    @Override
     public void onClick(@NotNull Context context) {
         Toast.makeText(context, "level", Toast.LENGTH_SHORT).show();
     }

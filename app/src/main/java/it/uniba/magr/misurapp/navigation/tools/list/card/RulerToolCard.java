@@ -22,11 +22,6 @@ public class RulerToolCard implements ToolCard {
     }
 
     @Override
-    public int getDescriptionID() {
-        return R.string.text_ruler_description;
-    }
-
-    @Override
     public void onClick(@NotNull Context context) {
 
         HomeActivity activity = (HomeActivity) context;

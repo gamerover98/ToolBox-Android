@@ -20,11 +20,6 @@ public interface ToolCard {
     int getTitleID();
 
     /**
-     * @return the resource string description id.
-     */
-    int getDescriptionID();
-
-    /**
      * Perform the click event.
      */
     void onClick(@NotNull Context context);

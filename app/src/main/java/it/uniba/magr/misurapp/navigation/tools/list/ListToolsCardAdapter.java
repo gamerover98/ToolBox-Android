@@ -77,12 +77,9 @@ public class ListToolsCardAdapter extends BaseAdapter {
         ImageView imageView = gridView.findViewById(R.id.tool_grid_view_image_view);
         MaterialTextView titleTextView = gridView
                 .findViewById(R.id.tool_grid_title_view_text);
-        MaterialTextView descTextView = gridView
-                .findViewById(R.id.tool_grid_description_text_view);
 
         imageView.setImageResource(toolCard.getImageID());
         titleTextView.setText(toolCard.getTitleID());
-        descTextView.setText(toolCard.getDescriptionID());
 
         return gridView;
 
