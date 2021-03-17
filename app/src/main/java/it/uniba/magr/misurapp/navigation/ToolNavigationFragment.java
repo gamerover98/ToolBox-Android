@@ -19,9 +19,7 @@ public class ToolNavigationFragment extends NavigationFragment {
 
         super.onAttach(context);
         Activity activity = (Activity) context;
-
-        Window window = activity.getWindow();
-        GenericUtil.hideSystemUI(window);
+        fullscreen(activity);
 
     }
 
@@ -35,6 +33,13 @@ public class ToolNavigationFragment extends NavigationFragment {
 
         Window window = homeActivity.getWindow();
         GenericUtil.showSystemUI(window);
+
+    }
+
+    protected void fullscreen(@NotNull Activity activity) {
+
+        Window window = activity.getWindow();
+        GenericUtil.hideSystemUI(window);
 
     }
 

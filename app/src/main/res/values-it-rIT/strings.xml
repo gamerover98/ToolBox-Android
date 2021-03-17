@@ -53,10 +53,13 @@
     <string name="text_level">Livella</string>
     <string name="text_level_description">Con questo strumento puoi misurare l\'inclinazione dei tuoi piani</string>
     <string name="text_ruler">Righello</string>
+    <string name="text_magnetometer">Magnetometro</string>
     <string name="text_ruler_description">Misura la lunghezza di qualcosa</string>
     <string name="text_length">Lunghezza</string>
     <string name="text_insert_centimeters">Inserisci lunghezza in centimetri</string>
     <string name="text_system_language">Lingua di sistema</string>
     <string name="text_language">Lingua</string>
     <string name="text_select_language">Seleziona la tua lingua</string>
+    <string name="tesla_unit">µTesla</string>
+    <string name="tesla_chart_label">Valori in µTesla</string>
 </resources>
