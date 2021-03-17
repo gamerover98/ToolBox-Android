@@ -78,10 +78,30 @@
         <item name="background">@color/background_darker</item>
     </style>
 
-    <style name="grid_view_title">
-        <item name="android:textSize">30sp</item>
+    <style name="main_recycler_view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="backgroundTint">@color/primary_light</item>
+        <item name="android:listSelector">@color/primary_light</item>
+    </style>
+
+    <style name="main_recycler_icon">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:src">@drawable/icon_level</item>
+        <item name="android:background">@drawable/rounded_background</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+
+    <style name="main_recycler_title">
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="main_recycler_description" parent="main_recycler_title">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="grid_view_bottom_layout">

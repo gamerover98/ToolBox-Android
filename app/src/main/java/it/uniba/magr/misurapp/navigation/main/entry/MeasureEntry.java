@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.navigation.main.card;
+package it.uniba.magr.misurapp.navigation.main.entry;
 
 import android.content.Context;
 
@@ -6,7 +6,10 @@ import androidx.annotation.DrawableRes;
 
 import org.jetbrains.annotations.NotNull;
 
-public interface MeasureCard {
+/**
+ * Create an entry for the main list view of measures.
+ */
+public interface MeasureEntry {
 
     /**
      * @return The resource image ID of the tool icon.
@@ -29,13 +32,5 @@ public interface MeasureCard {
      * @param context The not null instance of the context.
      */
     void onClick(@NotNull Context context);
-
-    /**
-     * Perform the edit button.
-     * @param context The not null instance of the context.
-     */
-    default void onEdit(@NotNull Context context) {
-        // nothing to do.
-    }
 
 }
