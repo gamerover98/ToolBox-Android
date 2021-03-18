@@ -32,6 +32,10 @@
             android:id="@+id/action_nav_add_measure_fragment_to_magnetometer"
             app:destination="@id/magnetometerFragment" />
 
+        <action
+            android:id="@+id/action_nav_add_measure_fragment_to_lux_meter"
+            app:destination="@id/luxMeterFragment" />
+
     </fragment>
 
     <fragment
@@ -62,6 +66,13 @@
         android:id="@+id/magnetometerFragment"
         android:name="it.uniba.magr.misurapp.tool.magnetometer.MagnetometerFragment"
         android:label="MagnetometerFragment" />
+
+    <!-- lux meter fragment -->
+
+    <fragment
+        android:id="@+id/luxMeterFragment"
+        android:name="it.uniba.magr.misurapp.tool.luxmeter.LuxMeterFragment"
+        android:label="LuxMeterFragment" />
 
 
 </navigation>
