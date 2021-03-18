@@ -29,23 +29,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.Navigable;
 
-public class LuxmeterNavigation implements Navigable, SensorEventListener {
-
-    /*
-    Change MIN_PLOT_VALUE and VALUE_BOUND for the max and min range of plottable data in the
-    graph.
-    TODO: adapt these values to fit real life sensor values
-     */
+public class LuxMeterNavigation implements Navigable, SensorEventListener {
 
     /**
-     * The minimum light plot value.
+     * The light bound to be multiplied into the plot value to avoid pinnacles.
      */
-    private static final float MIN_PLOT_VALUE = 10;
+    private static final float VALUE_BOUND_MULTIPLY = 1.5f;
 
     /**
-     * The light bound to be added into the plot value to avoid pinnacles.
+     * The maximum value of the plot values.
      */
-    private static final float VALUE_BOUND = 5000;
+    private static final float VALUE_BOUND_MAX = 41000;
 
     /**
      * The sensor manager instance from the application context.
@@ -53,9 +47,9 @@ public class LuxmeterNavigation implements Navigable, SensorEventListener {
     private SensorManager sensorManager;
 
     /**
-     * The luxmeter sensor instance from the system.
+     * The luxMeter sensor instance from the system.
      */
-    private Sensor luxmeterSensor;
+    private Sensor luxMeterSensor;
 
     /**
      * The TextView lux value.
@@ -86,7 +80,7 @@ public class LuxmeterNavigation implements Navigable, SensorEventListener {
     /**
      * The latest max value for the plot Y axis.
      */
-    private float currentMaxValue = MIN_PLOT_VALUE;
+    private float currentMaxValue = 0;
 
     @Override
     public int getLayoutId() {
@@ -96,48 +90,35 @@ public class LuxmeterNavigation implements Navigable, SensorEventListener {
     @NotNull
     @Override
     public String getToolbarName(@NotNull Context rootContext) {
-        return rootContext.getResources().getString(R.string.text_luxmeter);
+        return rootContext.getResources().getString(R.string.text_lux_meter);
     }
 
     @Override
     public void onActivityCreated(@NotNull Activity activity, @Nullable Bundle bundle) {
 
         sensorManager      = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
-        luxmeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        assert luxmeterSensor != null; // prevents that the sensor is null
+        luxMeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        assert luxMeterSensor != null; // prevents that the sensor is null
 
         sensorManager.registerListener(this,
-                luxmeterSensor, SensorManager.SENSOR_DELAY_GAME);
+                luxMeterSensor, SensorManager.SENSOR_DELAY_GAME);
 
         luxValueTextView = activity.findViewById(R.id.light_value);
         progressBar = activity.findViewById(R.id.luxmeter_progress_bar);
         lineChart   = activity.findViewById(R.id.chart_light_detector);
 
-        progressBar.setMax((int) luxmeterSensor.getMaximumRange());
+        progressBar.setMax((int) luxMeterSensor.getMaximumRange());
 
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-        float value = sensorEvent.values[0];
-        luxValueTextView.setText(String.valueOf(value));
+        currentMaxValue = sensorEvent.values[0];
+        luxValueTextView.setText(String.valueOf(currentMaxValue));
 
-        progressBar.setProgress((int) value);
-
-        if (plotData.get()) {
-
-            if (currentMaxValue < value) {
-
-                currentMaxValue = (float) value;
-                updateLineChart();
-
-            }
-
-            addChartValue(value);
-            plotData.set(false);
-
-        }
+        progressBar.setProgress((int) currentMaxValue);
+        plotData.set(true);
 
     }
 
@@ -149,7 +130,7 @@ public class LuxmeterNavigation implements Navigable, SensorEventListener {
     @Override
     public void onResume() {
 
-        sensorManager.registerListener(this, luxmeterSensor,
+        sensorManager.registerListener(this, luxMeterSensor,
                 SensorManager.SENSOR_DELAY_GAME);
 
         initLineChart();
@@ -199,10 +180,16 @@ public class LuxmeterNavigation implements Navigable, SensorEventListener {
         YAxis rightAxis = lineChart.getAxisRight();
         XAxis xAxis     = lineChart.getXAxis();
 
+        float maximum = currentMaxValue * VALUE_BOUND_MULTIPLY;
+
+        if (maximum > VALUE_BOUND_MAX) {
+            maximum = VALUE_BOUND_MAX;
+        }
+
         leftAxis.setTextColor    (Color.BLACK);
         leftAxis.setTextSize     (20);
-        leftAxis.setAxisMaximum  (currentMaxValue + VALUE_BOUND);
-        leftAxis.setAxisMinimum  (-10f);
+        leftAxis.setAxisMaximum  (maximum);
+        leftAxis.setAxisMinimum  (0f);
         leftAxis.setDrawZeroLine (true);
         leftAxis.setDrawGridLines(true);
         rightAxis.setEnabled     (false);
@@ -303,7 +290,17 @@ public class LuxmeterNavigation implements Navigable, SensorEventListener {
 
             try {
 
-                plotData.set(true);
+                if (plotData.get()) {
+
+                    lineChart.post(() -> {
+
+                        updateLineChart();
+                        addChartValue(currentMaxValue);
+
+                    });
+
+                }
+
                 Thread.sleep(1000L);
 
             } catch (InterruptedException ex) {

@@ -64,7 +64,7 @@
     <string name="text_select_language">Select your language</string>
     <string name="tesla_unit">µTesla</string>
     <string name="tesla_chart_label">µTesla values</string>
-    <string name="text_luxmeter">Luxmeter</string>
-    <string name="light_unit">lx</string>
+    <string name="text_lux_meter">Lux meter</string>
+    <string name="light_unit">lux</string>
     <string name="light_chart_label">lux values</string>
 </resources>

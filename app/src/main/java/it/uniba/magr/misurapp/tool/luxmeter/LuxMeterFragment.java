@@ -6,11 +6,11 @@ import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.navigation.ToolNavigationFragment;
 
-public class LuxmeterFragment extends ToolNavigationFragment {
+public class LuxMeterFragment extends ToolNavigationFragment {
 
 
-    public LuxmeterFragment() {
-        super(new LuxmeterNavigation());
+    public LuxMeterFragment() {
+        super(new LuxMeterNavigation());
     }
 
     /*

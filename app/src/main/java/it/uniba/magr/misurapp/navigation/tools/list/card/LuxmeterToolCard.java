@@ -20,7 +20,7 @@ public class LuxmeterToolCard implements ToolCard {
 
     @Override
     public int getTitleID() {
-        return  R.string.text_luxmeter;
+        return  R.string.text_lux_meter;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class LuxmeterToolCard implements ToolCard {
         HomeActivity activity = (HomeActivity) context;
         NavController navController = activity.getNavController();
 
-        navController.navigate(R.id.action_nav_add_measure_fragment_to_luxmeter);
+        navController.navigate(R.id.action_nav_add_measure_fragment_to_lux_meter);
 
     }
 
@@ -37,9 +37,9 @@ public class LuxmeterToolCard implements ToolCard {
     public boolean isSupported(@NotNull Context context) {
 
         SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        Sensor luxmeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        Sensor luxMeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
-        return luxmeterSensor != null;
+        return luxMeterSensor != null;
 
     }
 
