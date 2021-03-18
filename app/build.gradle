@@ -104,6 +104,9 @@ dependencies {
     // Imported MPAndroidChart API for chart implementation
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    // Imported the VectorChildFinder API for path manipulation in vector images
+    implementation 'com.github.devsideal:VectorChildFinder:1.0.0'
+
     // (Optional) If you also have JUnit 4-based tests
     testImplementation "junit:junit:4.13"
     testRuntimeOnly    "org.junit.vintage:junit-vintage-engine:5.7.0"

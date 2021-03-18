@@ -9,9 +9,15 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
+import androidx.core.graphics.drawable.DrawableCompat;
+
+import com.devs.vectorchildfinder.VectorChildFinder;
+import com.devs.vectorchildfinder.VectorDrawableCompat;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -57,14 +63,14 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
     private TextView luxValueTextView;
 
     /**
+     * The image view that contains the drawable vector
+     */
+    private ImageView bulbImage;
+
+    /**
      * The LineChart view.
      */
     private LineChart lineChart;
-
-    /**
-     * The ProgressBar view.
-     */
-    private ProgressBar progressBar;
 
     /**
      * The async thread that provide to update every second the chart.
@@ -104,10 +110,8 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
                 luxMeterSensor, SensorManager.SENSOR_DELAY_GAME);
 
         luxValueTextView = activity.findViewById(R.id.light_value);
-        progressBar = activity.findViewById(R.id.luxmeter_progress_bar);
         lineChart   = activity.findViewById(R.id.chart_light_detector);
-
-        progressBar.setMax((int) luxMeterSensor.getMaximumRange());
+        bulbImage = activity.findViewById(R.id.bulb_image);
 
     }
 
@@ -116,8 +120,15 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
 
         currentMaxValue = sensorEvent.values[0];
         luxValueTextView.setText(String.valueOf(currentMaxValue));
+        Context context = bulbImage.getContext();
 
-        progressBar.setProgress((int) currentMaxValue);
+        VectorChildFinder vector = new VectorChildFinder(context, R.drawable.bulb_lux_meter, bulbImage);
+        VectorDrawableCompat.VFullPath path1 = vector.findPathByName("bulb");
+
+        float proportionValue = (currentMaxValue/luxMeterSensor.getMaximumRange());
+
+        path1.setFillColor(ColorUtils.HSLToColor(new float []{54f, 1f, proportionValue}));
+
         plotData.set(true);
 
     }

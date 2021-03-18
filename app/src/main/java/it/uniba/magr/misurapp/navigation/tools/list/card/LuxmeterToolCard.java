@@ -15,7 +15,7 @@ public class LuxmeterToolCard implements ToolCard {
 
     @Override
     public int getImageID() {
-        return R.drawable.icon_luxmeter;
+        return R.drawable.icon_lux_meter;
     }
 
     @Override
