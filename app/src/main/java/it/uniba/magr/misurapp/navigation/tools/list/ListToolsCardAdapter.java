@@ -16,6 +16,7 @@ import java.util.LinkedList;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.tools.list.card.BarometerToolCard;
+import it.uniba.magr.misurapp.navigation.tools.list.card.CompassToolCard;
 import it.uniba.magr.misurapp.navigation.tools.list.card.LevelToolCard;
 import it.uniba.magr.misurapp.navigation.tools.list.card.LuxmeterToolCard;
 import it.uniba.magr.misurapp.navigation.tools.list.card.MagnetometerToolCard;
@@ -41,6 +42,7 @@ public class ListToolsCardAdapter extends BaseAdapter {
         addTool(context, new LuxmeterToolCard());
         addTool(context, new BarometerToolCard());
         addTool(context, new PedometerToolCard());
+        addTool(context, new CompassToolCard());
 
 
     }

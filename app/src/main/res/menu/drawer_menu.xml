@@ -21,7 +21,7 @@
 
         <item
             android:id="@+id/drawer_menu_add_measure"
-            android:icon="@drawable/icon_compass"
+            android:icon="@drawable/icon_drawing_compass"
             android:title="@string/text_nav_add_measure_item" />
 
     </group>

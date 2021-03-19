@@ -93,13 +93,13 @@ public class PedometerNavigation implements Navigable, SensorEventListener {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_luxmeter;
+        return R.layout.fragment_pedometer;
     }
 
     @NotNull
     @Override
     public String getToolbarName(@NotNull Context rootContext) {
-        return rootContext.getResources().getString(R.string.text_lux_meter);
+        return rootContext.getResources().getString(R.string.text_pedometer);
     }
 
     @Override

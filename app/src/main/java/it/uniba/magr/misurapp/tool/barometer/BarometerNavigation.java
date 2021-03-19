@@ -113,13 +113,13 @@ public class BarometerNavigation implements Navigable, SensorEventListener {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_magnetometer;
+        return R.layout.fragment_barometer;
     }
 
     @NotNull
     @Override
     public String getToolbarName(@NotNull Context rootContext) {
-        return rootContext.getResources().getString(R.string.text_magnetometer);
+        return rootContext.getResources().getString(R.string.text_barometer);
     }
 
     @Override
