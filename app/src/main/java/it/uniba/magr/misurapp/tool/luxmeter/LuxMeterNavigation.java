@@ -12,9 +12,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
-import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.devs.vectorchildfinder.VectorChildFinder;
 import com.devs.vectorchildfinder.VectorDrawableCompat;
@@ -36,6 +34,11 @@ import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.Navigable;
 
 public class LuxMeterNavigation implements Navigable, SensorEventListener {
+
+    /**
+     * The name of the inside path of the lamp that it will be "illuminated".
+     */
+    private static final String VECTOR_LAMP_BULB_PATH_NAME = "bulb";
 
     /**
      * The light bound to be multiplied into the plot value to avoid pinnacles.
@@ -65,7 +68,7 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
     /**
      * The image view that contains the drawable vector
      */
-    private ImageView bulbImage;
+    private ImageView lampImage;
 
     /**
      * The LineChart view.
@@ -102,7 +105,7 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
     @Override
     public void onActivityCreated(@NotNull Activity activity, @Nullable Bundle bundle) {
 
-        sensorManager      = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
+        sensorManager  = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
         luxMeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         assert luxMeterSensor != null; // prevents that the sensor is null
 
@@ -110,24 +113,23 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
                 luxMeterSensor, SensorManager.SENSOR_DELAY_GAME);
 
         luxValueTextView = activity.findViewById(R.id.light_value);
-        lineChart   = activity.findViewById(R.id.chart_light_detector);
-        bulbImage = activity.findViewById(R.id.bulb_image);
+        lineChart        = activity.findViewById(R.id.lux_meter_line_chart_light);
+        lampImage        = activity.findViewById(R.id.lux_meter_lamp_image);
 
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-        currentMaxValue = sensorEvent.values[0];
+        Context context = lampImage.getContext();
+
+        currentMaxValue = sensorEvent.values[0]; // the current light value.
         luxValueTextView.setText(String.valueOf(currentMaxValue));
-        Context context = bulbImage.getContext();
 
-        VectorChildFinder vector = new VectorChildFinder(context, R.drawable.bulb_lux_meter, bulbImage);
-        VectorDrawableCompat.VFullPath path1 = vector.findPathByName("bulb");
-
-        float proportionValue = (currentMaxValue/luxMeterSensor.getMaximumRange());
-
-        path1.setFillColor(ColorUtils.HSLToColor(new float []{54f, 1f, proportionValue}));
+        // edit the bulb lamp color with properly "light" color.
+        VectorChildFinder vector = new VectorChildFinder(context, R.drawable.lux_meter_lamp, lampImage);
+        VectorDrawableCompat.VFullPath bulbVectorPath = vector.findPathByName(VECTOR_LAMP_BULB_PATH_NAME);
+        bulbVectorPath.setFillColor(getLampBulbColor(currentMaxValue));
 
         plotData.set(true);
 
@@ -257,6 +259,19 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
         lineDataSet.setCubicIntensity(0.2f);
 
         return lineDataSet;
+
+    }
+
+    /**
+     * Gets the light color of the lamp inside.
+     *
+     * @param luxValue the sensor lux value.
+     * @return The color of the light.
+     */
+    private int getLampBulbColor(float luxValue) {
+
+        float proportionValue = (luxValue / luxMeterSensor.getMaximumRange());
+        return ColorUtils.HSLToColor(new float[]{54f, 1f, proportionValue});
 
     }
 
