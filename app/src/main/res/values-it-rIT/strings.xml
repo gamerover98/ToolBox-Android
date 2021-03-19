@@ -26,6 +26,7 @@
     <string name="text_insert_description">Inserire la descrizione</string>
     <string name="text_add_measure">Aggiungi una misura</string>
     <string name="text_save_measure">Salva misura</string>
+    <string name="text_save_complete">Salvataggio completato</string>
     <string name="text_list_tools">Lista strumenti</string>
     <string name="text_title">Titolo</string>
     <string name="text_description">Descrizione</string>

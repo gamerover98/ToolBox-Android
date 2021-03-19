@@ -6,6 +6,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 import it.uniba.magr.misurapp.database.bean.Measure;
@@ -49,5 +51,12 @@ public interface MeasurementsDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMeasurements(Measure... measures);
+
+    /**
+     * @return The latest measure added into the table.
+     */
+    @Nullable
+    @Query("SELECT * FROM Measurements WHERE id=last_insert_rowid()")
+    Measure getLatestMeasure();
 
 }

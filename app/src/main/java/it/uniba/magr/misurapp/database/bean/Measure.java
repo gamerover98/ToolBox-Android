@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Date;
 
 import it.uniba.magr.misurapp.database.Conversions;
@@ -33,41 +35,99 @@ public class Measure {
      * A common integer ID that will be auto incremented by default.
      */
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    private int id;
 
     /**
      * The firebase user's token.
+     *
+     * <p>
+     *     If the value is empty, it will match the guest
+     *     user (not logged-in in firebase).
+     * </p>
      */
     @NonNull
     @ColumnInfo(name = "user_token", defaultValue = "")
-    public String userToken = "";
+    private String userToken = "";
 
     /**
      * The title.
      */
     @NonNull
     @ColumnInfo(name = "title", defaultValue = "")
-    public String title = "";
+    private String title = "";
 
     /**
      * The description.
      */
     @NonNull
     @ColumnInfo(name = "description", defaultValue = "")
-    public String description = "";
+    private String description = "";
 
     /**
      * The start date.
      */
     @NonNull
     @ColumnInfo(name = "start_date")
-    public Date startDate = new Date(System.currentTimeMillis());
+    private Date startDate = new Date(System.currentTimeMillis());
 
     /**
      * The end date.
      */
     @NonNull
     @ColumnInfo(name = "end_date")
-    public Date endDate = new Date(System.currentTimeMillis());
+    private Date endDate = new Date(System.currentTimeMillis());
+
+    public int getId() {
+        return this.id;
+    }
+
+    @NotNull
+    public String getUserToken() {
+        return this.userToken;
+    }
+
+    @NotNull
+    public String getTitle() {
+        return this.title;
+    }
+
+    @NotNull
+    public String getDescription() {
+        return this.description;
+    }
+
+    @NotNull
+    public Date getStartDate() {
+        return this.startDate;
+    }
+
+    @NotNull
+    public Date getEndDate() {
+        return this.endDate;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUserToken(@NonNull String userToken) {
+        this.userToken = userToken;
+    }
+
+    public void setTitle(@NonNull String title) {
+        this.title = title;
+    }
+
+    public void setDescription(@NonNull String description) {
+        this.description = description;
+    }
+
+    public void setStartDate(@NonNull Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(@NonNull Date endDate) {
+        this.endDate = endDate;
+    }
 
 }

@@ -5,16 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/save_ruler_length_text"
-        android:text="@string/text_length"
-        app:layout_constraintBottom_toTopOf="@+id/save_ruler_input_text_box_length"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/text_input_title"/>
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/save_ruler_input_text_box_length"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

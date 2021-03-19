@@ -5,20 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/save_layout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:alpha="0.5"
+        android:elevation="10dp"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/loading_fragment_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/save_layout_fields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/save_title_text"
-                android:text="@string/text_title"
-                app:layout_constraintBottom_toTopOf="@+id/save_input_text_box_title"
-                app:layout_constraintStart_toStartOf="parent"
-                style="@style/text_input_title"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/save_input_text_box_title"
@@ -41,19 +55,11 @@
                 android:id="@+id/save_parameters_fragment_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="25dp"
                 app:layout_constraintBottom_toTopOf="@+id/save_input_text_box_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/save_input_text_box_title" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/save_description_text"
-                android:text="@string/text_description"
-                app:layout_constraintBottom_toTopOf="@+id/save_input_text_box_description"
-                app:layout_constraintStart_toStartOf="parent"
-                style="@style/text_input_title"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/save_input_text_box_description"

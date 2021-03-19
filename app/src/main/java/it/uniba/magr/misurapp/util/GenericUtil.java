@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.annotation.IdRes;
@@ -164,5 +165,18 @@ public final class GenericUtil {
 
     }
 
+    /**
+     * Hide the opened user keyboard.
+     *
+     * @param view The view where the keyboard is opened.
+     * @param activity The not null view activity.
+     */
+    public static void closeKeyboard(@NotNull View view, @NotNull Activity activity) {
+
+        InputMethodManager inputMethodManager = (InputMethodManager)
+                activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
+    }
 
 }

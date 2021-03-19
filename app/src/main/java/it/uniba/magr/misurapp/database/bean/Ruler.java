@@ -27,12 +27,28 @@ public class Ruler {
      */
     @PrimaryKey()
     @ColumnInfo(name = "measure_id")
-    public int measureId;
+    private int measureId;
 
     /**
      * The length in centimeters.
      */
     @ColumnInfo(name = "length", defaultValue = "0")
-    public int length = 0;
+    private double length = 0;
+
+    public int getMeasureId() {
+        return this.measureId;
+    }
+
+    public double getLength() {
+        return this.length;
+    }
+
+    public void setMeasureId(int measureId) {
+        this.measureId = measureId;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
 
 }

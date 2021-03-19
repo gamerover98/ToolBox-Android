@@ -6,7 +6,13 @@ import android.view.Window;
 
 import org.jetbrains.annotations.NotNull;
 
+import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.DatabaseManager;
+import it.uniba.magr.misurapp.database.bean.Measure;
+import it.uniba.magr.misurapp.database.bean.Ruler;
+import it.uniba.magr.misurapp.database.dao.MeasurementsDao;
+import it.uniba.magr.misurapp.database.dao.RulersDao;
 import it.uniba.magr.misurapp.navigation.save.SaveMeasureFragment;
 import it.uniba.magr.misurapp.util.GenericUtil;
 
@@ -50,7 +56,33 @@ public class SaveRulerFragment extends SaveMeasureFragment {
 
     @Override
     protected void save() {
-        //TODO: add length param.
+
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+        assert homeActivity != null;
+
+        DatabaseManager databaseManager = homeActivity.getDatabaseManager();
+        MeasurementsDao measurementsDao = databaseManager.measurementsDao();
+        RulersDao rulersDao = databaseManager.rulersDao();
+
+        Measure measure = new Measure();
+
+        measure.setTitle(getTitle());
+        measure.setDescription(getDescription());
+
+        measurementsDao.insertMeasure(measure);
+        Measure latestMeasure = measurementsDao.getLatestMeasure();
+
+        if (latestMeasure != null) {
+            measure = latestMeasure;
+        }
+
+        Ruler ruler = new Ruler();
+
+        ruler.setMeasureId(measure.getId());
+        ruler.setLength(getLength());
+
+        rulersDao.insertRuler(ruler);
+
     }
 
     /**

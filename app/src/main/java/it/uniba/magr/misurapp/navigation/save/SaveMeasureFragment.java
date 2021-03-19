@@ -1,30 +1,38 @@
 package it.uniba.magr.misurapp.navigation.save;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.button.MaterialButton;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.NavigationFragment;
+import it.uniba.magr.misurapp.util.GenericUtil;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import static it.uniba.magr.misurapp.util.GenericUtil.getTextFromInputLayout;
 import static it.uniba.magr.misurapp.util.GenericUtil.setTextToInputLayout;
+
+import java.util.List;
 
 @SuppressWarnings("unused") // unused methods
 public abstract class SaveMeasureFragment extends NavigationFragment {
@@ -83,7 +91,7 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
     public String getTitle() {
 
         assert getActivity() != null;
-        return getTextFromInputLayout(getActivity(), R.id.save_input_text_box_title);
+        return getTextFromInputLayout(getActivity(), R.id.save_input_text_box_title).trim();
 
     }
 
@@ -118,26 +126,84 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
 
     }
 
-
+    /**
+     * This method perform the save button click.
+     * @param view The not null button view.
+     */
     public void handleSaveClick(@NotNull View view) {
 
-        Context context = getContext();
+        FragmentActivity activity = getActivity();
+        assert activity != null;
 
+        // title text check
         String title = getTitle();
-        String description = getDescription();
 
         if (title.isEmpty()) {
 
-            Toast.makeText(context, R.string.text_insert_title, Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, R.string.text_insert_title, Toast.LENGTH_LONG).show();
             return;
 
         }
 
-        title = title.trim();
-        Toast.makeText(context, title + " - " + description, Toast.LENGTH_LONG).show();
+        openLoadingLayout(view);
 
-        //TODO: it must be implemented to save title and description and its custom parameters.
-        save();
+        Thread thread = new Thread(() -> asyncSaving((HomeActivity) activity));
+        thread.start();
+
+    }
+
+    /**
+     * Show the elevated loading layout.
+     * @param view The not null view.
+     */
+    private void openLoadingLayout(@NotNull View view) {
+
+        Activity activity = getActivity();
+        assert activity != null;
+
+        ConstraintLayout loadingLayout = activity.findViewById(R.id.save_layout_loading);
+        ConstraintLayout fieldsLayout  = activity.findViewById(R.id.save_layout_fields);
+        MaterialButton   saveButton    = activity.findViewById(R.id.save_button);
+
+        loadingLayout.setVisibility(View.VISIBLE);
+        setLayoutChildrenClick(fieldsLayout, false);
+        saveButton.setClickable(false);
+
+        GenericUtil.closeKeyboard(view, activity);
+
+    }
+
+
+    /**
+     * Asynchronously measure saving.
+     */
+    private void asyncSaving(@NotNull HomeActivity activity) {
+
+        //save();
+
+        NavHostFragment navHostFragment = activity.getNavHostFragment();
+        FragmentManager fragmentManager = navHostFragment.getChildFragmentManager();
+
+        List<Fragment> currentFragments = fragmentManager.getFragments();
+
+        if (currentFragments.isEmpty()) {
+            return;
+        }
+
+        Fragment current = currentFragments.get(0);
+
+        if (this != current) {
+            return;
+        }
+
+        activity.runOnUiThread(() -> {
+
+            NavController navController = navHostFragment.getNavController();
+            navController.navigateUp();
+
+            Toast.makeText(activity, R.string.text_save_complete, Toast.LENGTH_LONG).show();
+
+        });
 
     }
 
@@ -173,6 +239,34 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
 
             super.onActivityCreated(bundle);
             behaviourMethod.run();
+
+        }
+
+    }
+
+    /**
+     * Disable internal views layout clicking and editing.
+     * @param viewGroup The not null view group instance.
+     * @param editable True if you want to enable it.
+     */
+    private static void setLayoutChildrenClick(@NotNull ViewGroup viewGroup, boolean editable) {
+
+        for (int i = 0; i < viewGroup.getChildCount() ; i++) {
+
+            View childView = viewGroup.getChildAt(i);
+
+            if (childView instanceof ViewGroup) {
+                setLayoutChildrenClick((ViewGroup) childView, editable);
+            }
+
+            childView.setEnabled(editable);
+
+            if (childView instanceof EditText) {
+
+                EditText editText = (EditText) childView;
+                editText.setEnabled(editable);
+
+            }
 
         }
 
