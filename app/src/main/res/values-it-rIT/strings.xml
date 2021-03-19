@@ -65,4 +65,7 @@
     <string name="text_lux_meter">Luxmetro</string>
     <string name="light_unit">lux</string>
     <string name="light_chart_label">Valori in lux</string>
+    <string name="text_barometer">Barometro</string>
+    <string name="text_pedometer">Contapassi</string>
+    <string name="text_compass">Bussola</string>
 </resources>
