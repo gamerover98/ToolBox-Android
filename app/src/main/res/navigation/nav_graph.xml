@@ -36,6 +36,14 @@
             android:id="@+id/action_nav_add_measure_fragment_to_lux_meter"
             app:destination="@id/luxMeterFragment" />
 
+        <action
+            android:id="@+id/action_nav_add_measure_fragment_to_barometer"
+            app:destination="@id/barometerFragment" />
+
+        <action
+            android:id="@+id/action_nav_add_measure_fragment_to_pedometer"
+            app:destination="@id/pedometerFragment" />
+
     </fragment>
 
     <fragment
@@ -74,5 +82,18 @@
         android:name="it.uniba.magr.misurapp.tool.luxmeter.LuxMeterFragment"
         android:label="LuxMeterFragment" />
 
+    <!-- barometer fragment -->
+
+    <fragment
+        android:id="@+id/barometerFragment"
+        android:name="it.uniba.magr.misurapp.tool.barometer.BarometerFragment"
+        android:label="BarometerFragment" />
+
+    <!-- pedometer fragment -->
+
+    <fragment
+        android:id="@+id/pedometerFragment"
+        android:name="it.uniba.magr.misurapp.tool.pedometer.PedometerFragment"
+        android:label="PedometerFragment" />
 
 </navigation>
