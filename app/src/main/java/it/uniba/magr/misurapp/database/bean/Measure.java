@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.database;
+package it.uniba.magr.misurapp.database.bean;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
+import it.uniba.magr.misurapp.database.Conversions;
 import lombok.ToString;
 
 /**
@@ -56,10 +57,17 @@ public class Measure {
     public String description = "";
 
     /**
-     * The date.
+     * The start date.
      */
     @NonNull
-    @ColumnInfo(name = "date")
-    public Date date = new Date(System.currentTimeMillis());
+    @ColumnInfo(name = "start_date")
+    public Date startDate = new Date(System.currentTimeMillis());
+
+    /**
+     * The end date.
+     */
+    @NonNull
+    @ColumnInfo(name = "end_date")
+    public Date endDate = new Date(System.currentTimeMillis());
 
 }

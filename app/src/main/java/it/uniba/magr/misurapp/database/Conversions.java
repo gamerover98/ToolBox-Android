@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * The room's database class conversions.
  */
-final class Conversions {
+public final class Conversions {
 
     /**
      * @param value a date in long type.
