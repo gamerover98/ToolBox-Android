@@ -122,7 +122,7 @@ public class RulerNavigation implements Navigable {
             if (centimeters < 0) {
 
                 centimeters = 0;
-                drawMeasureLine(RulerCanvasView.LINE_MARGIN_TOP);
+                drawIndicatorLine(RulerCanvasView.LINE_MARGIN_TOP);
 
             } else {
 
@@ -146,7 +146,7 @@ public class RulerNavigation implements Navigable {
                 centimeters = (float) Math.floor(centimeters);
                 centimeters /= 100;
 
-                drawMeasureLine(y);
+                drawIndicatorLine(y);
 
             }
 
@@ -158,7 +158,7 @@ public class RulerNavigation implements Navigable {
      * Draw an horizontal line at this height.
      * @param y The layout y cords.
      */
-    private void drawMeasureLine(float y) {
+    private void drawIndicatorLine(float y) {
 
         WindowManager windowManager = homeActivity.getWindowManager();
         Display display = windowManager.getDefaultDisplay();
