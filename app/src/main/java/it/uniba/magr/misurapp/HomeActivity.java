@@ -1,5 +1,6 @@
 package it.uniba.magr.misurapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -9,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ActivityNavigator;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
@@ -40,6 +42,7 @@ import it.uniba.magr.misurapp.database.DatabaseManager;
 import it.uniba.magr.misurapp.introduction.IntroductionFragment;
 import it.uniba.magr.misurapp.loading.LoadingFragment;
 import it.uniba.magr.misurapp.navigation.tools.list.ListToolsNavigation;
+import it.uniba.magr.misurapp.util.GenericUtil;
 import it.uniba.magr.misurapp.util.LocaleUtil;
 import lombok.Getter;
 import lombok.Setter;
@@ -411,6 +414,8 @@ public class HomeActivity extends AppCompatActivity implements
 
         navController = navHostFragment.getNavController();
 
+        navController.addOnDestinationChangedListener(this ::onNavigationDestinationChange);
+
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout);
         NavigationUI.setupWithNavController(navigationView, navController);
 
@@ -426,6 +431,16 @@ public class HomeActivity extends AppCompatActivity implements
         navigationIcon.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
 
         toolbar.setNavigationIcon(navigationIcon);
+
+    }
+
+    private void onNavigationDestinationChange(@NonNull NavController controller,
+                                               @NonNull NavDestination destination,
+                                               @Nullable Bundle arguments) {
+
+        // we need any view to close the keyboard.
+        View view = toolbar.getRootView();
+        GenericUtil.closeKeyboard(view, this);
 
     }
 
