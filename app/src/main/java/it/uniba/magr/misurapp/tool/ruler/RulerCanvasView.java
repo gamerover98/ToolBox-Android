@@ -47,7 +47,7 @@ public class RulerCanvasView extends View {
     /**
      * The distance between the first ruler line and the top of the view.
      */
-    private static final int LINE_MARGIN_TOP = 40;
+    public static final int LINE_MARGIN_TOP = 40;
 
     /**
      * The right margin value.
@@ -183,7 +183,8 @@ public class RulerCanvasView extends View {
         assert canvas != null;
         linePaint.setStrokeWidth(lineNumber == 1 ? PRIMARY_MEASURE_LINE_FORCE : MEASURE_LINE_FORCE);
 
-        float centimeterPixel = GenericUtil.getPixelSize(getContext()) * 10;
+        // the exact physical pixels per centimeters of the screen in the X dimension.
+        float centimeterPixel = GenericUtil.getPixelSize(getContext()) * 10; //  * 10 -> centimeters
         int displayHeight = getHeight();
 
         if (lineNumber > 1) {
