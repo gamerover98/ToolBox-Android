@@ -68,8 +68,13 @@ public final class GenericUtil {
         EditText editText = inputLayout.getEditText();
         assert editText != null;
 
-        String number = editText.getText().toString().trim();
-        return MathUtil.getNumber(number);
+        String stringNumber = editText.getText().toString().trim();
+
+        if (stringNumber.isEmpty()) {
+            return 0;
+        }
+
+        return MathUtil.getNumber(stringNumber);
 
     }
 

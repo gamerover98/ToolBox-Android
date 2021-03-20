@@ -33,9 +33,10 @@ public class Measure {
 
     /**
      * A common integer ID that will be auto incremented by default.
+     * <p>The auto-increment default value is 1.</p>
      */
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int id = 1;
 
     /**
      * The firebase user's token.

@@ -24,10 +24,14 @@ import org.jetbrains.annotations.Nullable;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.DatabaseManager;
+import it.uniba.magr.misurapp.database.bean.Measure;
+import it.uniba.magr.misurapp.database.dao.MeasurementsDao;
 import it.uniba.magr.misurapp.navigation.NavigationFragment;
 import it.uniba.magr.misurapp.util.GenericUtil;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 
 import static it.uniba.magr.misurapp.util.GenericUtil.getTextFromInputLayout;
 import static it.uniba.magr.misurapp.util.GenericUtil.setTextToInputLayout;
@@ -81,8 +85,10 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
 
     /**
      * Save additional parameters such as ruler length.
+     * @param databaseManager The not null sqlLite database manager instance.
+     * @param measure The not null saved measure.
      */
-    protected abstract void save();
+    protected abstract void save(@NotNull DatabaseManager databaseManager, @NotNull Measure measure);
 
     /**
      * @return the inserted title.
@@ -177,9 +183,28 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
     /**
      * Asynchronously measure saving.
      */
+    @SneakyThrows
     private void asyncSaving(@NotNull HomeActivity activity) {
 
-        //save();
+        HomeActivity homeActivity = (HomeActivity) getActivity();
+        assert homeActivity != null;
+
+        DatabaseManager databaseManager = homeActivity.getDatabaseManager();
+        MeasurementsDao measurementsDao = databaseManager.measurementsDao();
+        Measure measure = new Measure();
+
+        measure.setTitle(getTitle());
+        measure.setDescription(getDescription());
+
+        measurementsDao.insertMeasure(measure);
+        Measure latestMeasure = measurementsDao.getLatestMeasure();
+
+        if (latestMeasure != null) {
+            measure = latestMeasure;
+        }
+
+        // perform the tool saving with the measure just saved.
+        save(databaseManager, measure);
 
         NavHostFragment navHostFragment = activity.getNavHostFragment();
         FragmentManager fragmentManager = navHostFragment.getChildFragmentManager();
