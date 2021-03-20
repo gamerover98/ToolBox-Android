@@ -3,6 +3,7 @@ package it.uniba.magr.misurapp.navigation;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.MotionEvent;
 
 import androidx.annotation.LayoutRes;
 
@@ -133,6 +134,14 @@ public interface Navigable {
      * This is the latest method of a fragment lifecycle.
      */
     default void onDetach() {
+        // nothing to do
+    }
+
+    /**
+     * Called when the user clicks the UI.
+     * @param event The not null motion event.
+     */
+    default void onTouchEvent(@NotNull MotionEvent event) {
         // nothing to do
     }
 

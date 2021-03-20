@@ -3,6 +3,8 @@ package it.uniba.magr.misurapp.tool.ruler;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 
 import androidx.navigation.NavController;
 
@@ -38,6 +40,12 @@ public class RulerNavigation implements Navigable {
 
         }
 
+    }
+
+
+    @Override
+    public void onTouchEvent(@NotNull MotionEvent event) {
+        Log.d("TEST", event.toString());
     }
 
     private void onSaveButtonClick(@NotNull Context context) {

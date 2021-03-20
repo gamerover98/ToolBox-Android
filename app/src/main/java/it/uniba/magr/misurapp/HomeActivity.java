@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ActivityNavigator;
@@ -22,6 +23,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
@@ -33,6 +35,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -41,6 +44,8 @@ import it.uniba.magr.misurapp.auth.AuthActivity;
 import it.uniba.magr.misurapp.database.DatabaseManager;
 import it.uniba.magr.misurapp.introduction.IntroductionFragment;
 import it.uniba.magr.misurapp.loading.LoadingFragment;
+import it.uniba.magr.misurapp.navigation.Navigable;
+import it.uniba.magr.misurapp.navigation.NavigationFragment;
 import it.uniba.magr.misurapp.navigation.tools.list.ListToolsNavigation;
 import it.uniba.magr.misurapp.util.GenericUtil;
 import it.uniba.magr.misurapp.util.LocaleUtil;
@@ -505,6 +510,32 @@ public class HomeActivity extends AppCompatActivity implements
         loadingFragment = new LoadingFragment();
         fragmentTransaction.replace(R.id.home_frame_layout, loadingFragment);
         fragmentTransaction.commit();
+
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+
+        // gets fragment manager from the navigation host and not from the activity.
+        FragmentManager fragmentManager = navHostFragment.getChildFragmentManager();
+        List<Fragment> fragmentList = fragmentManager.getFragments();
+
+        if (!fragmentList.isEmpty()) {
+
+            Fragment fragment = fragmentList.get(0);
+
+            if (fragment instanceof NavigationFragment) {
+
+                NavigationFragment navigationFragment = (NavigationFragment) fragment;
+                Navigable navigable = navigationFragment.getNavigable();
+
+                navigable.onTouchEvent(event);
+
+            }
+
+        }
+
+        return super.dispatchTouchEvent(event);
 
     }
 
