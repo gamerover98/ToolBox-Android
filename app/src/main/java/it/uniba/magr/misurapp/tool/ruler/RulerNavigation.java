@@ -9,6 +9,8 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
@@ -18,6 +20,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
@@ -31,6 +36,11 @@ public class RulerNavigation implements Navigable {
      * The home activity instance.
      */
     private HomeActivity homeActivity;
+
+    /**
+     * The fab save button.
+     */
+    private FloatingActionButton saveButton;
 
     /**
      * The touch image view.
@@ -70,7 +80,7 @@ public class RulerNavigation implements Navigable {
 
         homeActivity = (HomeActivity) activity;
 
-        FloatingActionButton saveButton = homeActivity.findViewById(R.id.ruler_fab_button_save);
+        saveButton = homeActivity.findViewById(R.id.ruler_fab_button_save);
         saveButton.setOnClickListener(view -> onSaveButtonClick(homeActivity));
 
         indicatorLineImageView = homeActivity.findViewById(R.id.ruler_indicator_line_image_view);
@@ -87,6 +97,7 @@ public class RulerNavigation implements Navigable {
     public void onTouchEvent(@NotNull MotionEvent event) {
 
         int action = event.getAction();
+        float x = event.getX();
         float y = event.getY();
 
         // due to the thickness of the toolbar, then Y must be subtracted from it.
@@ -101,6 +112,13 @@ public class RulerNavigation implements Navigable {
         y -= toolbarHeight;
 
         if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE) {
+
+            Set<View> touchedViews = getTouchedViews(x, y);
+            boolean result = canDrawIndicatorLine(touchedViews);
+
+            if (!result) {
+                return;
+            }
 
             // the exact physical pixels per centimeters of the screen in the X dimension.
             float centimeterPixels = GenericUtil.getPixelsSizeY(homeActivity) * 10; //  * 10 -> centimeters
@@ -143,6 +161,21 @@ public class RulerNavigation implements Navigable {
 
     }
 
+
+    private boolean canDrawIndicatorLine(@NotNull Set<View> touchedViews) {
+
+        for (View view : touchedViews) {
+
+            if (view.equals(saveButton)) {
+                return false;
+            }
+
+        }
+
+        return true;
+
+    }
+
     /**
      * Draw an horizontal line at this height.
      * @param y The layout y cords.
@@ -165,6 +198,33 @@ public class RulerNavigation implements Navigable {
 
         BitmapDrawable drawable = new BitmapDrawable(homeActivity.getResources(), bitmap);
         indicatorLineImageView.setImageDrawable(drawable);
+
+    }
+
+    @NotNull
+    private Set<View> getTouchedViews(float x, float y) {
+
+        Set<View> views = new HashSet<>();
+
+        ViewGroup rulerLayoutView = (ViewGroup) homeActivity.findViewById(R.id.ruler_layout);
+        assert rulerLayoutView != null;
+
+        for (int i = 0 ; i < rulerLayoutView.getChildCount() ; i++) {
+
+            View child = rulerLayoutView.getChildAt(i);
+
+            int childLeft   = child.getLeft();
+            int childRight  = child.getRight();
+            int childTop    = child.getTop();
+            int childBottom = child.getBottom();
+
+            if (x > childLeft && x < childRight && y > childTop && y < childBottom) {
+                views.add(child);
+            }
+
+        }
+
+        return views;
 
     }
 
