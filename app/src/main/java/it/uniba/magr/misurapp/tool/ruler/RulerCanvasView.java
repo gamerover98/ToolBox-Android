@@ -183,12 +183,12 @@ public class RulerCanvasView extends View {
         assert canvas != null;
         linePaint.setStrokeWidth(lineNumber == 1 ? PRIMARY_MEASURE_LINE_FORCE : MEASURE_LINE_FORCE);
 
-        // the exact physical pixels per centimeters of the screen in the X dimension.
-        float centimeterPixel = GenericUtil.getPixelSize(getContext()) * 10; //  * 10 -> centimeters
+        // the exact physical pixels per centimeters of the screen in the Y dimension.
+        float centimetersPixel = GenericUtil.getPixelsSizeY(getContext()) * 10; //  * 10 -> centimeters
         int displayHeight = getHeight();
 
         if (lineNumber > 1) {
-            centimeterPixel /= (float) lineNumber;
+            centimetersPixel /= (float) lineNumber;
         }
 
         int drawValuePosition = lineLength + VALUE_TEXT_RIGHT_MARGIN;
@@ -201,7 +201,7 @@ public class RulerCanvasView extends View {
 
         }
 
-        for (float height = LINE_MARGIN_TOP ; height < displayHeight ; height += centimeterPixel) {
+        for (float height = LINE_MARGIN_TOP ; height < displayHeight ; height += centimetersPixel) {
 
             canvas.drawLine(0, height, lineLength, height, linePaint);
 

@@ -22,12 +22,23 @@ public final class GenericUtil {
 
     /**
      * @param context A not null instance of a context.
-     * @return The exact physical pixels per millimeters of the screen in the X dimension.
+     * @return The exact physical X axis pixels per millimeters of the screen in the X dimension.
      */
-    public static float getPixelSize(@NotNull Context context) {
+    public static float getPixelsSizeX(@NotNull Context context) {
 
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return displayMetrics.xdpi * (1.0f / 25.4f);
+
+    }
+
+    /**
+     * @param context A not null instance of a context.
+     * @return The exact physical Y axis pixels per millimeters of the screen in the X dimension.
+     */
+    public static float getPixelsSizeY(@NotNull Context context) {
+
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return displayMetrics.ydpi * (1.0f / 25.4f);
 
     }
 

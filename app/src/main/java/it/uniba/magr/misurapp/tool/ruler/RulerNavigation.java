@@ -6,12 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.MotionEvent;
-import android.view.WindowManager;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
@@ -50,12 +47,6 @@ public class RulerNavigation implements Navigable {
      * The text up or down the drawn line.
      */
     private final Paint indicatorTextPaint = new Paint();
-
-    /**
-     * Gets the measure line height in dp.
-     */
-    @Getter
-    private float lineHeight;
 
     /**
      * Gets the length in centimetres calculated from the indicator line.
@@ -107,22 +98,20 @@ public class RulerNavigation implements Navigable {
             return;
         }
 
-        y -= toolbar.getHeight();
+        y -= toolbarHeight;
 
         if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE) {
 
             // the exact physical pixels per centimeters of the screen in the X dimension.
-            float centimeterPixel = GenericUtil.getPixelSize(homeActivity) * 10; //  * 10 -> centimeters
+            float centimeterPixels = GenericUtil.getPixelsSizeY(homeActivity) * 10; //  * 10 -> centimeters
             // gets the distance between the top of the ruler image and the first ruler value (the 0).
-            float topMargin = RulerCanvasView.LINE_MARGIN_TOP / centimeterPixel;
-
-            lineHeight  = y;
-            centimeters = lineHeight / centimeterPixel - topMargin;
+            float topMargin = RulerCanvasView.LINE_MARGIN_TOP / centimeterPixels;
+            centimeters = y / centimeterPixels - topMargin;
 
             if (centimeters < 0) {
 
                 centimeters = 0;
-                drawIndicatorLine(RulerCanvasView.LINE_MARGIN_TOP);
+                y = RulerCanvasView.LINE_MARGIN_TOP;
 
             } else {
 
@@ -130,7 +119,7 @@ public class RulerNavigation implements Navigable {
 
                 // tries to fix the mantissa error with the subtraction of the difference
                 // between the integer length and the number of pixels in cm.
-                centimeters = centimeters - intCentimeters / centimeterPixel;
+                centimeters = centimeters - intCentimeters / centimeterPixels;
 
                 // tries to add another smaller quantity to fix this issue.
                 //centimeters = centimeters + (1.0e-15f * intCentimeters)
@@ -146,9 +135,9 @@ public class RulerNavigation implements Navigable {
                 centimeters = (float) Math.floor(centimeters);
                 centimeters /= 100;
 
-                drawIndicatorLine(y);
-
             }
+
+            drawIndicatorLine(y);
 
         }
 
@@ -158,16 +147,10 @@ public class RulerNavigation implements Navigable {
      * Draw an horizontal line at this height.
      * @param y The layout y cords.
      */
-    private void drawIndicatorLine(float y) {
+    private void drawIndicatorLine(final float y) {
 
-        WindowManager windowManager = homeActivity.getWindowManager();
-        Display display = windowManager.getDefaultDisplay();
-
-        Point screenSize = new Point();
-        display.getSize(screenSize);
-
-        float width  = screenSize.x;
-        float height = screenSize.y;
+        float width  = indicatorLineImageView.getWidth();
+        float height = indicatorLineImageView.getHeight();
 
         Bitmap bitmap = Bitmap.createBitmap((int) width, (int) height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
