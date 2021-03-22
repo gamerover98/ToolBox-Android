@@ -31,6 +31,13 @@ public interface Navigable {
     String getToolbarName(@NotNull Context rootContext);
 
     /**
+     * Useful method to get the navigation fragment instance from the this interface.
+     */
+    default void navigationFragment(@NotNull NavigationFragment navigationFragment) {
+        // nothing to do
+    }
+
+    /**
      * The first method called from the fragment lifecycle.
      * @param context The parent context where the fragment is placed.
      */

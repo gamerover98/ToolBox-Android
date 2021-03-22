@@ -51,7 +51,9 @@ public class NavigationFragment extends Fragment {
     public void onAttach(@NotNull Context context) {
 
         super.onAttach(context);
+
         navigable.onAttach(context);
+        navigable.navigationFragment(this);
 
     }
 
