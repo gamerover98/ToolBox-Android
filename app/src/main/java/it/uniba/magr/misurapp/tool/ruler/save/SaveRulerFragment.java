@@ -16,6 +16,7 @@ import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.database.DatabaseManager;
 import it.uniba.magr.misurapp.database.bean.Measure;
 import it.uniba.magr.misurapp.database.bean.Ruler;
+import it.uniba.magr.misurapp.database.bean.Type;
 import it.uniba.magr.misurapp.database.dao.RulersDao;
 import it.uniba.magr.misurapp.navigation.save.SaveMeasureFragment;
 import it.uniba.magr.misurapp.tool.ruler.RulerNavigation;
@@ -55,6 +56,12 @@ public class SaveRulerFragment extends SaveMeasureFragment {
         Window window = homeActivity.getWindow();
         GenericUtil.hideSystemUI(window);
 
+    }
+
+    @NotNull
+    @Override
+    protected Type getMeasureType() {
+        return Type.RULER;
     }
 
     @Override

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -29,6 +30,7 @@ import lombok.ToString;
  */
 @ToString
 @Entity(tableName = "Measurements")
+@TypeConverters({Conversions.class})
 public class Measure {
 
     /**
@@ -36,7 +38,7 @@ public class Measure {
      * <p>The auto-increment default value is 1.</p>
      */
     @PrimaryKey(autoGenerate = true)
-    private int id = 1;
+    private int id;
 
     /**
      * The firebase user's token.
@@ -49,6 +51,14 @@ public class Measure {
     @NonNull
     @ColumnInfo(name = "user_token", defaultValue = "")
     private String userToken = "";
+
+    /**
+     * The measure type like: ruler, magnetometer, etc.
+     * The default value is UNKNOWN.
+     */
+    @NonNull
+    @ColumnInfo(name = "type")
+    private Type type = Type.UNKNOWN;
 
     /**
      * The title.
@@ -87,6 +97,11 @@ public class Measure {
         return this.userToken;
     }
 
+    @NonNull
+    public Type getType() {
+        return this.type;
+    }
+
     @NotNull
     public String getTitle() {
         return this.title;
@@ -113,6 +128,10 @@ public class Measure {
 
     public void setUserToken(@NonNull String userToken) {
         this.userToken = userToken;
+    }
+
+    public void setType(@NonNull Type type) {
+        this.type = type;
     }
 
     public void setTitle(@NonNull String title) {

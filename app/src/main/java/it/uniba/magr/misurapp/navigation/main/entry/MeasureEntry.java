@@ -1,36 +1,29 @@
 package it.uniba.magr.misurapp.navigation.main.entry;
 
-import android.content.Context;
-
 import androidx.annotation.DrawableRes;
 
 import org.jetbrains.annotations.NotNull;
 
+import it.uniba.magr.misurapp.database.bean.Measure;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 /**
  * Create an entry for the main list view of measures.
  */
-public interface MeasureEntry {
+@RequiredArgsConstructor
+public class MeasureEntry {
 
     /**
-     * @return The resource image ID of the tool icon.
+     * The resource image ID of the tool icon.
      */
-    @DrawableRes
-    int getImageID();
+    @Getter @DrawableRes
+    private final int imageID;
 
     /**
-     * @return The measure title.
+     * The measure instance.
      */
-    String getTitle();
-
-    /**
-     * @return the measure description.
-     */
-    String getDescription();
-
-    /**
-     * Perform the click event.
-     * @param context The not null instance of the context.
-     */
-    void onClick(@NotNull Context context);
+    @Getter @NotNull
+    private final Measure measure;
 
 }

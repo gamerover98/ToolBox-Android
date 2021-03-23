@@ -6,8 +6,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.util.List;
 
 import it.uniba.magr.misurapp.database.bean.Measure;
@@ -24,6 +22,15 @@ public interface MeasurementsDao {
      */
     @Query("SELECT * FROM Measurements ORDER BY start_date")
     List<Measure> getAll();
+
+    /**
+     * Gets a measure from its id.
+     *
+     * @param id the measure id.
+     * @return The measure instance.
+     */
+    @Query("SELECT * FROM Measurements WHERE id=:id")
+    Measure getMeasure(int id);
 
     /**
      * @param title The title of the
@@ -53,10 +60,9 @@ public interface MeasurementsDao {
     void insertMeasurements(Measure... measures);
 
     /**
-     * @return The latest measure added into the table.
+     * @return The latest measure ID added into the table.
      */
-    @Nullable
-    @Query("SELECT * FROM Measurements WHERE id=last_insert_rowid()")
-    Measure getLatestMeasure();
+    @Query("SELECT MAX(id) FROM Measurements")
+    int getLatestMeasureID();
 
 }

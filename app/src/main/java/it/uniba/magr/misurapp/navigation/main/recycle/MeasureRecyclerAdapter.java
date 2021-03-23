@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.DrawableRes;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,12 +19,15 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.bean.Measure;
 import it.uniba.magr.misurapp.navigation.main.entry.MeasureEntry;
-import it.uniba.magr.misurapp.navigation.main.entry.RulerMeasureEntry;
 import lombok.Getter;
 
 public class MeasureRecyclerAdapter extends RecyclerView.Adapter<MeasureRecyclerHolder> {
 
+    /**
+     * The recycler view instance.
+     */
     @Getter @NotNull
     private final RecyclerView recyclerView;
 
@@ -31,13 +35,7 @@ public class MeasureRecyclerAdapter extends RecyclerView.Adapter<MeasureRecycler
     private final LinkedList<MeasureEntry> entries = new LinkedList<>();
 
     public MeasureRecyclerAdapter(@NotNull RecyclerView recyclerView) {
-
         this.recyclerView = recyclerView;
-
-        for (int i = 0 ; i < 20 ; i++) {
-            entries.add(new RulerMeasureEntry());
-        }
-
     }
 
     @NotNull
@@ -63,17 +61,33 @@ public class MeasureRecyclerAdapter extends RecyclerView.Adapter<MeasureRecycler
 
         MeasureEntry entry = entries.get(position);
 
-        holder.setImageID(entry.getImageID());
-        holder.setTitle(entry.getTitle());
-        holder.setDescription(entry.getDescription());
+        int imageID = entry.getImageID();
+        Measure measure = entry.getMeasure();
 
+        String title = measure.getTitle();
+        String description = measure.getDescription();
 
+        holder.setImageID(imageID);
+        holder.setTitle(title);
+        holder.setDescription(description);
 
     }
 
     @Override
     public int getItemCount() {
         return entries.size();
+    }
+
+    /**
+     * Adds a measure into the recycler view.
+     * @param iconId  The drawable icon id.
+     * @param measure The not null measure instance.
+     */
+    public void addMeasureEntry(@DrawableRes int iconId, @NotNull Measure measure) {
+
+        MeasureEntry entry = new MeasureEntry(iconId, measure);
+        entries.add(entry);
+
     }
 
     /**
@@ -168,10 +182,7 @@ public class MeasureRecyclerAdapter extends RecyclerView.Adapter<MeasureRecycler
      */
     @SuppressWarnings("NotifyDataSetChanged")
     public void updateAll() {
-
-        RulerMeasureEntry.COUNT = 0;
         notifyDataSetChanged();
-
     }
 
     private void setBackgroundCardDragged(@NotNull MeasureRecyclerHolder holder) {

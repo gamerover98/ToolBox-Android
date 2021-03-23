@@ -43,7 +43,8 @@ public class MeasureRecyclerGestureDetector extends GestureDetector.SimpleOnGest
             MeasureEntry measureEntry = adapter.getMeasureEntry(position);
 
             if (measureEntry != null) {
-                measureEntry.onClick(recyclerView.getContext());
+                //TODO: needs to be implemented
+                //measureEntry.onClick(recyclerView.getContext());
             }
 
         }

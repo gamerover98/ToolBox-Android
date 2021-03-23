@@ -3,6 +3,9 @@ package it.uniba.magr.misurapp.database;
 import androidx.room.TypeConverter;
 
 import java.util.Date;
+import java.util.Locale;
+
+import it.uniba.magr.misurapp.database.bean.Type;
 
 /**
  * The room's database class conversions.
@@ -25,6 +28,16 @@ public final class Conversions {
     @TypeConverter
     public static Long dateToTimestamp(Date date) {
         return date == null ? null : date.getTime();
+    }
+
+    @TypeConverter
+    public static Type stringToType(int typeOrdinal) {
+        return Type.values()[typeOrdinal];
+    }
+
+    @TypeConverter
+    public static int typeToInt(Type type) {
+        return type.ordinal();
     }
 
     private Conversions() {

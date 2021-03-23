@@ -26,6 +26,7 @@ import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.database.DatabaseManager;
 import it.uniba.magr.misurapp.database.bean.Measure;
+import it.uniba.magr.misurapp.database.bean.Type;
 import it.uniba.magr.misurapp.database.dao.MeasurementsDao;
 import it.uniba.magr.misurapp.navigation.NavigationFragment;
 import it.uniba.magr.misurapp.util.GenericUtil;
@@ -87,6 +88,9 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
         saveButton.setOnClickListener(this :: handleSaveClick);
 
     }
+
+    @NotNull
+    protected abstract Type getMeasureType();
 
     /**
      * The method that will be executed
@@ -208,11 +212,13 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
         MeasurementsDao measurementsDao = databaseManager.measurementsDao();
         Measure measure = new Measure();
 
+        measure.setType(getMeasureType());
         measure.setTitle(getTitle());
         measure.setDescription(getDescription());
 
         measurementsDao.insertMeasure(measure);
-        Measure latestMeasure = measurementsDao.getLatestMeasure();
+        int latestMeasureID = measurementsDao.getLatestMeasureID();
+        Measure latestMeasure = measurementsDao.getMeasure(latestMeasureID);
 
         if (latestMeasure != null) {
             measure = latestMeasure;
