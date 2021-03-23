@@ -69,7 +69,18 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         fragmentTransaction.replace(R.id.save_parameters_fragment_view,
-                new ParametersFragment(parametersViewId, this :: handleParametersCreation));
+                new ParametersFragment(parametersViewId, () -> {
+
+                    Bundle navArguments = getArguments();
+
+                    if (navArguments == null) {
+                        navArguments = new Bundle();
+                    }
+
+                    handleParametersCreation(activity, navArguments);
+
+                }));
+
         fragmentTransaction.commit();
 
         MaterialButton saveButton = activity.findViewById(R.id.save_button);
@@ -80,8 +91,12 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
     /**
      * The method that will be executed
      * during the onActivityCreated() lifecycle event.
+     *
+     * @param activity The not null fragment activity.
+     * @param bundle The not null navigation bundle.
+     *
      */
-    protected abstract void handleParametersCreation();
+    protected abstract void handleParametersCreation(@NotNull FragmentActivity activity, @NotNull Bundle bundle);
 
     /**
      * Save additional parameters such as ruler length.

@@ -2,9 +2,15 @@ package it.uniba.magr.misurapp.tool.ruler.save;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.Window;
 
+import androidx.fragment.app.FragmentActivity;
+
+import com.google.android.material.textfield.TextInputEditText;
+
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.database.DatabaseManager;
@@ -12,12 +18,16 @@ import it.uniba.magr.misurapp.database.bean.Measure;
 import it.uniba.magr.misurapp.database.bean.Ruler;
 import it.uniba.magr.misurapp.database.dao.RulersDao;
 import it.uniba.magr.misurapp.navigation.save.SaveMeasureFragment;
+import it.uniba.magr.misurapp.tool.ruler.RulerNavigation;
 import it.uniba.magr.misurapp.util.GenericUtil;
-
-import static it.uniba.magr.misurapp.util.GenericUtil.*;
 
 @SuppressWarnings("unused") // unused methods
 public class SaveRulerFragment extends SaveMeasureFragment {
+
+    /**
+     * The length of the ruler measure.
+     */
+    private float length;
 
     public SaveRulerFragment() {
         super(new SaveRulerNavigation());
@@ -48,8 +58,19 @@ public class SaveRulerFragment extends SaveMeasureFragment {
     }
 
     @Override
-    protected void handleParametersCreation() {
-        // nothing to do
+    protected void handleParametersCreation(@NotNull FragmentActivity activity, @Nullable Bundle bundle) {
+
+        TextInputEditText lengthEditText = activity.findViewById(R.id.save_ruler_input_text_length);
+
+        if (bundle == null) {
+            length = 0;
+        } else {
+            length = bundle.getFloat(RulerNavigation.BUNDLE_LENGTH_KEY);
+        }
+
+        String lengthText = length + " cm";
+        lengthEditText.setText(lengthText);
+
     }
 
     @Override
@@ -59,41 +80,9 @@ public class SaveRulerFragment extends SaveMeasureFragment {
         Ruler ruler = new Ruler();
 
         ruler.setMeasureId(measure.getId());
-        ruler.setLength(getLength());
+        ruler.setLength(length);
 
         rulersDao.insertRuler(ruler);
-
-    }
-
-    /**
-     * @return the inserted centimeters length.
-     */
-    public double getLength() {
-
-        assert getActivity() != null;
-        return getNumberFromInputLayout(getActivity(),
-                R.id.save_ruler_input_text_box_length).doubleValue();
-
-    }
-
-    /**
-     * Set the length in centimeters.
-     */
-    public void setLength(double value) {
-
-        assert getActivity() != null;
-
-        if (value == (long) value) {
-
-            setNumberToInputLayout(getActivity(),
-                    R.id.save_ruler_input_text_box_length, (long) value);
-
-        } else {
-
-            setNumberToInputLayout(getActivity(),
-                    R.id.save_ruler_input_text_box_length, value);
-
-        }
 
     }
 

@@ -5,21 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/save_ruler_input_text_box_length"
-        android:layout_marginTop="25dp"
-        app:hintEnabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/text_input_layout">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/save_ruler_input_text_box_length"
+            android:layout_marginTop="25dp"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/text_input_layout">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/save_ruler_input_text_length"
-            android:inputType="numberDecimal"
-            android:hint="@string/text_insert_centimeters"
-            style="@style/text_input_edit_text"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/save_ruler_input_text_length"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/text_insert_centimeters"
+                    android:enabled="false"
+                    style="@style/text_input_edit_text"/>
 
-    </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

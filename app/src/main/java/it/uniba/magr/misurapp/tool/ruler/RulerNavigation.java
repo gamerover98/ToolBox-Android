@@ -33,6 +33,11 @@ import lombok.Getter;
 public class RulerNavigation implements Navigable {
 
     /**
+     * The navigation bundle length key.
+     */
+    public static final String BUNDLE_LENGTH_KEY = "length";
+
+    /**
      * The home activity instance.
      */
     private HomeActivity homeActivity;
@@ -140,7 +145,7 @@ public class RulerNavigation implements Navigable {
                 centimeters = centimeters - intCentimeters / centimeterPixels;
 
                 // tries to add another smaller quantity to fix this issue.
-                //centimeters = centimeters + (1.0e-15f * intCentimeters)
+                // centimeters = centimeters + (1.0e-15f * intCentimeters)
 
                 // abs(int value - float value) < 10^-1
                 // thank you very much for your instruction, teacher Garrappa <3
@@ -206,7 +211,7 @@ public class RulerNavigation implements Navigable {
 
         Set<View> views = new HashSet<>();
 
-        ViewGroup rulerLayoutView = (ViewGroup) homeActivity.findViewById(R.id.ruler_layout);
+        ViewGroup rulerLayoutView = homeActivity.findViewById(R.id.ruler_layout);
         assert rulerLayoutView != null;
 
         for (int i = 0 ; i < rulerLayoutView.getChildCount() ; i++) {
@@ -228,12 +233,19 @@ public class RulerNavigation implements Navigable {
 
     }
 
+    /**
+     * When clicking the save button.
+     * @param context The application context.
+     */
     private void onSaveButtonClick(@NotNull Context context) {
 
         HomeActivity activity = (HomeActivity) context;
 
+        Bundle bundle = new Bundle();
+        bundle.putFloat(BUNDLE_LENGTH_KEY, centimeters);
+
         NavController navController = activity.getNavController();
-        navController.navigate(R.id.action_nav_save_measure_fragment_to_ruler);
+        navController.navigate(R.id.action_nav_save_measure_fragment_to_ruler, bundle);
 
     }
 
