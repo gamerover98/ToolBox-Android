@@ -70,6 +70,7 @@
     <string name="light_unit">lux</string>
     <string name="light_chart_label">lux values</string>
     <string name="text_barometer">Barometer</string>
+    <string name="barometer_unit" translatable="false">hPa</string>
     <string name="text_pedometer">Pedometer</string>
     <string name="text_compass">Compass</string>
     <string name="degrees_char" translatable="false">°</string>
