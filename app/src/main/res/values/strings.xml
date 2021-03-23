@@ -27,7 +27,7 @@
     <string name="text_registration_button">Register with e-mail</string>
     <string name="text_insert_title">Insert title</string>
     <string name="text_title">Title</string>
-    <string name="text_insert_description">Insert description</string>
+    <string name="text_insert_description">Enter the description for the measurements\neg. right side of the table</string>
     <string name="text_description">Description</string>
     <string name="text_add_measure">Add measure</string>
     <string name="text_save_measure">Save measure</string>
