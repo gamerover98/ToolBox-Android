@@ -96,6 +96,7 @@
         android:text="@string/text_intro_confirm_button"
         android:textAllCaps="true"
         android:textColor="#FFFFFF"
+        app:backgroundTint="@color/grey_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
