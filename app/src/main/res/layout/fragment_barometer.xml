@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/pressure_value_text"
+        android:id="@+id/barometer_pressure_value_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/barometer_unit"

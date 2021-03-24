@@ -2,7 +2,6 @@ package it.uniba.magr.misurapp.tool.magnetometer;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -10,9 +9,11 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
+import androidx.core.content.res.ResourcesCompat;
+
+import com.ekn.gruzer.gaugelibrary.ArcGauge;
+import com.ekn.gruzer.gaugelibrary.Range;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -20,11 +21,13 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.DefaultFillFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import it.uniba.magr.misurapp.R;
@@ -64,13 +67,6 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
      */
     private static final float VALUE_BOUND = 100;
 
-    private static final int LOW_VALUE_COLOR    = Color.GREEN;
-    private static final int MEDIUM_VALUE_COLOR = Color.YELLOW;
-    private static final int HIGH_VALUE_COLOR   = Color.RED;
-
-    private static final int MEDIUM_MIN_COLOR_RANGE = 500;
-    private static final int HIGH_MIN_COLOR_RANGE   = 1000;
-
     /**
      * The sensor manager instance from the application context.
      */
@@ -82,9 +78,9 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
     private Sensor magnetometerSensor;
 
     /**
-     * The TextView tesla value.
+     * Tesla indicator view.
      */
-    private TextView teslaValueTextView;
+    private ArcGauge arcGauge;
 
     /**
      * The LineChart view.
@@ -92,25 +88,21 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
     private LineChart lineChart;
 
     /**
-     * The ProgressBar view.
-     */
-    private ProgressBar progressBar;
-
-    /**
      * The async thread that provide to update every second the chart.
      */
     private Thread thread;
+
+    /**
+     * The max value for the plot.
+     * By default, its value is MIN_PLOT_VALUE.
+     */
+    private float plotMaxValue = MIN_PLOT_VALUE;
 
     /**
      * If true, the value will be added into the cart.
      * <p>This value will be set true from the async thread.</p>
      */
     private final AtomicBoolean plotData = new AtomicBoolean(true);
-
-    /**
-     * The latest max value for the plot Y axis.
-     */
-    private float currentMaxValue = MIN_PLOT_VALUE;
 
     @Override
     public int getLayoutId() {
@@ -133,42 +125,58 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
         sensorManager.registerListener(this,
                 magnetometerSensor, SensorManager.SENSOR_DELAY_GAME);
 
-        teslaValueTextView = activity.findViewById(R.id.tesla_value);
-        progressBar = activity.findViewById(R.id.magnetometer_progress_bar);
-        lineChart   = activity.findViewById(R.id.chart_metal_detector);
+        arcGauge = activity.findViewById(R.id.magnetometer_gauge);
+
+        arcGauge.setValueColor(Color.WHITE);
+        arcGauge.setMinValue(0);
+        arcGauge.setMaxValue(MAGNETIC_SENSOR_MAX_VALUE);
+
+        Range greenRange  = new Range();
+        Range yellowRange = new Range();
+        Range redRange    = new Range();
+        Range maxRange    = new Range();
+
+        greenRange.setColor(Color.GREEN);
+        greenRange.setFrom(0);
+        greenRange.setTo(1000);
+
+        yellowRange.setColor(Color.YELLOW);
+        yellowRange.setFrom(greenRange.getTo());
+        yellowRange.setTo(1500);
+
+        redRange.setColor(Color.RED);
+        redRange.setFrom(yellowRange.getTo());
+        redRange.setTo(MAGNETIC_SENSOR_MAX_VALUE - 10f);
+
+        maxRange.setColor(Color.rgb(139, 0, 0));
+        maxRange.setFrom(redRange.getTo());
+        maxRange.setTo(MAGNETIC_SENSOR_MAX_VALUE);
+
+        arcGauge.setRanges(Arrays.asList(
+                greenRange, yellowRange, redRange, maxRange
+        ));
+
+        lineChart = activity.findViewById(R.id.chart_metal_detector);
+        lineChart.setDrawBorders(true);
 
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
-        progressBar.setMax(MAGNETIC_SENSOR_MAX_VALUE);
-
         float magX = sensorEvent.values[0];
         float magY = sensorEvent.values[1];
         float magZ = sensorEvent.values[2];
 
         double magnitude = calculateMagnitude(magX, magY, magZ);
-        teslaValueTextView.setText(String.valueOf(magnitude));
-
-        int color = LOW_VALUE_COLOR;
-
-        if (magnitude >= MEDIUM_MIN_COLOR_RANGE && magnitude <= HIGH_MIN_COLOR_RANGE) {
-            color = MEDIUM_VALUE_COLOR;
-        }
-
-        if (magnitude > HIGH_MIN_COLOR_RANGE) {
-            color = HIGH_VALUE_COLOR;
-        }
-
-        progressBar.setProgress((int) magnitude);
-        progressBar.setProgressTintList(ColorStateList.valueOf(color));
 
         if (plotData.get()) {
 
-            if (currentMaxValue < magnitude) {
+            arcGauge.setValue(magnitude);
 
-                currentMaxValue = (float) magnitude;
+            if (plotMaxValue < magnitude) {
+
+                plotMaxValue = (float) magnitude;
                 updateLineChart();
 
             }
@@ -240,7 +248,7 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
 
         leftAxis.setTextColor    (Color.BLACK);
         leftAxis.setTextSize     (20);
-        leftAxis.setAxisMaximum  (currentMaxValue + VALUE_BOUND);
+        leftAxis.setAxisMaximum  (plotMaxValue + VALUE_BOUND);
         leftAxis.setAxisMinimum  (-10f);
         leftAxis.setDrawZeroLine (true);
         leftAxis.setDrawGridLines(true);
@@ -304,18 +312,30 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
         Context context = lineChart.getContext();
         Resources resources = context.getResources();
 
-        LineDataSet lineDataSet = new LineDataSet(null, resources.getString(R.string.tesla_chart_label));
+        int cardColor = ResourcesCompat.getColor(context.getResources(),
+                R.color.magnetometer_card, context.getTheme());
+
+        LineDataSet lineDataSet = new LineDataSet(null,
+                resources.getString(R.string.tesla_chart_label));
 
         lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        lineDataSet.setLineWidth(5f);
-        lineDataSet.setColor(Color.BLUE);
+        lineDataSet.setLineWidth(2f);
+
+        lineDataSet.setColor(cardColor);
         lineDataSet.setHighlightEnabled(false);
+
+        lineDataSet.setDrawFilled(true);
         lineDataSet.setDrawValues(false);
         lineDataSet.setDrawCircles(true);
-        lineDataSet.setCircleColor(Color.BLACK);
-        lineDataSet.setCircleRadius(7f);
+
+        lineDataSet.setCircleColor(cardColor);
+        lineDataSet.setCircleRadius(2f);
+
         lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         lineDataSet.setCubicIntensity(0.2f);
+
+        lineDataSet.setFillFormatter(new DefaultFillFormatter());
+        lineDataSet.setFillColor(cardColor);
 
         return lineDataSet;
 

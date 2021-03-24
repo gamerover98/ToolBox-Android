@@ -64,7 +64,7 @@
     <string name="text_system_language">System language</string>
     <string name="text_language">Language</string>
     <string name="text_select_language">Select your language</string>
-    <string name="tesla_unit">µTesla</string>
+    <string name="magnetometer_unit">µTesla</string>
     <string name="tesla_chart_label">µTesla values</string>
     <string name="text_lux_meter">Lux meter</string>
     <string name="light_unit">lux</string>
@@ -74,4 +74,6 @@
     <string name="text_pedometer">Pedometer</string>
     <string name="text_compass">Compass</string>
     <string name="degrees_char" translatable="false">°</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
 </resources>
