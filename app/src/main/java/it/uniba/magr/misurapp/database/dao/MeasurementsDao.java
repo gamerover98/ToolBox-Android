@@ -9,6 +9,7 @@ import androidx.room.Transaction;
 import java.util.List;
 
 import it.uniba.magr.misurapp.database.bean.Measure;
+import it.uniba.magr.misurapp.database.bean.embedded.MeasureAndBarometer;
 import it.uniba.magr.misurapp.database.bean.embedded.MeasureAndRuler;
 
 /**
@@ -46,6 +47,14 @@ public interface MeasurementsDao {
     @Transaction
     @Query("SELECT * FROM Measurements NATURAL JOIN Rulers WHERE title=:title ORDER BY start_date")
     List<MeasureAndRuler> getRulerMeasure(String title);
+
+    /**
+     * @param title The title of the
+     * @return A list of measurements filtered by title.
+     */
+    @Transaction
+    @Query("SELECT * FROM Measurements NATURAL JOIN Barometers WHERE title=:title ORDER BY start_date")
+    List<MeasureAndBarometer> getBarometerMeasure(String title);
 
     /**
      * @param measure a not null measure instance.

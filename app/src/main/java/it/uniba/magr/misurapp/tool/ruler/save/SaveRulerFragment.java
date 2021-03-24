@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.database.DatabaseManager;
@@ -65,15 +64,10 @@ public class SaveRulerFragment extends SaveMeasureFragment {
     }
 
     @Override
-    protected void handleParametersCreation(@NotNull FragmentActivity activity, @Nullable Bundle bundle) {
+    protected void handleParametersCreation(@NotNull FragmentActivity activity, @NotNull Bundle bundle) {
 
         TextInputEditText lengthEditText = activity.findViewById(R.id.save_ruler_input_text_length);
-
-        if (bundle == null) {
-            length = 0;
-        } else {
-            length = bundle.getFloat(RulerNavigation.BUNDLE_LENGTH_KEY);
-        }
+        length = bundle.getFloat(RulerNavigation.BUNDLE_LENGTH_KEY);
 
         String lengthText = length + " cm";
         lengthEditText.setText(lengthText);
