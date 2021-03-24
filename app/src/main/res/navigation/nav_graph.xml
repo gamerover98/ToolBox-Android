@@ -70,7 +70,7 @@
     <fragment
         android:id="@+id/saveRulerFragment"
         android:name="it.uniba.magr.misurapp.tool.ruler.save.SaveRulerFragment"
-        android:label="SaveFragment" />
+        android:label="SaveRulerFragment" />
 
     <!-- magnetometer fragment -->
 
@@ -91,7 +91,18 @@
     <fragment
         android:id="@+id/barometerFragment"
         android:name="it.uniba.magr.misurapp.tool.barometer.BarometerFragment"
-        android:label="BarometerFragment" />
+        android:label="BarometerFragment">
+
+        <action
+            android:id="@+id/action_nav_save_measure_fragment_to_barometer"
+            app:destination="@id/saveBarometerFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/saveBarometerFragment"
+        android:name="it.uniba.magr.misurapp.tool.barometer.save.SaveBarometerFragment"
+        android:label="SaveBarometerFragment" />
 
     <!-- pedometer fragment -->
 
