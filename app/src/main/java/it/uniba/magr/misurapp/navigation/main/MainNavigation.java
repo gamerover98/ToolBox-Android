@@ -200,6 +200,9 @@ public class MainNavigation implements Navigable {
                 MeasureRecyclerAdapter adapter = (MeasureRecyclerAdapter) measurementsView.getAdapter();
                 assert adapter != null;
 
+                adapter.clear();
+                adapter.updateAll();
+
                 for (int i = 0 ; i < measureList.size() ; i++) {
 
                     Measure measure = measureList.get(i);

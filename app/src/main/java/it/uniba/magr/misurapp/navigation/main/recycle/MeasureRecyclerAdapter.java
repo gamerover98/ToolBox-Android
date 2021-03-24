@@ -91,6 +91,25 @@ public class MeasureRecyclerAdapter extends RecyclerView.Adapter<MeasureRecycler
     }
 
     /**
+     * Removes a measure from the recycler view.
+     * @param position The item position.
+     * @throws IllegalArgumentException If the position is major or equals
+     *                                  than the entries array size.
+     */
+    public void removeMeasureEntry(int position) {
+
+        if (position >= getItemCount()) {
+
+            throw new IllegalArgumentException("Out of bound array position: "
+                    + position + "/" + entries.size());
+
+        }
+
+        entries.remove(position);
+
+    }
+
+    /**
      * Gets the measure entry from the item position.
      * @param position The recycler view item position.
      * @return The MeasureEntry instance of the item's position.
@@ -98,6 +117,13 @@ public class MeasureRecyclerAdapter extends RecyclerView.Adapter<MeasureRecycler
     @Nullable
     public MeasureEntry getMeasureEntry(int position) {
         return entries.get(position);
+    }
+
+    /**
+     * Remove all entries.
+     */
+    public void clear() {
+        entries.clear();
     }
 
     public void onRowMoved(int fromPosition, int toPosition) {
