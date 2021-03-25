@@ -5,6 +5,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -18,13 +20,16 @@ import androidx.room.Room;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
@@ -69,10 +74,28 @@ public class HomeActivity extends AppCompatActivity implements
     private static final String HOME_LOG_TAG = "Home";
 
     /**
+     * This is the same permission that you can find at Manifest.ACTIVITY_RECOGNITION.
+     * The reason of its hard-coded implementation is that this class field doesn't exists
+     * on android versions <= 28 (PIE).
+     */
+    public static final String ACTIVITY_RECOGNITION_PERMISSION =
+            "android.permission.ACTIVITY_RECOGNITION";
+
+    /**
+     * The recognition request code to check a result.
+     */
+    public static final int PERMISSIONS_REQUEST_CODE = 100;
+
+    /**
      * This map contains the behaviour of each navigation menu item.
      * It will be execute during the onNavigationItemSelected event.
      */
     private final Map<MenuItem, Runnable> navItemBehaviourMap = new HashMap<>();
+
+    /**
+     * A flag to prevent permissions requests loop.
+     */
+    private boolean hasCheckedPermissions = false;
 
     /**
      * Gets the ToolBar View instance.
@@ -279,6 +302,57 @@ public class HomeActivity extends AppCompatActivity implements
         super.attachBaseContext(LocaleUtil.onAttach(newBase));
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+
+        // gets fragment manager from the navigation host and not from the activity.
+        FragmentManager fragmentManager = navHostFragment.getChildFragmentManager();
+        List<Fragment> fragmentList = fragmentManager.getFragments();
+
+        if (!fragmentList.isEmpty()) {
+
+            Fragment fragment = fragmentList.get(0);
+
+            if (fragment instanceof NavigationFragment) {
+
+                NavigationFragment navigationFragment = (NavigationFragment) fragment;
+                Navigable navigable = navigationFragment.getNavigable();
+
+                navigable.onTouchEvent(event);
+
+            }
+
+        }
+
+        return super.dispatchTouchEvent(event);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+
+        if (requestCode == PERMISSIONS_REQUEST_CODE) {
+
+            for (int i = 0 ; i < permissions.length ; i++) {
+
+                String permission = permissions[i];
+                int grantResult   = grantResults[i];
+
+                if (permission.equalsIgnoreCase(ACTIVITY_RECOGNITION_PERMISSION)
+                        && grantResult != PackageManager.PERMISSION_GRANTED) {
+                    requestRequiredPermissions();
+                }
+
+            }
+
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
+
     //
     // PUBLIC METHODS
     //
@@ -310,8 +384,14 @@ public class HomeActivity extends AppCompatActivity implements
 
         } else {
 
-            loadingFragment.close();
-            loadingFragment = null;
+            if (loadingFragment != null) {
+
+                loadingFragment.close();
+                loadingFragment = null;
+
+            }
+
+            requestRequiredPermissions();
 
         }
 
@@ -521,29 +601,39 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
+    /**
+     * Ask to the user the required permissions.
+     */
+    public void requestRequiredPermissions() {
 
-        // gets fragment manager from the navigation host and not from the activity.
-        FragmentManager fragmentManager = navHostFragment.getChildFragmentManager();
-        List<Fragment> fragmentList = fragmentManager.getFragments();
-
-        if (!fragmentList.isEmpty()) {
-
-            Fragment fragment = fragmentList.get(0);
-
-            if (fragment instanceof NavigationFragment) {
-
-                NavigationFragment navigationFragment = (NavigationFragment) fragment;
-                Navigable navigable = navigationFragment.getNavigable();
-
-                navigable.onTouchEvent(event);
-
-            }
-
+        // systems with sdk under or equals the 28 doesn't require this permission.
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+            return;
         }
 
-        return super.dispatchTouchEvent(event);
+        int permissionsAssert = ContextCompat.checkSelfPermission(this,
+                ACTIVITY_RECOGNITION_PERMISSION);
+
+        if (permissionsAssert == PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        if (!hasCheckedPermissions) {
+
+            hasCheckedPermissions = true;
+
+            String[] permissions = {
+                    ACTIVITY_RECOGNITION_PERMISSION
+            };
+
+            ActivityCompat.requestPermissions(this, permissions, PERMISSIONS_REQUEST_CODE);
+
+        } else {
+
+            Toast.makeText(this, R.string.text_permission_denied_pedometer,
+                    Toast.LENGTH_LONG).show();
+
+        }
 
     }
 

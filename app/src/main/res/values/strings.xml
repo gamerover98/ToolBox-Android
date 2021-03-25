@@ -54,6 +54,7 @@
     <string name="text_auth_incorrect_email">Incorrect email</string>
     <string name="text_auth_incorrect_password">Incorrect password</string>
     <string name="text_auth_mismatch_password">Password must be identical</string>
+    <string name="text_permission_denied_pedometer">You have to grant the sports permissions to use the pedometer</string>
     <string name="text_level">Level</string>
     <string name="text_level_description">You can measure the level of your plains</string>
     <string name="text_ruler">Ruler</string>
@@ -74,6 +75,7 @@
     <string name="text_pedometer">Pedometer</string>
     <string name="text_compass">Compass</string>
     <string name="degrees_char" translatable="false">°</string>
+    <string name="text_pedometer_step">Steps</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
 </resources>

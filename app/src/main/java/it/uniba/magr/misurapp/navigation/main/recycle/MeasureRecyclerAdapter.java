@@ -15,7 +15,6 @@ import com.google.android.material.card.MaterialCardView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.LinkedList;
 
 import it.uniba.magr.misurapp.R;
@@ -128,27 +127,11 @@ public class MeasureRecyclerAdapter extends RecyclerView.Adapter<MeasureRecycler
 
     public void onRowMoved(int fromPosition, int toPosition) {
 
-        if (fromPosition < toPosition) {
+        MeasureEntry e1 = entries.get(fromPosition);
+        MeasureEntry e2 = entries.get(toPosition);
 
-            for (int i = fromPosition ; i < toPosition - 1 ; i++) {
-
-                synchronized (entries) {
-                    Collections.swap(entries, i, i + 1);
-                }
-
-            }
-
-        } else {
-
-            for (int i = fromPosition - 1 ; i > toPosition ; i--) {
-
-                synchronized (entries) {
-                    Collections.swap(entries, i, i + 1);
-                }
-
-            }
-
-        }
+        entries.set(fromPosition, e2);
+        entries.set(toPosition,   e1);
 
         updateMoving(fromPosition, toPosition);
 
