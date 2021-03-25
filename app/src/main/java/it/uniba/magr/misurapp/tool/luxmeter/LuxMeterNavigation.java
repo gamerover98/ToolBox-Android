@@ -124,7 +124,9 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
         Context context = lampImage.getContext();
 
         currentMaxValue = sensorEvent.values[0]; // the current light value.
-        luxValueTextView.setText(String.valueOf(currentMaxValue));
+
+        //TODO: replace "lx" with string android resource
+        luxValueTextView.setText(currentMaxValue + " lx");
 
         // edit the bulb lamp color with properly "light" color.
         VectorChildFinder vector = new VectorChildFinder(context, R.drawable.lux_meter_lamp, lampImage);

@@ -7,6 +7,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/magnetometer_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/magnetometer_card"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="2dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lux_meter_layout_lamp"
         android:layout_width="match_parent"
@@ -25,6 +38,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/lux_meter_lamp" />
 
+
         <TextView
             android:id="@+id/light_value"
             android:layout_width="wrap_content"
@@ -39,6 +53,8 @@
             app:layout_constraintTop_toBottomOf="@id/lux_meter_lamp_image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lux_meter_layout_line_chart"
