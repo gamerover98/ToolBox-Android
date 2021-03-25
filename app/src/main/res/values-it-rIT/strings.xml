@@ -70,4 +70,5 @@
     <string name="text_barometer">Barometro</string>
     <string name="text_pedometer">Contapassi</string>
     <string name="text_compass">Bussola</string>
+    <string name="text_pedometer_step">Passi</string>
 </resources>
