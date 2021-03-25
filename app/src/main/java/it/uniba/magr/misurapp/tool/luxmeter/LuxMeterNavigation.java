@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
 
 import com.devs.vectorchildfinder.VectorChildFinder;
@@ -23,6 +24,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.DefaultFillFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,6 +34,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.Navigable;
+import it.uniba.magr.misurapp.util.XAxisValueFormatter;
 
 public class LuxMeterNavigation implements Navigable, SensorEventListener {
 
@@ -44,6 +47,18 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
      * The light bound to be multiplied into the plot value to avoid pinnacles.
      */
     private static final float VALUE_BOUND_MULTIPLY = 1.5f;
+
+    /**
+     * The minimum lux plot value.
+     */
+    private static final float MIN_PLOT_VALUE = 10;
+    private static final float VALUE_BOUND = 100;
+
+    /**
+     * The max value for the plot.
+     * By default, its value is MIN_PLOT_VALUE.
+     */
+    private float plotMaxValue = MIN_PLOT_VALUE;
 
     /**
      * The maximum value of the plot values.
@@ -133,7 +148,21 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
         VectorDrawableCompat.VFullPath bulbVectorPath = vector.findPathByName(VECTOR_LAMP_BULB_PATH_NAME);
         bulbVectorPath.setFillColor(getLampBulbColor(currentMaxValue));
 
-        plotData.set(true);
+        if (plotData.get()) {
+
+            if (plotMaxValue < currentMaxValue) {
+
+                plotMaxValue = (float) currentMaxValue;
+                updateLineChart();
+
+            }
+
+            addChartValue(currentMaxValue);
+            plotData.set(false);
+
+        }
+
+
 
     }
 
@@ -203,12 +232,13 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
 
         leftAxis.setTextColor    (Color.BLACK);
         leftAxis.setTextSize     (20);
-        leftAxis.setAxisMaximum  (maximum);
-        leftAxis.setAxisMinimum  (0f);
+        leftAxis.setAxisMaximum  (plotMaxValue + VALUE_BOUND);
+        leftAxis.setAxisMinimum  (-10f);
         leftAxis.setDrawZeroLine (true);
         leftAxis.setDrawGridLines(true);
         rightAxis.setEnabled     (false);
         xAxis.setDrawGridLines   (false);
+        xAxis.setValueFormatter(new XAxisValueFormatter());
         lineChart.setDrawBorders (true);
 
     }
@@ -247,18 +277,29 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
         Context context = lineChart.getContext();
         Resources resources = context.getResources();
 
+        int cardColor = ResourcesCompat.getColor(context.getResources(),
+                R.color.magnetometer_card, context.getTheme());
+
         LineDataSet lineDataSet = new LineDataSet(null, resources.getString(R.string.light_chart_label));
 
         lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        lineDataSet.setLineWidth(5f);
-        lineDataSet.setColor(Color.rgb(255, 165, 0));
+        lineDataSet.setLineWidth(2f);
+
+        lineDataSet.setColor(cardColor);
         lineDataSet.setHighlightEnabled(false);
+
+        lineDataSet.setDrawFilled(true);
         lineDataSet.setDrawValues(false);
         lineDataSet.setDrawCircles(true);
-        lineDataSet.setCircleColor(Color.WHITE);
-        lineDataSet.setCircleRadius(7f);
+
+        lineDataSet.setCircleColor(cardColor);
+        lineDataSet.setCircleRadius(2f);
+
         lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         lineDataSet.setCubicIntensity(0.2f);
+
+        lineDataSet.setFillFormatter(new DefaultFillFormatter());
+        lineDataSet.setFillColor(cardColor);
 
         return lineDataSet;
 
@@ -318,17 +359,7 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
 
             try {
 
-                if (plotData.get()) {
-
-                    lineChart.post(() -> {
-
-                        updateLineChart();
-                        addChartValue(currentMaxValue);
-
-                    });
-
-                }
-
+                plotData.set(true);
                 Thread.sleep(1000L);
 
             } catch (InterruptedException ex) {
@@ -341,7 +372,6 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
             }
 
         }
-
     }
 
 }
