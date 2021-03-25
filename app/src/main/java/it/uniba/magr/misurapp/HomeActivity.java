@@ -199,6 +199,14 @@ public class HomeActivity extends AppCompatActivity implements
 
     }
 
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+        databaseManager.close();
+
+    }
+
     /**
      * Hamburger and back arrow buttons click event.
      */

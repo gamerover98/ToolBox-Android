@@ -37,13 +37,6 @@ import lombok.Getter;
 public class MainNavigation implements Navigable {
 
     /**
-     * Gets a static access to this instance.
-     */
-    @Getter
-    @SuppressWarnings("StaticFieldLeak")
-    private static MainNavigation instance;
-
-    /**
      * Gets the instance of the home activity.
      */
     @Getter
@@ -52,11 +45,13 @@ public class MainNavigation implements Navigable {
     /**
      * The main progress bar view.
      */
+    @SuppressWarnings("squid:S1450")
     private ProgressBar progressBar;
 
     /**
      * The text view that will be shown when there are no items.
      */
+    @SuppressWarnings("squid:S1450")
     private MaterialTextView noItemsTextView;
 
     /**
@@ -67,6 +62,7 @@ public class MainNavigation implements Navigable {
     /**
      * The layout above the recycler view.
      */
+    @SuppressWarnings("squid:S1450")
     private ViewGroup aboveLayout;
 
     /**
@@ -94,10 +90,7 @@ public class MainNavigation implements Navigable {
     @Override
     @SuppressWarnings("squid:S2696")
     public void onAttach(@NotNull Context context) {
-
-        instance = this;
         homeActivity = (HomeActivity) context;
-
     }
 
     @Override
@@ -124,12 +117,6 @@ public class MainNavigation implements Navigable {
         obtainItemsThread = new Thread(this :: obtainItemsFromDatabase);
         obtainItemsThread.start();
 
-    }
-
-    @Override
-    @SuppressWarnings("squid:S2696")
-    public void onDestroyView() {
-        instance = null;
     }
 
     private void initRecyclerView() {
@@ -199,6 +186,9 @@ public class MainNavigation implements Navigable {
 
                 MeasureRecyclerAdapter adapter = (MeasureRecyclerAdapter) measurementsView.getAdapter();
                 assert adapter != null;
+
+                adapter.clear();
+                adapter.updateAll();
 
                 for (int i = 0 ; i < measureList.size() ; i++) {
 

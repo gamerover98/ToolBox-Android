@@ -62,7 +62,7 @@
     <string name="text_system_language">Lingua di sistema</string>
     <string name="text_language">Lingua</string>
     <string name="text_select_language">Seleziona la tua lingua</string>
-    <string name="tesla_unit">µTesla</string>
+    <string name="magnetometer_unit">µTesla</string>
     <string name="tesla_chart_label">Valori in µTesla</string>
     <string name="text_lux_meter">Luxmetro</string>
     <string name="light_unit">lux</string>
@@ -70,5 +70,7 @@
     <string name="text_barometer">Barometro</string>
     <string name="text_pedometer">Contapassi</string>
     <string name="text_compass">Bussola</string>
-    <string name="text_pedometer_step">Passi</string>
+    <string name="text_pedometer_step">Steps</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
 </resources>

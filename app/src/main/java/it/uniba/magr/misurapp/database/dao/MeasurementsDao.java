@@ -9,6 +9,7 @@ import androidx.room.Transaction;
 import java.util.List;
 
 import it.uniba.magr.misurapp.database.bean.Measure;
+import it.uniba.magr.misurapp.database.bean.embedded.MeasureAndBarometer;
 import it.uniba.magr.misurapp.database.bean.embedded.MeasureAndRuler;
 
 /**
@@ -20,7 +21,7 @@ public interface MeasurementsDao {
     /**
      * @return Gets all measurements that have been kept into the local database.
      */
-    @Query("SELECT * FROM Measurements ORDER BY start_date")
+    @Query("SELECT * FROM Measurements ORDER BY card_order")
     List<Measure> getAll();
 
     /**
@@ -36,7 +37,7 @@ public interface MeasurementsDao {
      * @param title The title of the
      * @return A list of measurements filtered by title.
      */
-    @Query("SELECT * FROM Measurements WHERE title=:title ORDER BY start_date")
+    @Query("SELECT * FROM Measurements WHERE title=:title ORDER BY card_order")
     List<Measure> getMeasurements(String title);
 
     /**
@@ -44,8 +45,16 @@ public interface MeasurementsDao {
      * @return A list of measurements filtered by title.
      */
     @Transaction
-    @Query("SELECT * FROM Measurements NATURAL JOIN Rulers WHERE title=:title ORDER BY start_date")
+    @Query("SELECT * FROM Measurements NATURAL JOIN Rulers WHERE title=:title ORDER BY card_order")
     List<MeasureAndRuler> getRulerMeasure(String title);
+
+    /**
+     * @param title The title of the
+     * @return A list of measurements filtered by title.
+     */
+    @Transaction
+    @Query("SELECT * FROM Measurements NATURAL JOIN Barometers WHERE title=:title ORDER BY card_order")
+    List<MeasureAndBarometer> getBarometerMeasure(String title);
 
     /**
      * @param measure a not null measure instance.
@@ -64,5 +73,11 @@ public interface MeasurementsDao {
      */
     @Query("SELECT MAX(id) FROM Measurements")
     int getLatestMeasureID();
+
+    /**
+     * @return The max order value into the table.
+     */
+    @Query("SELECT MAX(card_order) FROM Measurements")
+    int getMaxOrder();
 
 }

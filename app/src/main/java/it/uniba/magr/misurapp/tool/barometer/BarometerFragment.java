@@ -8,7 +8,6 @@ import it.uniba.magr.misurapp.navigation.ToolNavigationFragment;
 
 public class BarometerFragment extends ToolNavigationFragment {
 
-
     public BarometerFragment() {
         super(new BarometerNavigation());
     }

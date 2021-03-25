@@ -1,11 +1,18 @@
 package it.uniba.magr.misurapp.navigation.main.recycle;
 
+import android.content.Context;
 import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
+
+import it.uniba.magr.misurapp.HomeActivity;
+import it.uniba.magr.misurapp.database.DatabaseManager;
+import it.uniba.magr.misurapp.database.bean.Measure;
+import it.uniba.magr.misurapp.database.dao.MeasurementsDao;
+import it.uniba.magr.misurapp.navigation.main.entry.MeasureEntry;
 
 public class MeasureRecycleTouchHelper extends ItemTouchHelper.Callback {
 
@@ -43,6 +50,35 @@ public class MeasureRecycleTouchHelper extends ItemTouchHelper.Callback {
         int toPosition   = target.getAdapterPosition();
 
         adapter.onRowMoved(fromPosition, toPosition);
+
+        Thread thread = new Thread(() -> {
+
+            Context context = recyclerView.getContext();
+            HomeActivity homeActivity = (HomeActivity) context;
+
+            DatabaseManager databaseManager = homeActivity.getDatabaseManager();
+            MeasurementsDao measurementsDao = databaseManager.measurementsDao();
+
+            MeasureEntry e1 = adapter.getMeasureEntry(fromPosition);
+            MeasureEntry e2 = adapter.getMeasureEntry(toPosition);
+
+            if (e1 != null && e2 != null) {
+
+                Measure m1 = e1.getMeasure();
+                Measure m2 = e2.getMeasure();
+
+                int temp = m1.getCardOrder();
+                m1.setCardOrder(m2.getCardOrder());
+                m2.setCardOrder(temp);
+
+                measurementsDao.insertMeasurements(m1, m2);
+                Log.d("TEST", "m1: " + m1 + "m2: " + m2);
+
+            }
+
+        });
+
+        thread.start();
         return true;
 
     }

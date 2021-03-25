@@ -30,6 +30,6 @@ public interface RulersDao {
      * @param rulers a not null array of ruler instances.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertRuler(Ruler... rulers);
+    void insertRulers(Ruler... rulers);
 
 }

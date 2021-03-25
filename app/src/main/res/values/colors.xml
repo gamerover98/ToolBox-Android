@@ -38,6 +38,7 @@
     <color name="data_upload_vertical_divider">#995751FF</color>
     <color name="grey_normal">#627890</color>
     <color name="grey_dark">#2F4F75</color>
+    <color name="magnetometer_card">#5886BB</color>
     <color name="light_blue">#E9EFFF</color>
     <color name="toolbarSeparator">#E3E3EB</color>
     <color name="text_light">@color/white</color>
