@@ -52,6 +52,7 @@
     <string name="text_auth_incorrect_email">e-mail non corretta</string>
     <string name="text_auth_incorrect_password">Password non corretta</string>
     <string name="text_auth_mismatch_password">Le password non coincidono</string>
+    <string name="text_permission_denied_pedometer">Garantisci il permesso per lo sport per utilizzare il pedometro</string>
     <string name="text_level">Livella</string>
     <string name="text_level_description">Con questo strumento puoi misurare l\'inclinazione dei tuoi piani</string>
     <string name="text_ruler">Righello</string>

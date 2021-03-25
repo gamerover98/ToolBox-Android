@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textview.MaterialTextView;
@@ -77,19 +78,24 @@ public class HomeActivity extends AppCompatActivity implements
      * The reason of its hard-coded implementation is that this class field doesn't exists
      * on android versions <= 28 (PIE).
      */
-    private static final String ACTIVITY_RECOGNITION_PERMISSION =
+    public static final String ACTIVITY_RECOGNITION_PERMISSION =
             "android.permission.ACTIVITY_RECOGNITION";
 
     /**
      * The recognition request code to check a result.
      */
-    private static final int PERMISSIONS_REQUEST_CODE = 100;
+    public static final int PERMISSIONS_REQUEST_CODE = 100;
 
     /**
      * This map contains the behaviour of each navigation menu item.
      * It will be execute during the onNavigationItemSelected event.
      */
     private final Map<MenuItem, Runnable> navItemBehaviourMap = new HashMap<>();
+
+    /**
+     * A flag to prevent permissions requests loop.
+     */
+    private boolean hasCheckedPermissions = false;
 
     /**
      * Gets the ToolBar View instance.
@@ -194,8 +200,6 @@ public class HomeActivity extends AppCompatActivity implements
 
         LocaleUtil.onActivityCreated();
         reload();
-
-        requestRequiredPermissions();
 
     }
 
@@ -345,6 +349,8 @@ public class HomeActivity extends AppCompatActivity implements
 
         }
 
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
     }
 
     //
@@ -378,8 +384,14 @@ public class HomeActivity extends AppCompatActivity implements
 
         } else {
 
-            loadingFragment.close();
-            loadingFragment = null;
+            if (loadingFragment != null) {
+
+                loadingFragment.close();
+                loadingFragment = null;
+
+            }
+
+            requestRequiredPermissions();
 
         }
 
@@ -592,7 +604,7 @@ public class HomeActivity extends AppCompatActivity implements
     /**
      * Ask to the user the required permissions.
      */
-    private void requestRequiredPermissions() {
+    public void requestRequiredPermissions() {
 
         // systems with sdk under or equals the 28 doesn't require this permission.
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
@@ -606,15 +618,20 @@ public class HomeActivity extends AppCompatActivity implements
             return;
         }
 
-        boolean result = shouldShowRequestPermissionRationale(ACTIVITY_RECOGNITION_PERMISSION);
+        if (!hasCheckedPermissions) {
 
-        if (!result) {
+            hasCheckedPermissions = true;
 
             String[] permissions = {
                     ACTIVITY_RECOGNITION_PERMISSION
             };
 
             ActivityCompat.requestPermissions(this, permissions, PERMISSIONS_REQUEST_CODE);
+
+        } else {
+
+            Toast.makeText(this, R.string.text_permission_denied_pedometer,
+                    Toast.LENGTH_LONG).show();
 
         }
 

@@ -1,7 +1,6 @@
 package it.uniba.magr.misurapp.navigation.main.recycle;
 
 import android.content.Context;
-import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +16,7 @@ import it.uniba.magr.misurapp.navigation.main.entry.MeasureEntry;
 public class MeasureRecycleTouchHelper extends ItemTouchHelper.Callback {
 
     private static final int DRAG_DIRECTIONS  = ItemTouchHelper.DOWN | ItemTouchHelper.UP;
-    private static final int SWIPE_DIRECTIONS = ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT;
+    private static final int SWIPE_DIRECTIONS = ItemTouchHelper.RIGHT;
 
     private final MeasureRecyclerAdapter adapter;
 
@@ -72,7 +71,6 @@ public class MeasureRecycleTouchHelper extends ItemTouchHelper.Callback {
                 m2.setCardOrder(temp);
 
                 measurementsDao.insertMeasurements(m1, m2);
-                Log.d("TEST", "m1: " + m1 + "m2: " + m2);
 
             }
 
@@ -117,8 +115,13 @@ public class MeasureRecycleTouchHelper extends ItemTouchHelper.Callback {
     public void onSwiped(@NotNull RecyclerView.ViewHolder viewHolder, int direction) {
 
         int position = viewHolder.getAdapterPosition();
-        Log.d("TEST", "position: " + position + " direction: " + direction);
-        adapter.update(position);
+
+        if (direction == ItemTouchHelper.RIGHT) {
+
+            adapter.removeMeasureEntry(position);
+            adapter.updateRemoving(position);
+
+        }
 
     }
 
