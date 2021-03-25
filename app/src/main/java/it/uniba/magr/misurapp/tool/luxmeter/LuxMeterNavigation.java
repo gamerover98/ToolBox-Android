@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.Navigable;
-import it.uniba.magr.misurapp.util.XAxisValueFormatter;
+import it.uniba.magr.misurapp.util.XAxisValueFormatterUtil;
 
 public class LuxMeterNavigation implements Navigable, SensorEventListener {
 
@@ -238,7 +238,7 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
         leftAxis.setDrawGridLines(true);
         rightAxis.setEnabled     (false);
         xAxis.setDrawGridLines   (false);
-        xAxis.setValueFormatter(new XAxisValueFormatter());
+        xAxis.setValueFormatter(new XAxisValueFormatterUtil());
         lineChart.setDrawBorders (true);
 
     }

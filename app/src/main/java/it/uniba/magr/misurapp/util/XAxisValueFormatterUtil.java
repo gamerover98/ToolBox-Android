@@ -4,11 +4,11 @@ import com.github.mikephil.charting.components.AxisBase;
 
 import java.text.DecimalFormat;
 
-public class XAxisValueFormatter extends com.github.mikephil.charting.formatter.ValueFormatter {
+public class XAxisValueFormatterUtil extends com.github.mikephil.charting.formatter.ValueFormatter {
 
     private DecimalFormat mFormat;
 
-    public XAxisValueFormatter() {
+    public XAxisValueFormatterUtil() {
         mFormat = new DecimalFormat("###"); // sets precision to 1
     }
 
