@@ -88,6 +88,16 @@ public class Measure {
     @ColumnInfo(name = "end_date")
     private Date endDate = new Date(System.currentTimeMillis());
 
+    /**
+     * The order into the main interface.
+     */
+    @ColumnInfo(name = "card_order")
+    private int cardOrder;
+
+    //
+    // GETTERS
+    //
+
     public int getId() {
         return this.id;
     }
@@ -122,6 +132,14 @@ public class Measure {
         return this.endDate;
     }
 
+    public int getCardOrder() {
+        return this.cardOrder;
+    }
+
+    //
+    // SETTERS
+    //
+
     public void setId(int id) {
         this.id = id;
     }
@@ -148,6 +166,10 @@ public class Measure {
 
     public void setEndDate(@NonNull Date endDate) {
         this.endDate = endDate;
+    }
+
+    public void setCardOrder(int cardOrder) {
+        this.cardOrder = cardOrder;
     }
 
 }

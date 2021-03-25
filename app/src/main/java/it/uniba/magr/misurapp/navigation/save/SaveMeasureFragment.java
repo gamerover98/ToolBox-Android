@@ -215,13 +215,21 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
         measure.setType(getMeasureType());
         measure.setTitle(getTitle());
         measure.setDescription(getDescription());
+        measure.setCardOrder(0);
 
         measurementsDao.insertMeasure(measure);
         int latestMeasureID = measurementsDao.getLatestMeasureID();
         Measure latestMeasure = measurementsDao.getMeasure(latestMeasureID);
 
         if (latestMeasure != null) {
+
+            int maxOrder = measurementsDao.getMaxOrder();
+
             measure = latestMeasure;
+            measure.setCardOrder(maxOrder + 1);
+
+            measurementsDao.insertMeasure(measure);
+
         }
 
         // perform the tool saving with the measure just saved.
