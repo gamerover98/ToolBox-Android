@@ -73,6 +73,9 @@
     <string name="text_pedometer">Contapassi</string>
     <string name="text_compass">Bussola</string>
     <string name="text_pedometer_step">Steps</string>
+    <string name="description_text_barometer_low">Sei quasi al livello del mare</string>
+    <string name="description_text_barometer_normal">Sei al livello di una collina</string>
+    <string name="description_text_barometer_high">Stai scalando una montagna?!</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
 </resources>

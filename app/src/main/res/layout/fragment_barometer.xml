@@ -8,12 +8,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <it.uniba.magr.misurapp.tool.barometer.BarometerView
-        android:id="@+id/barometer_view"
-        android:layout_width="120dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/barometer_card_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/magnetometer_card"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="2dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <it.uniba.magr.misurapp.tool.barometer.BarometerView
+            android:id="@+id/barometer_view"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/barometer_pressure_value"
@@ -24,7 +38,7 @@
         android:textColor="@color/black"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/barometer_view"
+        app:layout_constraintStart_toEndOf="@+id/barometer_card_view"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -37,6 +51,19 @@
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="@+id/barometer_pressure_value"
         app:layout_constraintTop_toBottomOf="@+id/barometer_pressure_value" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/barometer_text_description"
+        android:layout_width="134dp"
+        android:layout_height="153dp"
+        android:text="@string/text_height"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/barometer_card_view"
+        app:layout_constraintTop_toBottomOf="@+id/barometer_height_value" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/barometer_fab_button_save"

@@ -28,6 +28,21 @@ public class BarometerNavigation implements Navigable, SensorEventListener {
     private static final float SEA_PRESSURE = 1013f;
 
     /**
+     * The highest mountain in the world.
+     */
+    private static final float EVEREST_HEIGHT = 8849f;
+
+    /**
+     * The highest hill in the world.
+     */
+    private static final float CAVANAL_HILL_HEIGHT = 609.30f;
+
+    /**
+     * The minimum hill height.
+     */
+    private static final float MIN_HILL_HEIGHT = 100f;
+
+    /**
      * The navigation bundle pressure key.
      */
     public static final String BUNDLE_PRESSURE_KEY = "pressure";
@@ -56,6 +71,11 @@ public class BarometerNavigation implements Navigable, SensorEventListener {
      * The barometer value text view.
      */
     private TextView barometerTextView;
+
+    /**
+     * The barometer text description.
+     */
+    private TextView barometerDescription;
 
     /**
      * The height value text view.
@@ -92,6 +112,7 @@ public class BarometerNavigation implements Navigable, SensorEventListener {
 
         barometerView     = activity.findViewById(R.id.barometer_view);
         barometerTextView = activity.findViewById(R.id.barometer_pressure_value);
+        barometerDescription = activity.findViewById(R.id.barometer_text_description);
         heightTextView    = activity.findViewById(R.id.barometer_height_value);
 
     }
@@ -110,6 +131,18 @@ public class BarometerNavigation implements Navigable, SensorEventListener {
 
         String barometerText = DECIMAL_FORMAT.format(currentPressure) + " " + barometerUnit;
         String heightText    = DECIMAL_FORMAT.format(height) + " " + heightUnit;
+
+        if(height < MIN_HILL_HEIGHT){
+            barometerDescription.setText(activity.getString(R.string.description_text_barometer_low));
+        }
+
+        if(height >= CAVANAL_HILL_HEIGHT){
+            barometerDescription.setText(activity.getString(R.string.description_text_barometer_normal));
+        }
+
+        if(height >= EVEREST_HEIGHT){
+            barometerDescription.setText(activity.getString(R.string.description_text_barometer_high));
+        }
 
         barometerView.setCurrentPressure(pressure);
 

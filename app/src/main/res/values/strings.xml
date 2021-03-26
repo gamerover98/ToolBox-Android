@@ -78,6 +78,9 @@
     <string name="text_compass">Compass</string>
     <string name="degrees_char" translatable="false">°</string>
     <string name="text_pedometer_step">Steps</string>
+    <string name="description_text_barometer_low">You are almost at the sea level</string>
+    <string name="description_text_barometer_normal">You are at hill level</string>
+    <string name="description_text_barometer_high">Are you climbing a mountain?!</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
 </resources>
