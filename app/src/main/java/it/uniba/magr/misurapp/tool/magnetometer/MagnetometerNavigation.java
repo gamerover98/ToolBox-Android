@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.Navigable;
-import it.uniba.magr.misurapp.util.XAxisValueFormatterUtil;
+import it.uniba.magr.misurapp.tool.util.XAxisValueFormatterUtil;
 
 public class MagnetometerNavigation implements Navigable, SensorEventListener {
 
@@ -255,9 +255,7 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
         leftAxis.setDrawGridLines(true);
         rightAxis.setEnabled     (false);
         xAxis.setDrawGridLines   (false);
-
-        //TODO: adjust the duplicated values on the x axis
-        xAxis.setValueFormatter(new XAxisValueFormatterUtil());
+        xAxis.setValueFormatter  (new XAxisValueFormatterUtil());
         lineChart.setDrawBorders (true);
 
     }

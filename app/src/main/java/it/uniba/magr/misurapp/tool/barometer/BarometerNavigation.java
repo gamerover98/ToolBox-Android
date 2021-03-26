@@ -1,23 +1,21 @@
 package it.uniba.magr.misurapp.tool.barometer;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.navigation.NavController;
 
-import com.ekn.gruzer.gaugelibrary.HalfGauge;
-import com.ekn.gruzer.gaugelibrary.Range;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
+import java.text.DecimalFormat;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
@@ -25,13 +23,19 @@ import it.uniba.magr.misurapp.navigation.Navigable;
 
 public class BarometerNavigation implements Navigable, SensorEventListener {
 
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.#");
+
+    private static final float SEA_PRESSURE = 1013f;
+
     /**
      * The navigation bundle pressure key.
      */
     public static final String BUNDLE_PRESSURE_KEY = "pressure";
 
-    private static final float MIN_PRESSURE = 900f;
-    private static final float MAX_PRESSURE = 1100f;
+    /**
+     * The activity instance.
+     */
+    private Activity activity;
 
     /**
      * The sensor manager instance from the application context.
@@ -44,9 +48,19 @@ public class BarometerNavigation implements Navigable, SensorEventListener {
     private Sensor pressureSensor;
 
     /**
-     * Pressure indicator view.
+     * Barometer indicator view.
      */
-    private HalfGauge halfGauge;
+    private BarometerView barometerView;
+
+    /**
+     * The barometer value text view.
+     */
+    private TextView barometerTextView;
+
+    /**
+     * The height value text view.
+     */
+    private TextView heightTextView;
 
     /**
      * The current sensor pressure.
@@ -67,6 +81,8 @@ public class BarometerNavigation implements Navigable, SensorEventListener {
     @Override
     public void onActivityCreated(@NotNull Activity activity, @Nullable Bundle bundle) {
 
+        this.activity = activity;
+
         FloatingActionButton saveButton = activity.findViewById(R.id.barometer_fab_button_save);
         saveButton.setOnClickListener(view -> onSaveButtonClick(activity));
 
@@ -74,29 +90,9 @@ public class BarometerNavigation implements Navigable, SensorEventListener {
         pressureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         assert pressureSensor != null;
 
-        halfGauge = activity.findViewById(R.id.barometer_gauge);
-        halfGauge.setMinValue(MIN_PRESSURE);
-        halfGauge.setMaxValue(MAX_PRESSURE);
-
-        Range yellowRange = new Range();
-        Range greenRange  = new Range();
-        Range redRange    = new Range();
-
-        yellowRange.setColor(Color.YELLOW);
-        yellowRange.setFrom(MIN_PRESSURE);
-        yellowRange.setTo(950f);
-
-        greenRange.setColor(Color.GREEN);
-        greenRange.setFrom(yellowRange.getTo());
-        greenRange.setTo(1050f);
-
-        redRange.setColor(Color.RED);
-        redRange.setFrom(greenRange.getTo());
-        redRange.setTo(MAX_PRESSURE);
-
-        halfGauge.setRanges(Arrays.asList(
-                greenRange, yellowRange, redRange
-        ));
+        barometerView     = activity.findViewById(R.id.barometer_view);
+        barometerTextView = activity.findViewById(R.id.barometer_pressure_value);
+        heightTextView    = activity.findViewById(R.id.barometer_height_value);
 
     }
 
@@ -107,7 +103,18 @@ public class BarometerNavigation implements Navigable, SensorEventListener {
         float pressure = values[0];
 
         this.currentPressure = pressure;
-        halfGauge.setValue(pressure);
+        float height = SensorManager.getAltitude(SEA_PRESSURE, pressure);
+
+        String barometerUnit = activity.getString(R.string.barometer_unit);
+        String heightUnit    = activity.getString(R.string.height_unit);
+
+        String barometerText = DECIMAL_FORMAT.format(currentPressure) + " " + barometerUnit;
+        String heightText    = DECIMAL_FORMAT.format(height) + " " + heightUnit;
+
+        barometerView.setCurrentPressure(pressure);
+
+        barometerTextView.setText(barometerText);
+        heightTextView.setText(heightText);
 
     }
 
@@ -135,12 +142,12 @@ public class BarometerNavigation implements Navigable, SensorEventListener {
      */
     private void onSaveButtonClick(@NotNull Context context) {
 
-        HomeActivity activity = (HomeActivity) context;
+        HomeActivity homeActivity = (HomeActivity) context;
 
         Bundle bundle = new Bundle();
         bundle.putFloat(BUNDLE_PRESSURE_KEY, currentPressure);
 
-        NavController navController = activity.getNavController();
+        NavController navController = homeActivity.getNavController();
         navController.navigate(R.id.action_nav_save_measure_fragment_to_barometer, bundle);
 
     }

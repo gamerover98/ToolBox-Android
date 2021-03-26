@@ -69,6 +69,7 @@
     <string name="light_unit">lux</string>
     <string name="light_chart_label">Valori in lux</string>
     <string name="text_barometer">Barometro</string>
+    <string name="text_height">Altezza</string>
     <string name="text_pedometer">Contapassi</string>
     <string name="text_compass">Bussola</string>
     <string name="text_pedometer_step">Steps</string>

@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.Navigable;
-import it.uniba.magr.misurapp.util.XAxisValueFormatterUtil;
+import it.uniba.magr.misurapp.tool.util.XAxisValueFormatterUtil;
 
 public class LuxMeterNavigation implements Navigable, SensorEventListener {
 
@@ -42,11 +42,6 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
      * The name of the inside path of the lamp that it will be "illuminated".
      */
     private static final String VECTOR_LAMP_BULB_PATH_NAME = "bulb";
-
-    /**
-     * The light bound to be multiplied into the plot value to avoid pinnacles.
-     */
-    private static final float VALUE_BOUND_MULTIPLY = 1.5f;
 
     /**
      * The minimum lux plot value.
@@ -59,11 +54,6 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
      * By default, its value is MIN_PLOT_VALUE.
      */
     private float plotMaxValue = MIN_PLOT_VALUE;
-
-    /**
-     * The maximum value of the plot values.
-     */
-    private static final float VALUE_BOUND_MAX = 41000;
 
     /**
      * The sensor manager instance from the application context.
@@ -101,11 +91,6 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
      */
     private final AtomicBoolean plotData = new AtomicBoolean(true);
 
-    /**
-     * The latest max value for the plot Y axis.
-     */
-    private float currentMaxValue = 0;
-
     @Override
     public int getLayoutId() {
         return R.layout.fragment_luxmeter;
@@ -138,10 +123,13 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
 
         Context context = lampImage.getContext();
 
-        currentMaxValue = sensorEvent.values[0]; // the current light value.
+        // the current light value.
+        float currentMaxValue = sensorEvent.values[0];
 
-        //TODO: replace "lx" with string android resource
-        luxValueTextView.setText(currentMaxValue + " lx");
+        String luxUnit = context.getString(R.string.light_unit);
+        String luxStringValue = currentMaxValue + " " + luxUnit;
+
+        luxValueTextView.setText(luxStringValue);
 
         // edit the bulb lamp color with properly "light" color.
         VectorChildFinder vector = new VectorChildFinder(context, R.drawable.lux_meter_lamp, lampImage);
@@ -152,7 +140,7 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
 
             if (plotMaxValue < currentMaxValue) {
 
-                plotMaxValue = (float) currentMaxValue;
+                plotMaxValue = currentMaxValue;
                 updateLineChart();
 
             }
@@ -161,8 +149,6 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
             plotData.set(false);
 
         }
-
-
 
     }
 
@@ -224,12 +210,6 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
         YAxis rightAxis = lineChart.getAxisRight();
         XAxis xAxis     = lineChart.getXAxis();
 
-        float maximum = currentMaxValue * VALUE_BOUND_MULTIPLY;
-
-        if (maximum > VALUE_BOUND_MAX) {
-            maximum = VALUE_BOUND_MAX;
-        }
-
         leftAxis.setTextColor    (Color.BLACK);
         leftAxis.setTextSize     (20);
         leftAxis.setAxisMaximum  (plotMaxValue + VALUE_BOUND);
@@ -238,7 +218,7 @@ public class LuxMeterNavigation implements Navigable, SensorEventListener {
         leftAxis.setDrawGridLines(true);
         rightAxis.setEnabled     (false);
         xAxis.setDrawGridLines   (false);
-        xAxis.setValueFormatter(new XAxisValueFormatterUtil());
+        xAxis.setValueFormatter  (new XAxisValueFormatterUtil());
         lineChart.setDrawBorders (true);
 
     }
