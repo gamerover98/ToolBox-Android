@@ -1,6 +1,7 @@
 package it.uniba.magr.misurapp.database.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -63,10 +64,22 @@ public interface MeasurementsDao {
     void insertMeasure(Measure measure);
 
     /**
-     * @param measures a not null array of measurements instances.
+     * @param measurements a not null array of measurements instances.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertMeasurements(Measure... measures);
+    void insertMeasurements(Measure... measurements);
+
+    /**
+     * @param measure a not null measure instance.
+     */
+    @Delete
+    void removeMeasure(Measure measure);
+
+    /**
+     * @param measurements A not null array of measurements instances.
+     */
+    @Delete
+    void removeMeasurements(Measure... measurements);
 
     /**
      * @return The latest measure ID added into the table.

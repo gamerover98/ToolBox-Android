@@ -119,6 +119,13 @@ public class MeasureRecyclerAdapter extends RecyclerView.Adapter<MeasureRecycler
     }
 
     /**
+     * @return True if there are no elements.
+     */
+    public boolean isEmpty() {
+        return entries.isEmpty();
+    }
+
+    /**
      * Remove all entries.
      */
     public void clear() {

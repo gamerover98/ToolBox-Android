@@ -1,6 +1,9 @@
 package it.uniba.magr.misurapp.navigation.main.recycle;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.HomeActivity;
+import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.database.DatabaseManager;
 import it.uniba.magr.misurapp.database.bean.Measure;
 import it.uniba.magr.misurapp.database.dao.MeasurementsDao;
@@ -114,12 +118,40 @@ public class MeasureRecycleTouchHelper extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(@NotNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-        int position = viewHolder.getAdapterPosition();
-
         if (direction == ItemTouchHelper.RIGHT) {
+
+            int position = viewHolder.getAdapterPosition();
+            MeasureEntry entry = adapter.getMeasureEntry(position);
+
+            if (entry == null) {
+                return;
+            }
+
+            Measure measure = entry.getMeasure();
+
+            RecyclerView recyclerView = adapter.getRecyclerView();
+            HomeActivity homeActivity = (HomeActivity) recyclerView.getContext();
 
             adapter.removeMeasureEntry(position);
             adapter.updateRemoving(position);
+
+            if (adapter.isEmpty()) {
+
+                TextView noItemsTextView = homeActivity.findViewById(R.id.main_no_items_text_view);
+                noItemsTextView.setVisibility(View.VISIBLE);
+
+            }
+
+            Thread thread = new Thread(() -> {
+
+                DatabaseManager databaseManager = homeActivity.getDatabaseManager();
+                MeasurementsDao measurementsDao = databaseManager.measurementsDao();
+
+                measurementsDao.removeMeasure(measure);
+
+            });
+
+            thread.start();
 
         }
 
