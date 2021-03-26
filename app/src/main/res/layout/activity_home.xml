@@ -24,7 +24,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/grey_dark"
+                android:background="@color/primary"
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
             <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->

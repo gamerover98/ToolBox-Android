@@ -4,7 +4,7 @@
     <style name="LightTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/grey_dark</item>
+        <item name="colorPrimaryDark">@color/primary</item>
         <item name="colorAccent">@color/accent</item>
     </style>
 
@@ -105,7 +105,7 @@
     </style>
 
     <style name="grid_view_bottom_layout">
-        <item name="android:background">@color/grey_dark</item>
+        <item name="android:background">@color/primary</item>
         <item name="android:alpha">0.9</item>
     </style>
 
