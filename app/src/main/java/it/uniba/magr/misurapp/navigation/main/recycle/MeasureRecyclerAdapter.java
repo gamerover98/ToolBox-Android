@@ -15,6 +15,7 @@ import com.google.android.material.card.MaterialCardView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.DateFormat;
 import java.util.LinkedList;
 
 import it.uniba.magr.misurapp.R;
@@ -69,6 +70,7 @@ public class MeasureRecyclerAdapter extends RecyclerView.Adapter<MeasureRecycler
         holder.setImageID(imageID);
         holder.setTitle(title);
         holder.setDescription(description);
+        holder.setDate(DateFormat.getDateInstance().format(measure.getStartDate()));
 
     }
 

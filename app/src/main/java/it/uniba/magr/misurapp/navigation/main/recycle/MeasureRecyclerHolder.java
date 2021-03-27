@@ -32,6 +32,9 @@ public class MeasureRecyclerHolder extends RecyclerView.ViewHolder {
     @NotNull
     private final MaterialTextView descriptionView;
 
+    @NotNull
+    private final MaterialTextView dateView;
+
     public MeasureRecyclerHolder(@NotNull RecyclerView recyclerView, @NotNull View itemView) {
 
         super(itemView);
@@ -41,8 +44,13 @@ public class MeasureRecyclerHolder extends RecyclerView.ViewHolder {
         this.iconView           = itemView.findViewById(R.id.main_measure_recycler_view_icon);
         this.titleView          = itemView.findViewById(R.id.main_measure_recycler_view_title);
         this.descriptionView    = itemView.findViewById(R.id.main_measure_recycler_view_description);
+        this.dateView           = itemView.findViewById(R.id.main_measure_recycler_view_date);
 
     }
+
+    //
+    // GETTERS
+    //
 
     @IdRes
     public int getImageID() {
@@ -59,6 +67,15 @@ public class MeasureRecyclerHolder extends RecyclerView.ViewHolder {
         return descriptionView.getText().toString();
     }
 
+    @NotNull
+    public String getDate() {
+        return dateView.getText().toString();
+    }
+
+    //
+    // SETTERS
+    //
+
     public void setImageID(@DrawableRes int imageID) {
         iconView.setImageResource(imageID);
     }
@@ -69,6 +86,10 @@ public class MeasureRecyclerHolder extends RecyclerView.ViewHolder {
 
     public void setDescription(@NotNull String description) {
         descriptionView.setText(description);
+    }
+
+    public void setDate(@NotNull String date) {
+        dateView.setText(date);
     }
 
 }
