@@ -51,7 +51,7 @@
     </androidx.cardview.widget.CardView>
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart_metal_detector"
+        android:id="@+id/magnetometer_line_chart"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,9 +59,10 @@
         app:layout_constraintTop_toBottomOf="@+id/magnetometer_card_view" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/magnetometer_recording_button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="@string/start"
+        android:text="@string/text_start_recording"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -70,7 +70,7 @@ public class MeasureRecyclerAdapter extends RecyclerView.Adapter<MeasureRecycler
         holder.setImageID(imageID);
         holder.setTitle(title);
         holder.setDescription(description);
-        holder.setDate(DateFormat.getDateInstance().format(measure.getStartDate()));
+        holder.setDate(DateFormat.getDateTimeInstance().format(measure.getStartDate()));
 
     }
 

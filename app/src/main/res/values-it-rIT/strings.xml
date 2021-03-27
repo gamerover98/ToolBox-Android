@@ -76,7 +76,7 @@
     <string name="description_text_barometer_low">Sei quasi al livello del mare</string>
     <string name="description_text_barometer_normal">Sei al livello di una collina</string>
     <string name="description_text_barometer_high">Stai scalando una montagna?!</string>
-    <string name="start">Start</string>
-    <string name="stop">Stop</string>
+    <string name="text_start_recording">Inizia la registrazione</string>
+    <string name="text_stop_recording">Termina la registrazione</string>
     <string name="text_date">GG/MM/AAAA</string>
 </resources>

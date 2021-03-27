@@ -77,7 +77,18 @@
     <fragment
         android:id="@+id/magnetometerFragment"
         android:name="it.uniba.magr.misurapp.tool.magnetometer.MagnetometerFragment"
-        android:label="MagnetometerFragment" />
+        android:label="MagnetometerFragment">
+
+        <action
+            android:id="@+id/action_nav_save_measure_fragment_to_magnetometer"
+            app:destination="@id/saveMagnetometerFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/saveMagnetometerFragment"
+        android:name="it.uniba.magr.misurapp.tool.magnetometer.save.SaveMagnetometerFragment"
+        android:label="SaveMagnetometerFragment" />
 
     <!-- lux meter fragment -->
 

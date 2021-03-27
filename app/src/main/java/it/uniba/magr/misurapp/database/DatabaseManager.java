@@ -4,17 +4,20 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import it.uniba.magr.misurapp.database.bean.Magnetometer;
 import it.uniba.magr.misurapp.database.bean.Measure;
 import it.uniba.magr.misurapp.database.bean.Ruler;
 import it.uniba.magr.misurapp.database.bean.Barometer;
 import it.uniba.magr.misurapp.database.dao.BarometersDao;
+import it.uniba.magr.misurapp.database.dao.MagnetometersDao;
 import it.uniba.magr.misurapp.database.dao.MeasurementsDao;
 import it.uniba.magr.misurapp.database.dao.RulersDao;
 
 /**
  * The main database class to handle and perform DB instructions.
  */
-@Database(entities = {Measure.class, Ruler.class, Barometer.class}, version = 1, exportSchema = false)
+@Database(entities = {Measure.class, Ruler.class, Barometer.class, Magnetometer.class},
+        version = 1, exportSchema = false)
 @TypeConverters({Conversions.class})
 public abstract class DatabaseManager extends RoomDatabase {
 
@@ -32,5 +35,10 @@ public abstract class DatabaseManager extends RoomDatabase {
      * @return The instance of the BarometersDao class.
      */
     public abstract BarometersDao barometersDao();
+
+    /**
+     * @return The instance of the MagnetometersDao class.
+     */
+    public abstract MagnetometersDao magnetometersDao();
 
 }

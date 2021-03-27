@@ -9,8 +9,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.core.content.res.ResourcesCompat;
+import androidx.navigation.NavController;
 
 import com.ekn.gruzer.gaugelibrary.ArcGauge;
 import com.ekn.gruzer.gaugelibrary.Range;
@@ -23,13 +25,17 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.DefaultFillFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.android.material.button.MaterialButton;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.Navigable;
 import it.uniba.magr.misurapp.tool.util.XAxisValueFormatterUtil;
@@ -37,24 +43,39 @@ import it.uniba.magr.misurapp.tool.util.XAxisValueFormatterUtil;
 public class MagnetometerNavigation implements Navigable, SensorEventListener {
 
     /**
+     * The navigation bundle seconds key.
+     */
+    public static final String BUNDLE_SECONDS_KEY = "seconds";
+
+    /**
+     * The navigation bundle values key.
+     */
+    public static final String BUNDLE_VALUES_KEY = "values";
+
+    /**
+     * The tesla bound to be added into the plot value to avoid pinnacles.
+     */
+    public static final float VALUE_BOUND = 100;
+
+    /**
      * The magnetic sensor max x value.
      */
-    private static final int MAGNETIC_SENSOR_MAX_X = 1000;
+    public static final int MAGNETIC_SENSOR_MAX_X = 1000;
 
     /**
      * The magnetic sensor max y value.
      */
-    private static final int MAGNETIC_SENSOR_MAX_Y = 1000;
+    public static final int MAGNETIC_SENSOR_MAX_Y = 1000;
 
     /**
      * The magnetic sensor max z value.
      */
-    private static final int MAGNETIC_SENSOR_MAX_Z = 1000;
+    public static final int MAGNETIC_SENSOR_MAX_Z = 1000;
 
     /**
      * The magnetic max value.
      */
-    private static final int MAGNETIC_SENSOR_MAX_VALUE = (int) Math.sqrt(Math.pow(
+    public static final int MAGNETIC_SENSOR_MAX_VALUE = (int) Math.sqrt(Math.pow(
             MAGNETIC_SENSOR_MAX_X,2) + Math.pow(MAGNETIC_SENSOR_MAX_Y,2) + Math.pow(
             MAGNETIC_SENSOR_MAX_Z,2));
 
@@ -64,9 +85,9 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
     private static final float MIN_PLOT_VALUE = 10;
 
     /**
-     * The tesla bound to be added into the plot value to avoid pinnacles.
+     * The home activity.
      */
-    private static final float VALUE_BOUND = 100;
+    private HomeActivity activity;
 
     /**
      * The sensor manager instance from the application context.
@@ -87,6 +108,26 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
      * The LineChart view.
      */
     private LineChart lineChart;
+
+    /**
+     * The recording button view.
+     */
+    private MaterialButton recordingButton;
+
+    /**
+     * The Map (seconds, tesla) of the recording values.
+     */
+    private final Map<Integer, Float> recordingValues = new HashMap<>();
+
+    /**
+     * The recording flowing time in seconds.
+     */
+    private int recordingSeconds;
+
+    /**
+     * The recording flag.
+     */
+    private boolean isRecording = false;
 
     /**
      * The async thread that provide to update every second the chart.
@@ -119,6 +160,7 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
     @Override
     public void onActivityCreated(@NotNull Activity activity, @Nullable Bundle bundle) {
 
+        this.activity      = (HomeActivity) activity;
         sensorManager      = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
         magnetometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         assert magnetometerSensor != null; // prevents that the sensor is null
@@ -157,10 +199,47 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
                 greenRange, yellowRange, redRange, maxRange
         ));
 
-        lineChart = activity.findViewById(R.id.chart_metal_detector);
+        lineChart = activity.findViewById(R.id.magnetometer_line_chart);
         lineChart.setDrawBorders(true);
 
+        recordingButton = activity.findViewById(R.id.magnetometer_recording_button);
+        recordingButton.setOnClickListener(this :: performRecordingButton);
+
     }
+
+    @Override
+    public void onStart() {
+
+        recordingValues.clear();
+        recordingSeconds = 0;
+
+    }
+
+    @Override
+    public void onResume() {
+
+        sensorManager.registerListener(this, magnetometerSensor,
+                SensorManager.SENSOR_DELAY_GAME);
+
+        initLineChart();
+        startPlotThread();
+
+    }
+
+    @Override
+    public void onPause() {
+
+        sensorManager.unregisterListener(this);
+
+        recordingValues.clear();
+        recordingSeconds = 0;
+
+        if (thread != null) {
+            thread.interrupt();
+        }
+
+    }
+
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
@@ -171,7 +250,16 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
 
         double magnitude = calculateMagnitude(magX, magY, magZ);
 
+        magnitude *= 1000;
+        magnitude  = Math.floor(magnitude);
+        magnitude /= 1000;
+
         if (plotData.get()) {
+
+
+            if (isRecording) {
+                recordingValues.put(recordingSeconds++, (float) magnitude);
+            }
 
             arcGauge.setValue(magnitude);
 
@@ -192,28 +280,6 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Nothing to do.
-    }
-
-    @Override
-    public void onResume() {
-
-        sensorManager.registerListener(this, magnetometerSensor,
-                SensorManager.SENSOR_DELAY_GAME);
-
-        initLineChart();
-        startPlotThread();
-
-    }
-
-    @Override
-    public void onPause() {
-
-        if (thread != null) {
-            thread.interrupt();
-        }
-
-        sensorManager.unregisterListener(this);
-
     }
 
     private void initLineChart() {
@@ -269,15 +335,7 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
      * @return The magnitude value.
      */
     private double calculateMagnitude(float magX, float magY, float magZ) {
-
-        double magnitude = Math.sqrt((magX * magX) + (magY * magY) + (magZ * magZ));
-
-        magnitude *= 1000;
-        magnitude  = Math.floor(magnitude);
-        magnitude /= 1000;
-
-        return magnitude;
-
+        return Math.sqrt((magX * magX) + (magY * magY) + (magZ * magZ));
     }
 
     /**
@@ -340,6 +398,65 @@ public class MagnetometerNavigation implements Navigable, SensorEventListener {
         lineDataSet.setFillColor(cardColor);
 
         return lineDataSet;
+
+    }
+
+    /**
+     * Perform the recording click button.
+     * @param view The not null button view.
+     */
+    private void performRecordingButton(@NotNull View view) {
+
+        Resources resources = activity.getResources();
+        Resources.Theme theme = activity.getTheme();
+
+        int recordingColor;
+        String recordingText;
+
+        if (!isRecording) {
+
+            isRecording = true;
+
+            recordingColor = ResourcesCompat.getColor(resources, R.color.danger, theme);
+            recordingText  = resources.getString(R.string.text_stop_recording);
+
+        } else {
+
+            isRecording = false;
+
+            recordingColor = ResourcesCompat.getColor(resources, R.color.primary, theme);
+            recordingText  = resources.getString(R.string.text_start_recording);
+
+        }
+
+        recordingButton.setBackgroundColor(recordingColor);
+        recordingButton.setText(recordingText);
+
+        if (!isRecording && !recordingValues.isEmpty()) {
+
+            int size = recordingValues.size();
+            int count = 0;
+
+            int[] seconds = new int[size];
+            float[] values = new float[size];
+
+            for (Map.Entry<Integer, Float> entry : recordingValues.entrySet()) {
+
+                seconds[count] = entry.getKey();
+                values[count]  = entry.getValue();
+
+                count++;
+
+            }
+
+            Bundle bundle = new Bundle();
+            bundle.putIntArray(BUNDLE_SECONDS_KEY, seconds);
+            bundle.putFloatArray(BUNDLE_VALUES_KEY, values);
+
+            NavController navController = activity.getNavController();
+            navController.navigate(R.id.action_nav_save_measure_fragment_to_magnetometer, bundle);
+
+        }
 
     }
 

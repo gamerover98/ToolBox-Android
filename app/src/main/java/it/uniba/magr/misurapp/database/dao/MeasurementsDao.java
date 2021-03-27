@@ -11,6 +11,7 @@ import java.util.List;
 
 import it.uniba.magr.misurapp.database.bean.Measure;
 import it.uniba.magr.misurapp.database.bean.embedded.MeasureAndBarometer;
+import it.uniba.magr.misurapp.database.bean.embedded.MeasureAndMagnetometer;
 import it.uniba.magr.misurapp.database.bean.embedded.MeasureAndRuler;
 
 /**
@@ -56,6 +57,14 @@ public interface MeasurementsDao {
     @Transaction
     @Query("SELECT * FROM Measurements NATURAL JOIN Barometers WHERE title=:title ORDER BY card_order")
     List<MeasureAndBarometer> getBarometerMeasure(String title);
+
+    /**
+     * @param title The title of the
+     * @return A list of measurements filtered by title.
+     */
+    @Transaction
+    @Query("SELECT * FROM Measurements NATURAL JOIN Magnetometers WHERE title=:title ORDER BY card_order")
+    List<MeasureAndMagnetometer> getMagnetometersMeasure(String title);
 
     /**
      * @param measure a not null measure instance.

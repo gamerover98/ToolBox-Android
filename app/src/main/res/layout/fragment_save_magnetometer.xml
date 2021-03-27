@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/save_magnetometer_line_chart"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/save_magnetometer_input_text_box_min_value"
+            style="@style/text_input_layout"
+            android:layout_marginTop="25dp"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/save_magnetometer_line_chart">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/save_magnetometer_input_text_min_value"
+                    style="@style/text_input_edit_text"
+                    android:enabled="false"
+                    android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/save_magnetometer_input_text_box_max_value"
+            style="@style/text_input_layout"
+            android:layout_marginTop="25dp"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/save_magnetometer_input_text_box_min_value">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/save_magnetometer_input_text_max_value"
+                    style="@style/text_input_edit_text"
+                    android:enabled="false"
+                    android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

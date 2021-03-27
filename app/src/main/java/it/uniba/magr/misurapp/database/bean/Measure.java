@@ -82,13 +82,6 @@ public class Measure {
     private Date startDate = new Date(System.currentTimeMillis());
 
     /**
-     * The end date.
-     */
-    @NonNull
-    @ColumnInfo(name = "end_date")
-    private Date endDate = new Date(System.currentTimeMillis());
-
-    /**
      * The order into the main interface.
      */
     @ColumnInfo(name = "card_order")
@@ -127,11 +120,6 @@ public class Measure {
         return this.startDate;
     }
 
-    @NotNull
-    public Date getEndDate() {
-        return this.endDate;
-    }
-
     public int getCardOrder() {
         return this.cardOrder;
     }
@@ -162,10 +150,6 @@ public class Measure {
 
     public void setStartDate(@NonNull Date startDate) {
         this.startDate = startDate;
-    }
-
-    public void setEndDate(@NonNull Date endDate) {
-        this.endDate = endDate;
     }
 
     public void setCardOrder(int cardOrder) {
