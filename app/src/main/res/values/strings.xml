@@ -78,9 +78,12 @@
     <string name="text_compass">Compass</string>
     <string name="degrees_char" translatable="false">°</string>
     <string name="text_pedometer_step">Steps</string>
+    <string name="description_text_barometer_default">Scanning…</string>
+    <string name="description_text_barometer_under_0">Enjoy your underwater journey!</string>
     <string name="description_text_barometer_low">You are almost at the sea level</string>
     <string name="description_text_barometer_normal">You are at hill level</string>
     <string name="description_text_barometer_high">Are you climbing a mountain?!</string>
+    <string name="description_text_barometer_above_everest">Flying in the sky, will ya?</string>
     <string name="text_start_recording">Start recording</string>
     <string name="text_stop_recording">Stop recording</string>
     <string name="text_date">GG/MM/AAAA</string>
