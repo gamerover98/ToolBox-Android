@@ -84,4 +84,5 @@
     <string name="text_start_recording">Start recording</string>
     <string name="text_stop_recording">Stop recording</string>
     <string name="text_date">GG/MM/AAAA</string>
+    <string name="text_edit_measure">Edit measure</string>
 </resources>

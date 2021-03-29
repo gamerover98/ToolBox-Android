@@ -25,7 +25,7 @@ public class SaveBarometerFragment extends SaveMeasureFragment {
     private float pressure;
 
     public SaveBarometerFragment() {
-        super(new SaveBarometerNavigation());
+        super(() -> R.layout.fragment_save_barometer);
     }
 
     @NotNull

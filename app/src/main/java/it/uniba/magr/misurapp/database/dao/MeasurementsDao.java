@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -43,12 +44,12 @@ public interface MeasurementsDao {
     List<Measure> getMeasurements(String title);
 
     /**
-     * @param title The title of the
+     * @param id The id of an existing measure.
      * @return A list of measurements filtered by title.
      */
     @Transaction
-    @Query("SELECT * FROM Measurements NATURAL JOIN Rulers WHERE title=:title ORDER BY card_order")
-    List<MeasureAndRuler> getRulerMeasure(String title);
+    @Query("SELECT * FROM Measurements NATURAL JOIN Rulers WHERE id=:id ORDER BY card_order")
+    List<MeasureAndRuler> getRulerMeasure(int id);
 
     /**
      * @param title The title of the
@@ -77,6 +78,12 @@ public interface MeasurementsDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMeasurements(Measure... measurements);
+
+    /**
+     * @param measure a not null measure instance.
+     */
+    @Update
+    void updateMeasure(Measure measure);
 
     /**
      * @param measure a not null measure instance.

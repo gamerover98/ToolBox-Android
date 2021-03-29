@@ -17,7 +17,20 @@
             android:id="@+id/action_nav_main_fragment_to_nav_settings_fragment"
             app:destination="@id/nav_settings_fragment" />
 
+        <action
+            android:id="@+id/action_nav_edit_measure_fragment_to_ruler"
+            app:destination="@id/editRulerFragment" />
+
     </fragment>
+
+    <!-- Edit -->
+
+    <fragment
+        android:id="@+id/editRulerFragment"
+        android:name="it.uniba.magr.misurapp.navigation.edit.tool.EditRulerFragment"
+        android:label="EditRulerFragment" />
+
+    <!-- Tool list -->
 
     <fragment
         android:id="@+id/nav_list_tools_fragment"

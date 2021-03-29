@@ -30,7 +30,7 @@ public class SaveRulerFragment extends SaveMeasureFragment {
     private float length;
 
     public SaveRulerFragment() {
-        super(new SaveRulerNavigation());
+        super(() -> R.layout.fragment_save_ruler);
     }
 
     @Override
