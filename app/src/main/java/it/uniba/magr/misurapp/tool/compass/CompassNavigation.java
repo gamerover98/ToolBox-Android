@@ -2,6 +2,7 @@ package it.uniba.magr.misurapp.tool.compass;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -17,6 +18,8 @@ import org.jetbrains.annotations.Nullable;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.Navigable;
+
+import static android.provider.Settings.System.getString;
 
 public class CompassNavigation implements Navigable, SensorEventListener {
 
@@ -124,8 +127,8 @@ public class CompassNavigation implements Navigable, SensorEventListener {
 
             int x = (int) azimuthInDegree;
 
-            //TODO: add a text view for the "°" symbol
-            degreesValueTextView.setText(x + "°");
+            String degrees = degreesValueTextView.getResources().getString(R.string.compass_degrees,x);
+            degreesValueTextView.setText(degrees);
         }
 
 

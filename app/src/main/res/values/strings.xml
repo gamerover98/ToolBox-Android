@@ -76,7 +76,7 @@
     <string name="height_unit" translatable="false">m</string>
     <string name="text_pedometer">Pedometer</string>
     <string name="text_compass">Compass</string>
-    <string name="degrees_char" translatable="false">°</string>
+    <string name="compass_degrees" translatable="false">%1$d°</string>
     <string name="text_pedometer_step">Steps</string>
     <string name="description_text_barometer_default">Scanning…</string>
     <string name="description_text_barometer_under_0">Enjoy your underwater journey!</string>
