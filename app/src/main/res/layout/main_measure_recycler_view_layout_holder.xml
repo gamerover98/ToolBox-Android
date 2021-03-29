@@ -43,23 +43,28 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/main_measure_recycler_view_title"
                 style="@style/main_recycler_title"
-                android:layout_width="wrap_content"
+                android:layout_width="180sp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:elevation="6dp"
                 android:text="@string/text_title"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:scrollHorizontally="false"
                 app:layout_constraintStart_toEndOf="@+id/main_measure_recycler_view_icon"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/main_measure_recycler_view_description"
                 style="@style/main_recycler_description"
-                android:layout_width="wrap_content"
+                android:layout_width="300sp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:elevation="6dp"
                 android:text="@string/text_description"
+                android:maxLines="2"
+                android:ellipsize="end"
                 app:layout_constraintStart_toEndOf="@+id/main_measure_recycler_view_icon"
                 app:layout_constraintTop_toBottomOf="@+id/main_measure_recycler_view_title" />
 
