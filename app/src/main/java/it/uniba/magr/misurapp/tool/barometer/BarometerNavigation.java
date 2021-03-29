@@ -132,16 +132,25 @@ public class BarometerNavigation implements Navigable, SensorEventListener {
         String barometerText = DECIMAL_FORMAT.format(currentPressure) + " " + barometerUnit;
         String heightText    = DECIMAL_FORMAT.format(height) + " " + heightUnit;
 
-        if(height < MIN_HILL_HEIGHT){
+
+        if (height < 0){
+            barometerDescription.setText(activity.getString(R.string.description_text_barometer_under_0));
+        }
+
+        if(height >= 0 && height < MIN_HILL_HEIGHT){
             barometerDescription.setText(activity.getString(R.string.description_text_barometer_low));
         }
 
-        if(height >= CAVANAL_HILL_HEIGHT){
+        if(height >= MIN_HILL_HEIGHT && height < CAVANAL_HILL_HEIGHT){
             barometerDescription.setText(activity.getString(R.string.description_text_barometer_normal));
         }
 
-        if(height >= EVEREST_HEIGHT){
+        if(height >= CAVANAL_HILL_HEIGHT && height < EVEREST_HEIGHT){
             barometerDescription.setText(activity.getString(R.string.description_text_barometer_high));
+        }
+
+        if(height > EVEREST_HEIGHT){
+            barometerDescription.setText(activity.getString(R.string.description_text_barometer_above_everest));
         }
 
         barometerView.setCurrentPressure(pressure);
