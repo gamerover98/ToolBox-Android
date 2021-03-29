@@ -1,10 +1,9 @@
-package it.uniba.magr.misurapp.tool.magnetometer.save;
+package it.uniba.magr.misurapp.navigation.edit.tool;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -25,33 +24,19 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DecimalFormat;
 
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.database.DatabaseManager;
-import it.uniba.magr.misurapp.database.bean.Magnetometer;
-import it.uniba.magr.misurapp.database.bean.Measure;
-import it.uniba.magr.misurapp.database.bean.Type;
-import it.uniba.magr.misurapp.database.dao.MagnetometersDao;
-import it.uniba.magr.misurapp.navigation.save.SaveMeasureFragment;
+import it.uniba.magr.misurapp.navigation.edit.EditMeasureFragment;
 import it.uniba.magr.misurapp.tool.magnetometer.MagnetometerNavigation;
 import it.uniba.magr.misurapp.tool.util.XAxisValueFormatterUtil;
 
-public class SaveMagnetometerFragment extends SaveMeasureFragment {
+public class EditMagnetometerFragment extends EditMeasureFragment {
 
     /**
      * An integer format for the x axis values.
      */
     private static final DecimalFormat FORMAT = new DecimalFormat("###");
 
-    private int[]   seconds;
-    private float[] values;
-
-    public SaveMagnetometerFragment() {
+    public EditMagnetometerFragment() {
         super(() -> R.layout.fragment_save_magnetometer);
-    }
-
-    @NotNull
-    @Override
-    protected Type getMeasureType() {
-        return Type.MAGNETOMETER;
     }
 
     @Override
@@ -61,8 +46,8 @@ public class SaveMagnetometerFragment extends SaveMeasureFragment {
         TextInputEditText editTextMinValue = activity.findViewById(R.id.save_magnetometer_input_text_min_value);
         TextInputEditText editTextMaxValue = activity.findViewById(R.id.save_magnetometer_input_text_max_value);
 
-        seconds = bundle.getIntArray(MagnetometerNavigation.BUNDLE_SECONDS_KEY);
-        values  = bundle.getFloatArray(MagnetometerNavigation.BUNDLE_VALUES_KEY);
+        int[] seconds = bundle.getIntArray(MagnetometerNavigation.BUNDLE_SECONDS_KEY);
+        float[] values  = bundle.getFloatArray(MagnetometerNavigation.BUNDLE_VALUES_KEY);
         assert seconds != null && values != null;
 
         lineChart.setVisibleXRangeMaximum(seconds.length);
@@ -113,36 +98,8 @@ public class SaveMagnetometerFragment extends SaveMeasureFragment {
 
         editTextMinValue.setText(minText);
         editTextMaxValue.setText(maxText);
-
     }
 
-    @Override
-    protected void save(@NotNull DatabaseManager databaseManager, @NotNull Measure measure) {
-
-        MagnetometersDao magnetometersDao = databaseManager.magnetometersDao();
-        int length = seconds.length;
-
-        Log.d("TEST", "Length: " + length);
-        Magnetometer[] magnetometers = new Magnetometer[length];
-
-        for (int i = 0 ; i < length ; i++) {
-
-
-            Magnetometer magnetometer = new Magnetometer();
-
-            magnetometer.setMeasureId(measure.getId());
-            magnetometer.setCount(i);
-            magnetometer.setValue(values[i]);
-            magnetometer.setTime(seconds[i]);
-
-            Log.d("TEST", "mag: " + magnetometer.toString());
-            magnetometers[i] = magnetometer;
-
-        }
-
-        magnetometersDao.insertMagnetometers(magnetometers);
-
-    }
 
     private void initLineChart(@NotNull LineChart lineChart) {
 
@@ -227,5 +184,4 @@ public class SaveMagnetometerFragment extends SaveMeasureFragment {
         return lineDataSet;
 
     }
-
 }

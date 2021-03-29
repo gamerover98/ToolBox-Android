@@ -3,13 +3,13 @@ package it.uniba.magr.misurapp.database.bean;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
 
 import lombok.ToString;
 
 @ToString
 @Entity(
         tableName = "Magnetometers",
+        primaryKeys = {"measure_id", "count"},
         foreignKeys = {
                 @ForeignKey(
                         entity        = Measure.class,
@@ -25,7 +25,6 @@ public class Magnetometer {
     /**
      * The measure_id foreign and primary key of this table.
      */
-    @PrimaryKey()
     @ColumnInfo(name = "measure_id")
     private int measureId;
 
@@ -45,7 +44,7 @@ public class Magnetometer {
      * The second of this value.
      */
     @ColumnInfo(name = "time")
-    private double time;
+    private int time;
 
     //
     // GETTERS
@@ -63,7 +62,7 @@ public class Magnetometer {
         return this.value;
     }
 
-    public double getTime() {
+    public int getTime() {
         return this.time;
     }
 
@@ -83,7 +82,7 @@ public class Magnetometer {
         this.value = value;
     }
 
-    public void setTime(double time) {
+    public void setTime(int time) {
         this.time = time;
     }
 

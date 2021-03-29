@@ -21,6 +21,15 @@
             android:id="@+id/action_nav_edit_measure_fragment_to_ruler"
             app:destination="@id/editRulerFragment" />
 
+        <action
+            android:id="@+id/action_nav_edit_measure_fragment_to_magnetometer"
+            app:destination="@id/editMagnetometerFragment" />
+
+        <action
+            android:id="@+id/action_nav_edit_measure_fragment_to_barometer"
+            app:destination="@id/editBarometerFragment" />
+
+
     </fragment>
 
     <!-- Edit -->
@@ -29,6 +38,16 @@
         android:id="@+id/editRulerFragment"
         android:name="it.uniba.magr.misurapp.navigation.edit.tool.EditRulerFragment"
         android:label="EditRulerFragment" />
+
+    <fragment
+        android:id="@+id/editMagnetometerFragment"
+        android:name="it.uniba.magr.misurapp.navigation.edit.tool.EditMagnetometerFragment"
+        android:label="EditMagnetometerFragment" />
+
+    <fragment
+        android:id="@+id/editBarometerFragment"
+        android:name="it.uniba.magr.misurapp.navigation.edit.tool.EditBarometerFragment"
+        android:label="EditBarometerFragment" />
 
     <!-- Tool list -->
 

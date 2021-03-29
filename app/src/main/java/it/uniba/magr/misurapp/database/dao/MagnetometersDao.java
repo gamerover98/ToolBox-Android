@@ -23,6 +23,12 @@ public interface MagnetometersDao {
     List<Magnetometer> getMagnetometers(int measureId);
 
     /**
+     * @param magnetometer a not null magnetometer instance.
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertMagnetometer(Magnetometer magnetometer);
+
+    /**
      * @param magnetometers a not null array of magnetometer instances.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
