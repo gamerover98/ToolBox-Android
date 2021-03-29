@@ -3,7 +3,6 @@ package it.uniba.magr.misurapp.navigation.main.recycle;
 import android.content.Context;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -150,7 +149,6 @@ public class MeasureRecyclerGestureDetector extends GestureDetector.SimpleOnGest
         MagnetometersDao magnetometersDao = databaseManager.magnetometersDao();
 
         List<Magnetometer> results = magnetometersDao.getMagnetometers(measureId);
-        Log.d("TEST", "Size: " + results.size());
 
         int length = results.size();
         int[] seconds = new int[length];
@@ -162,7 +160,6 @@ public class MeasureRecyclerGestureDetector extends GestureDetector.SimpleOnGest
 
             seconds[i] = magnetometer.getTime();
             values[i] = (float) magnetometer.getValue();
-            Log.d("TEST", i + " magR: " + magnetometer.toString());
 
         }
 

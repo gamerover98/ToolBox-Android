@@ -77,6 +77,12 @@ public interface MeasurementsDao {
     void updateMeasure(Measure measure);
 
     /**
+     * @param measurements A not null array of measurements instances.
+     */
+    @Update
+    void updateMeasurements(Measure... measurements);
+
+    /**
      * @param measure a not null measure instance.
      */
     @Delete

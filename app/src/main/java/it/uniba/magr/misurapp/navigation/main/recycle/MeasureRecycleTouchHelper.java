@@ -74,7 +74,7 @@ public class MeasureRecycleTouchHelper extends ItemTouchHelper.Callback {
                 m1.setCardOrder(m2.getCardOrder());
                 m2.setCardOrder(temp);
 
-                measurementsDao.insertMeasurements(m1, m2);
+                measurementsDao.updateMeasurements(m1, m2);
 
             }
 

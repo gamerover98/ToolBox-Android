@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -122,7 +121,6 @@ public class SaveMagnetometerFragment extends SaveMeasureFragment {
         MagnetometersDao magnetometersDao = databaseManager.magnetometersDao();
         int length = seconds.length;
 
-        Log.d("TEST", "Length: " + length);
         Magnetometer[] magnetometers = new Magnetometer[length];
 
         for (int i = 0 ; i < length ; i++) {
@@ -135,7 +133,6 @@ public class SaveMagnetometerFragment extends SaveMeasureFragment {
             magnetometer.setValue(values[i]);
             magnetometer.setTime(seconds[i]);
 
-            Log.d("TEST", "mag: " + magnetometer.toString());
             magnetometers[i] = magnetometer;
 
         }
