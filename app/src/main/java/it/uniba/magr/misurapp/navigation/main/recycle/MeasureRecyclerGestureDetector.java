@@ -19,16 +19,20 @@ import java.util.Optional;
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.database.DatabaseManager;
+import it.uniba.magr.misurapp.database.bean.Barometer;
 import it.uniba.magr.misurapp.database.bean.Magnetometer;
 import it.uniba.magr.misurapp.database.bean.Measure;
 import it.uniba.magr.misurapp.database.bean.Ruler;
 import it.uniba.magr.misurapp.database.bean.Type;
+import it.uniba.magr.misurapp.database.bean.embedded.MeasureAndBarometer;
 import it.uniba.magr.misurapp.database.bean.embedded.MeasureAndRuler;
 import it.uniba.magr.misurapp.database.dao.MagnetometersDao;
 import it.uniba.magr.misurapp.database.dao.MeasurementsDao;
 import it.uniba.magr.misurapp.navigation.main.entry.MeasureEntry;
 import it.uniba.magr.misurapp.tool.magnetometer.MagnetometerNavigation;
 import it.uniba.magr.misurapp.tool.ruler.RulerNavigation;
+
+import static it.uniba.magr.misurapp.tool.barometer.BarometerNavigation.BUNDLE_PRESSURE_KEY;
 
 public class MeasureRecyclerGestureDetector extends GestureDetector.SimpleOnGestureListener {
 
@@ -132,7 +136,42 @@ public class MeasureRecyclerGestureDetector extends GestureDetector.SimpleOnGest
     }
 
     private void openBarometerSaving(@NotNull Measure measure) {
-        //TODO: needs to be implemented.
+
+        int measureId = measure.getId();
+        String title = measure.getTitle();
+        String description = measure.getDescription();
+
+        Context context = recyclerView.getContext();
+        HomeActivity activity = (HomeActivity) context;
+
+        DatabaseManager databaseManager = activity.getDatabaseManager();
+        MeasurementsDao measurementsDao = databaseManager.measurementsDao();
+
+        Optional<MeasureAndBarometer> opt = measurementsDao.getBarometerMeasure(measureId).stream().findAny();
+
+        if (!opt.isPresent()) {
+            return;
+        }
+
+        MeasureAndBarometer measureAndBarometer = opt.get();
+        Barometer barometer =  measureAndBarometer.getBarometer();
+        float pressure = (float) barometer.getPressure();
+
+        Bundle bundle = new Bundle();
+
+        bundle.putInt(BUNDLE_MEASURE_ID_KEY,     measureId);
+        bundle.putString(BUNDLE_TITLE_KEY,       title);
+        bundle.putString(BUNDLE_DESCRIPTION_KEY, description);
+
+        bundle.putFloat(BUNDLE_PRESSURE_KEY, pressure);
+
+        activity.runOnUiThread(() -> {
+
+            NavController navController = activity.getNavController();
+            navController.navigate(R.id.action_nav_edit_measure_fragment_to_barometer, bundle);
+
+        });
+
     }
 
 

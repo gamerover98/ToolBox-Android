@@ -10,22 +10,23 @@ import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.navigation.edit.EditMeasureFragment;
-import it.uniba.magr.misurapp.tool.ruler.RulerNavigation;
+import it.uniba.magr.misurapp.tool.barometer.BarometerNavigation;
 
 public class EditBarometerFragment extends EditMeasureFragment {
 
     public EditBarometerFragment() {
-        super(() -> R.layout.fragment_save_ruler);
+        super(() -> R.layout.fragment_save_barometer);
     }
 
     @Override
     protected void handleParametersCreation(@NotNull FragmentActivity activity, @NotNull Bundle bundle) {
 
-        TextInputEditText lengthEditText = activity.findViewById(R.id.save_ruler_input_text_length);
-        float length = bundle.getFloat(RulerNavigation.BUNDLE_LENGTH_KEY);
+        TextInputEditText pressureEditText = activity.findViewById(R.id.save_barometer_input_text_length);
+        float pressure = bundle.getFloat(BarometerNavigation.BUNDLE_PRESSURE_KEY);
 
-        String lengthText = length + " cm";
-        lengthEditText.setText(lengthText);
+        String unit = activity.getString(R.string.barometer_unit);
+        String lengthText = pressure + " " + unit;
+        pressureEditText.setText(lengthText);
 
     }
 

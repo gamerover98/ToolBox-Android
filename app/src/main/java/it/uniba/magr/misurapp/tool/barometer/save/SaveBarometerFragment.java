@@ -15,7 +15,8 @@ import it.uniba.magr.misurapp.database.bean.Measure;
 import it.uniba.magr.misurapp.database.bean.Type;
 import it.uniba.magr.misurapp.database.dao.BarometersDao;
 import it.uniba.magr.misurapp.navigation.save.SaveMeasureFragment;
-import it.uniba.magr.misurapp.tool.barometer.BarometerNavigation;
+
+import static it.uniba.magr.misurapp.tool.barometer.BarometerNavigation.BUNDLE_PRESSURE_KEY;
 
 public class SaveBarometerFragment extends SaveMeasureFragment {
 
@@ -38,7 +39,7 @@ public class SaveBarometerFragment extends SaveMeasureFragment {
     protected void handleParametersCreation(@NotNull FragmentActivity activity, @NotNull Bundle bundle) {
 
         TextInputEditText pressureEditText = activity.findViewById(R.id.save_barometer_input_text_length);
-        pressure = bundle.getFloat(BarometerNavigation.BUNDLE_PRESSURE_KEY);
+        pressure = bundle.getFloat(BUNDLE_PRESSURE_KEY);
 
         String unit = activity.getString(R.string.barometer_unit);
         String lengthText = pressure + " " + unit;
