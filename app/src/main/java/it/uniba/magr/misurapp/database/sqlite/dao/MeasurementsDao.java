@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.database.dao;
+package it.uniba.magr.misurapp.database.sqlite.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -10,9 +10,9 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import it.uniba.magr.misurapp.database.bean.Measure;
-import it.uniba.magr.misurapp.database.bean.embedded.MeasureAndBarometer;
-import it.uniba.magr.misurapp.database.bean.embedded.MeasureAndRuler;
+import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
+import it.uniba.magr.misurapp.database.sqlite.bean.embedded.MeasureAndBarometer;
+import it.uniba.magr.misurapp.database.sqlite.bean.embedded.MeasureAndRuler;
 
 /**
  * The Data access object (Dao) of measures.

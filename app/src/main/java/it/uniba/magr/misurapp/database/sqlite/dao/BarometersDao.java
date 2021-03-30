@@ -1,11 +1,11 @@
-package it.uniba.magr.misurapp.database.dao;
+package it.uniba.magr.misurapp.database.sqlite.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import it.uniba.magr.misurapp.database.bean.Barometer;
+import it.uniba.magr.misurapp.database.sqlite.bean.Barometer;
 
 /**
  * The Data access object (Dao) of barometer measurements.

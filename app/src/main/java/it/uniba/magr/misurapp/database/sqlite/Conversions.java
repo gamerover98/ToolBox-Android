@@ -1,11 +1,10 @@
-package it.uniba.magr.misurapp.database;
+package it.uniba.magr.misurapp.database.sqlite;
 
 import androidx.room.TypeConverter;
 
 import java.util.Date;
-import java.util.Locale;
 
-import it.uniba.magr.misurapp.database.bean.Type;
+import it.uniba.magr.misurapp.database.sqlite.bean.Type;
 
 /**
  * The room's database class conversions.

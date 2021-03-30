@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.database.dao;
+package it.uniba.magr.misurapp.database.sqlite.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -7,7 +7,7 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import it.uniba.magr.misurapp.database.bean.Magnetometer;
+import it.uniba.magr.misurapp.database.sqlite.bean.Magnetometer;
 
 /**
  * The Data access object (Dao) of magnetometer measurements.

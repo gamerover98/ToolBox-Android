@@ -1,10 +1,10 @@
-package it.uniba.magr.misurapp.database.bean.embedded;
+package it.uniba.magr.misurapp.database.sqlite.bean.embedded;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import it.uniba.magr.misurapp.database.bean.Barometer;
-import it.uniba.magr.misurapp.database.bean.Measure;
+import it.uniba.magr.misurapp.database.sqlite.bean.Barometer;
+import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
 import lombok.Getter;
 
 /**

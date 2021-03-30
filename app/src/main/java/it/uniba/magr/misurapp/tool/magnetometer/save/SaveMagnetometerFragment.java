@@ -24,11 +24,11 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DecimalFormat;
 
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.database.DatabaseManager;
-import it.uniba.magr.misurapp.database.bean.Magnetometer;
-import it.uniba.magr.misurapp.database.bean.Measure;
-import it.uniba.magr.misurapp.database.bean.Type;
-import it.uniba.magr.misurapp.database.dao.MagnetometersDao;
+import it.uniba.magr.misurapp.database.sqlite.DatabaseManager;
+import it.uniba.magr.misurapp.database.sqlite.bean.Magnetometer;
+import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
+import it.uniba.magr.misurapp.database.sqlite.bean.Type;
+import it.uniba.magr.misurapp.database.sqlite.dao.MagnetometersDao;
 import it.uniba.magr.misurapp.navigation.save.SaveMeasureFragment;
 import it.uniba.magr.misurapp.tool.magnetometer.MagnetometerNavigation;
 import it.uniba.magr.misurapp.tool.util.XAxisValueFormatterUtil;

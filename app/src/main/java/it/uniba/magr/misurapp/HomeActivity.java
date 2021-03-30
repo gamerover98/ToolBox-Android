@@ -46,7 +46,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import it.uniba.magr.misurapp.auth.AuthActivity;
-import it.uniba.magr.misurapp.database.DatabaseManager;
+import it.uniba.magr.misurapp.database.sqlite.DatabaseManager;
 import it.uniba.magr.misurapp.introduction.IntroductionFragment;
 import it.uniba.magr.misurapp.loading.LoadingFragment;
 import it.uniba.magr.misurapp.navigation.Navigable;

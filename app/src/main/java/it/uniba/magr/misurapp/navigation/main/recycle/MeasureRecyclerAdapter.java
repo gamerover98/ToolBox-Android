@@ -19,7 +19,7 @@ import java.text.DateFormat;
 import java.util.LinkedList;
 
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.database.bean.Measure;
+import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
 import it.uniba.magr.misurapp.navigation.main.entry.MeasureEntry;
 import lombok.Getter;
 

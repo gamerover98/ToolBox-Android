@@ -12,11 +12,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.database.DatabaseManager;
-import it.uniba.magr.misurapp.database.bean.Measure;
-import it.uniba.magr.misurapp.database.bean.Ruler;
-import it.uniba.magr.misurapp.database.bean.Type;
-import it.uniba.magr.misurapp.database.dao.RulersDao;
+import it.uniba.magr.misurapp.database.sqlite.DatabaseManager;
+import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
+import it.uniba.magr.misurapp.database.sqlite.bean.Ruler;
+import it.uniba.magr.misurapp.database.sqlite.bean.Type;
+import it.uniba.magr.misurapp.database.sqlite.dao.RulersDao;
 import it.uniba.magr.misurapp.navigation.save.SaveMeasureFragment;
 import it.uniba.magr.misurapp.tool.ruler.RulerNavigation;
 import it.uniba.magr.misurapp.util.GenericUtil;

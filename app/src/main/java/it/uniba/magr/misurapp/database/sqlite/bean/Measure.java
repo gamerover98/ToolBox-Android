@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.database.bean;
+package it.uniba.magr.misurapp.database.sqlite.bean;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
-import it.uniba.magr.misurapp.database.Conversions;
+import it.uniba.magr.misurapp.database.sqlite.Conversions;
 import lombok.ToString;
 
 /**

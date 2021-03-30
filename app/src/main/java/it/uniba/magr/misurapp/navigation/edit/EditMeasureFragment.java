@@ -32,9 +32,9 @@ import java.util.List;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.database.DatabaseManager;
-import it.uniba.magr.misurapp.database.bean.Measure;
-import it.uniba.magr.misurapp.database.dao.MeasurementsDao;
+import it.uniba.magr.misurapp.database.sqlite.DatabaseManager;
+import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
+import it.uniba.magr.misurapp.database.sqlite.dao.MeasurementsDao;
 import it.uniba.magr.misurapp.navigation.NavigationFragment;
 import it.uniba.magr.misurapp.util.GenericUtil;
 import lombok.Getter;

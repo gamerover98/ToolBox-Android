@@ -12,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.database.DatabaseManager;
-import it.uniba.magr.misurapp.database.bean.Measure;
-import it.uniba.magr.misurapp.database.dao.MeasurementsDao;
+import it.uniba.magr.misurapp.database.sqlite.DatabaseManager;
+import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
+import it.uniba.magr.misurapp.database.sqlite.dao.MeasurementsDao;
 import it.uniba.magr.misurapp.navigation.main.entry.MeasureEntry;
 
 public class MeasureRecycleTouchHelper extends ItemTouchHelper.Callback {

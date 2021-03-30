@@ -9,11 +9,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.database.DatabaseManager;
-import it.uniba.magr.misurapp.database.bean.Barometer;
-import it.uniba.magr.misurapp.database.bean.Measure;
-import it.uniba.magr.misurapp.database.bean.Type;
-import it.uniba.magr.misurapp.database.dao.BarometersDao;
+import it.uniba.magr.misurapp.database.sqlite.DatabaseManager;
+import it.uniba.magr.misurapp.database.sqlite.bean.Barometer;
+import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
+import it.uniba.magr.misurapp.database.sqlite.bean.Type;
+import it.uniba.magr.misurapp.database.sqlite.dao.BarometersDao;
 import it.uniba.magr.misurapp.navigation.save.SaveMeasureFragment;
 
 import static it.uniba.magr.misurapp.tool.barometer.BarometerNavigation.BUNDLE_PRESSURE_KEY;

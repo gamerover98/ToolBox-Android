@@ -1,11 +1,11 @@
-package it.uniba.magr.misurapp.database.dao;
+package it.uniba.magr.misurapp.database.sqlite.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import it.uniba.magr.misurapp.database.bean.Ruler;
+import it.uniba.magr.misurapp.database.sqlite.bean.Ruler;
 
 /**
  * The Data access object (Dao) of ruler measurements.

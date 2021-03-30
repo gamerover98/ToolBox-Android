@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.database.bean;
+package it.uniba.magr.misurapp.database.sqlite.bean;
 
 import lombok.ToString;
 

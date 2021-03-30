@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes;
 
 import org.jetbrains.annotations.NotNull;
 
-import it.uniba.magr.misurapp.database.bean.Measure;
+import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

@@ -1,17 +1,17 @@
-package it.uniba.magr.misurapp.database;
+package it.uniba.magr.misurapp.database.sqlite;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import it.uniba.magr.misurapp.database.bean.Magnetometer;
-import it.uniba.magr.misurapp.database.bean.Measure;
-import it.uniba.magr.misurapp.database.bean.Ruler;
-import it.uniba.magr.misurapp.database.bean.Barometer;
-import it.uniba.magr.misurapp.database.dao.BarometersDao;
-import it.uniba.magr.misurapp.database.dao.MagnetometersDao;
-import it.uniba.magr.misurapp.database.dao.MeasurementsDao;
-import it.uniba.magr.misurapp.database.dao.RulersDao;
+import it.uniba.magr.misurapp.database.sqlite.bean.Magnetometer;
+import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
+import it.uniba.magr.misurapp.database.sqlite.bean.Ruler;
+import it.uniba.magr.misurapp.database.sqlite.bean.Barometer;
+import it.uniba.magr.misurapp.database.sqlite.dao.BarometersDao;
+import it.uniba.magr.misurapp.database.sqlite.dao.MagnetometersDao;
+import it.uniba.magr.misurapp.database.sqlite.dao.MeasurementsDao;
+import it.uniba.magr.misurapp.database.sqlite.dao.RulersDao;
 
 /**
  * The main database class to handle and perform DB instructions.

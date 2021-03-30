@@ -1,4 +1,4 @@
-package it.uniba.magr.misurapp.database.bean;
+package it.uniba.magr.misurapp.database.sqlite.bean;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
