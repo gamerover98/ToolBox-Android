@@ -109,7 +109,7 @@ public class SaveRulerFragment extends SaveMeasureFragment {
         realtimeRuler.setStartDate(startDate);
         realtimeRuler.setLength(length);
 
-        realtimeManager.addRuler(realtimeRuler);
+        realtimeManager.addMeasure(realtimeRuler);
 
     }
 

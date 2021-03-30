@@ -152,7 +152,7 @@ public class MeasureRecycleTouchHelper extends ItemTouchHelper.Callback {
 
                 try {
 
-                    realtimeMeasure.removeRuler(measure.getId());
+                    realtimeMeasure.removeMeasure(measure.getId());
 
                     measure.setFirebaseSync(true);
                     measure.setDeleted(true);

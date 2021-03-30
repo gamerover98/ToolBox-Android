@@ -20,8 +20,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
 
 import it.uniba.magr.misurapp.HomeActivity;
+import it.uniba.magr.misurapp.database.realtime.bean.RealtimeBarometer;
+import it.uniba.magr.misurapp.database.realtime.bean.RealtimeMagnetometer;
 import it.uniba.magr.misurapp.database.realtime.bean.RealtimeMeasure;
 import it.uniba.magr.misurapp.database.realtime.bean.RealtimeRuler;
 import it.uniba.magr.misurapp.database.sqlite.bean.Type;
@@ -31,9 +34,17 @@ public class RealtimeManager {
     private static final GenericTypeIndicator<List<RealtimeRuler>> RULER_TYPE_INDICATOR
             = new GenericTypeIndicator<List<RealtimeRuler>>() {};
 
-    private static final String CHILD_USERS        = "users";
-    private static final String CHILD_MEASUREMENTS = "measurements";
-    private static final String CHILD_RULERS       = "rulers";
+    private static final GenericTypeIndicator<List<RealtimeBarometer>> BAROMETER_TYPE_INDICATOR
+            = new GenericTypeIndicator<List<RealtimeBarometer>>() {};
+
+    private static final GenericTypeIndicator<List<RealtimeMagnetometer>> MAGNETOMETER_TYPE_INDICATOR
+            = new GenericTypeIndicator<List<RealtimeMagnetometer>>() {};
+
+    private static final String CHILD_USERS         = "users";
+    private static final String CHILD_MEASUREMENTS  = "measurements";
+    private static final String CHILD_RULERS        = "rulers";
+    private static final String CHILD_MAGNETOMETERS = "magnetometers";
+    private static final String CHILD_BAROMETERS    = "barometers";
 
     /**
      * This field prevents the code execution from flowing until the
@@ -56,7 +67,29 @@ public class RealtimeManager {
 
     }
 
-    public void addRuler(@NotNull RealtimeRuler ruler) throws NotConnectedException {
+    //
+    // PUBLIC METHODS
+    //
+
+    /**
+     * @return True if the device is connected to an internet connection.
+     */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public boolean isNetworkConnected() {
+
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
+
+    }
+
+    /**
+     * Add a ruler to the realtime database.
+     *
+     * @param measure The realtime ruler instance.
+     * @throws NotConnectedException invoked if the device is not connected to internet.
+     */
+    @SuppressWarnings("unchecked")
+    public void addMeasure(@NotNull RealtimeMeasure measure) throws NotConnectedException {
 
         String uuid = getUserUUID();
 
@@ -64,18 +97,46 @@ public class RealtimeManager {
             return;
         }
 
-        List<RealtimeRuler> existingRulers = new ArrayList<>(getRulers());
-        existingRulers.add(ruler);
+        Type currentType = Type.UNKNOWN;
 
-        DatabaseReference databaseReference = getMeasureChild(uuid);
+        if (measure instanceof RealtimeRuler) {
+            currentType = Type.RULER;
+        } else if (measure instanceof RealtimeBarometer) {
+            currentType = Type.BAROMETER;
+        } else if (measure instanceof RealtimeMagnetometer) {
+            currentType = Type.MAGNETOMETER;
+        }
 
-        databaseReference = databaseReference.child(CHILD_RULERS);
-        databaseReference.setValue(existingRulers);
+        if (currentType == Type.UNKNOWN) {
+            return;
+        }
+
+        List<RealtimeMeasure> measurements = (List<RealtimeMeasure>) getSpecificMeasurements(currentType, uuid);
+        measurements.add(measure);
+
+        DatabaseReference databaseReference;
+
+        switch (currentType) {
+
+            case RULER:        databaseReference = getRulersChild(uuid);        break;
+            case MAGNETOMETER: databaseReference = getMagnetometersChild(uuid); break;
+            case BAROMETER:    databaseReference = getBarometersChild(uuid);    break;
+            default: return;
+
+        }
+
+        databaseReference.setValue(measurements);
         databaseReference.push();
 
     }
 
-    public void removeRuler(int measureId) throws NotConnectedException {
+    /**
+     * Remove a measure from the realtime database.
+     *
+     * @param measureIdToRemove The measure id to remove.
+     * @throws NotConnectedException invoked if the device is not connected to internet.
+     */
+    public void removeMeasure(int measureIdToRemove) throws NotConnectedException {
 
         if (!isNetworkConnected()) {
             throw new NotConnectedException();
@@ -87,30 +148,68 @@ public class RealtimeManager {
             return;
         }
 
-        List<RealtimeRuler> existingRulers = new ArrayList<>(getRulers());
+        List<? extends RealtimeMeasure> measurements = getAllMeasurements(uuid);
+        Type currentType = Type.UNKNOWN;
 
-        for (int i = 0 ; i < existingRulers.size() ; i++) {
+        for (RealtimeMeasure current : measurements) {
 
-            RealtimeRuler current = existingRulers.get(i);
-            int currentId = current.getMeasureId();
+            if (measureIdToRemove == current.getMeasureId()) {
 
-            if (measureId == currentId) {
+                if (current instanceof RealtimeRuler) {
+                    currentType = Type.RULER;
+                } else if (current instanceof RealtimeBarometer) {
+                    currentType = Type.BAROMETER;
+                } else if (current instanceof RealtimeMagnetometer) {
+                    currentType = Type.MAGNETOMETER;
+                }
 
-                existingRulers.remove(i);
                 break;
 
             }
 
         }
 
-        DatabaseReference databaseReference = getMeasureChild(uuid);
+        if (currentType == Type.UNKNOWN) {
+            return;
+        }
 
-        databaseReference = databaseReference.child(CHILD_RULERS);
-        databaseReference.setValue(existingRulers);
+        measurements = getSpecificMeasurements(currentType, uuid);
+        RealtimeMeasure toRemoveMeasure = null;
+
+        for (RealtimeMeasure current : measurements) {
+
+            if (measureIdToRemove == current.getMeasureId()) {
+
+                toRemoveMeasure = current;
+                break;
+
+            }
+
+        }
+
+        measurements.remove(toRemoveMeasure);
+        DatabaseReference databaseReference;
+
+        switch (currentType) {
+
+            case RULER:        databaseReference = getRulersChild(uuid);        break;
+            case MAGNETOMETER: databaseReference = getMagnetometersChild(uuid); break;
+            case BAROMETER:    databaseReference = getBarometersChild(uuid);    break;
+            default: return;
+
+        }
+
+        databaseReference.setValue(measurements);
         databaseReference.push();
 
     }
 
+    /**
+     * Check if a measure id is contained into the remote database.
+     *
+     * @param measureId The measure id.
+     * @throws NotConnectedException invoked if the device is not connected to internet.
+     */
     public boolean hasMeasure(int measureId) throws NotConnectedException {
 
         if (!isNetworkConnected()) {
@@ -123,11 +222,11 @@ public class RealtimeManager {
             return false;
         }
 
-        List<RealtimeMeasure> existingMeasurements = getRealtimeMeasures();
+        List<RealtimeMeasure> allMeasurements = getAllMeasurements(uuid);
 
-        for (RealtimeMeasure realtimeMeasure : existingMeasurements) {
+        for (RealtimeMeasure currentMeasure : allMeasurements) {
 
-            int currentId = realtimeMeasure.getMeasureId();
+            int currentId = currentMeasure.getMeasureId();
 
             if (measureId == currentId) {
                 return true;
@@ -139,6 +238,13 @@ public class RealtimeManager {
 
     }
 
+    /**
+     * Update the measure id of an existing measure.
+     *
+     * @param remoteMeasureId The remote measure id to edit.
+     * @param updatedMeasureId The replacement measure id.
+     * @throws NotConnectedException invoked if the device is not connected to internet.
+     */
     public void updateMeasureId(int remoteMeasureId, int updatedMeasureId) throws NotConnectedException {
 
         if (!isNetworkConnected()) {
@@ -151,22 +257,20 @@ public class RealtimeManager {
             return;
         }
 
-        List<RealtimeMeasure> existingMeasurements = getRealtimeMeasures();
+        List<? extends RealtimeMeasure> measurements = getAllMeasurements(uuid);
         Type currentType = Type.UNKNOWN;
 
-        for (int i = 0 ; i < existingMeasurements.size() ; i++) {
+        for (RealtimeMeasure current : measurements) {
 
-            RealtimeMeasure current = existingMeasurements.get(i);
-            int currentId = current.getMeasureId();
-
-            if (remoteMeasureId == currentId) {
-
-                current.setMeasureId(updatedMeasureId);
+            if (remoteMeasureId == current.getMeasureId()) {
 
                 if (current instanceof RealtimeRuler) {
                     currentType = Type.RULER;
+                } else if (current instanceof RealtimeBarometer) {
+                    currentType = Type.BAROMETER;
+                } else if (current instanceof RealtimeMagnetometer) {
+                    currentType = Type.MAGNETOMETER;
                 }
-                //TODO: add magnetometer and barometer
 
                 break;
 
@@ -174,26 +278,48 @@ public class RealtimeManager {
 
         }
 
-        DatabaseReference databaseReference = getMeasureChild(uuid);
-
-        switch (currentType) {
-            case RULER:
-
-                databaseReference = databaseReference.child(CHILD_RULERS);
-                databaseReference.setValue(existingMeasurements);
-
-                break;
-
-            case MAGNETOMETER: /* needs to be implemented */ break;
-            case BAROMETER:    /* needs to be implemented */ break;
-            default: return;
+        if (currentType == Type.UNKNOWN) {
+            return;
         }
 
+        measurements = getSpecificMeasurements(currentType, uuid);
+
+        for (RealtimeMeasure current : measurements) {
+
+            if (remoteMeasureId == current.getMeasureId()) {
+                current.setMeasureId(updatedMeasureId);
+            }
+
+        }
+
+        DatabaseReference databaseReference;
+
+        switch (currentType) {
+
+            case RULER:        databaseReference = getRulersChild(uuid);        break;
+            case MAGNETOMETER: databaseReference = getMagnetometersChild(uuid); break;
+            case BAROMETER:    databaseReference = getBarometersChild(uuid);    break;
+            default: return;
+
+        }
+
+        databaseReference.setValue(measurements);
         databaseReference.push();
 
     }
 
-    public void updateMeasure(Type type, int measureId,
+    /**
+     * Update a measure title and description.
+     *
+     * @param type The not null Type of the measure.
+     * @param measureId The unique measure id of the remote item.
+     * @param title The not null title.
+     * @param description The not null description.
+     * @throws NotConnectedException Invoked if the device is not connected to internet.
+     */
+    @SuppressWarnings("unchecked")
+    public void updateMeasure(@NotNull Type type,
+                              int measureId,
                               @NotNull String title,
                               @NotNull String description) throws NotConnectedException {
 
@@ -207,11 +333,11 @@ public class RealtimeManager {
             return;
         }
 
-        List<RealtimeMeasure> existingMeasurements = getRealtimeMeasures(type);
+        List<RealtimeMeasure> measurements = (List<RealtimeMeasure>) getSpecificMeasurements(type, uuid);
 
-        for (int i = 0 ; i < existingMeasurements.size() ; i++) {
+        for (int i = 0; i < measurements.size() ; i++) {
 
-            RealtimeMeasure current = existingMeasurements.get(i);
+            RealtimeMeasure current = measurements.get(i);
             int currentId = current.getMeasureId();
 
             if (measureId == currentId) {
@@ -224,68 +350,43 @@ public class RealtimeManager {
 
         }
 
-        DatabaseReference databaseReference = getMeasureChild(uuid);
+        DatabaseReference databaseReference;
 
         switch (type) {
-            case RULER:
 
-                databaseReference = databaseReference.child(CHILD_RULERS);
-                databaseReference.setValue(existingMeasurements);
-
-                break;
-
-            case MAGNETOMETER: /* needs to be implemented */ break;
-            case BAROMETER:    /* needs to be implemented */ break;
+            case RULER:        databaseReference = getRulersChild(uuid);        break;
+            case MAGNETOMETER: databaseReference = getMagnetometersChild(uuid); break;
+            case BAROMETER:    databaseReference = getBarometersChild(uuid);    break;
             default: return;
+
         }
 
+        databaseReference.setValue(measurements);
         databaseReference.push();
 
     }
 
-    //
-    // GETTERS
-    //
-
-    @NotNull
-    private List<RealtimeMeasure> getRealtimeMeasures(@NotNull Type type) throws NotConnectedException {
-
-        List<RealtimeMeasure> result = new ArrayList<>();
-
-        switch (type) {
-            case RULER:        result.addAll(getRulers()); break;
-            case MAGNETOMETER: /* needs to be implemented */ break;
-            case BAROMETER:    /* needs to be implemented */ break;
-            default: break;
-        }
-
-        return result;
-
-    }
-
-    @NotNull
-    private List<RealtimeMeasure> getRealtimeMeasures() throws NotConnectedException {
-
-        List<RealtimeMeasure> result = new ArrayList<>();
-
-        result.addAll(getRulers());
-        //TODO: magnetometer and barometer
-
-        return result;
-
-    }
-
+    /**
+     * @return The maximum measure id into the user remote database.
+     * @throws NotConnectedException Invoked if the device is not connected to internet.
+     */
     public int getMaxMeasureId() throws NotConnectedException {
 
         if (!isNetworkConnected()) {
             throw new NotConnectedException();
         }
 
+        String uuid = getUserUUID();
+
+        if (uuid == null) {
+            return -1;
+        }
+
         int max = 0;
 
-        for (RealtimeRuler realtimeRuler : getRulers()) {
+        for (RealtimeMeasure current : getAllMeasurements(uuid)) {
 
-            int measureId = realtimeRuler.getMeasureId();
+            int measureId = current.getMeasureId();
 
             if (measureId > max) {
                 max = measureId;
@@ -297,37 +398,192 @@ public class RealtimeManager {
 
     }
 
+    /**
+     * Retrieve a list of ruler measurements from the remote database
+     * associated with the current logged user.
+     *
+     * @return A not null list of ruler measurements.
+     * @throws NotConnectedException Invoked if the device is not connected to internet.
+     */
     @NotNull
     public List<RealtimeRuler> getRulers() throws NotConnectedException {
-
-        if (!isNetworkConnected()) {
-            throw new NotConnectedException();
-        }
 
         String uuid = getUserUUID();
 
         if (uuid == null) {
-            return Collections.unmodifiableList(new ArrayList<>());
+            return new ArrayList<>();
         }
 
-        DatabaseReference databaseReference = getMeasureChild(uuid);
-        databaseReference = databaseReference.child(CHILD_RULERS);
-
-        return getRulers(databaseReference);
+        return getRulers(uuid);
 
     }
 
+    /**
+     * Retrieve a list of magnetometer measurements from the remote database
+     * associated with the current logged user.
+     *
+     * @return A not null list of magnetometer measurements.
+     * @throws NotConnectedException Invoked if the device is not connected to internet.
+     */
     @NotNull
-    @SuppressWarnings("squid:S3776")
-    public List<RealtimeRuler> getRulers(@NotNull DatabaseReference databaseReference)
+    public List<RealtimeMagnetometer> getMagnetometers() throws NotConnectedException {
+
+        String uuid = getUserUUID();
+
+        if (uuid == null) {
+            return new ArrayList<>();
+        }
+
+        return getMagnetometers(uuid);
+
+    }
+
+    /**
+     * Retrieve a list of barometer measurements from the remote database
+     * associated with the current logged user.
+     *
+     * @return A not null list of barometer measurements.
+     * @throws NotConnectedException Invoked if the device is not connected to internet.
+     */
+    @NotNull
+    public List<RealtimeBarometer> getBarometers() throws NotConnectedException {
+
+        String uuid = getUserUUID();
+
+        if (uuid == null) {
+            return new ArrayList<>();
+        }
+
+        return getBarometers(uuid);
+
+    }
+
+    /**
+     * Retrieve a list of ruler measurements from the remote database.
+     *
+     * @param uuid The not null user firebase uuid.
+     * @return A not null list of ruler measurements.
+     * @throws NotConnectedException Invoked if the device is not connected to internet.
+     */
+    @NotNull
+    @SuppressWarnings({"squid:S3776", "unchecked"})
+    public List<RealtimeRuler> getRulers(@NotNull String uuid) throws NotConnectedException {
+
+        return (List<RealtimeRuler>) getMeasurements(getRulersChild(uuid), dataSnapshot -> {
+
+            List<RealtimeRuler> result = new ArrayList<>();
+            List<RealtimeRuler> rulers = dataSnapshot.getValue(RULER_TYPE_INDICATOR);
+
+            if (rulers != null && !rulers.isEmpty()) {
+
+                for (RealtimeRuler current : rulers) {
+
+                    if (current != null) {
+                        result.add(current);
+                    }
+
+                }
+
+            }
+
+            return result;
+
+        });
+
+    }
+
+    /**
+     * Retrieve a list of magnetometer measurements from the remote database.
+     *
+     * @param uuid The not null user firebase uuid.
+     * @return A not null list of magnetometer measurements.
+     * @throws NotConnectedException Invoked if the device is not connected to internet.
+     */
+    @NotNull
+    @SuppressWarnings({"squid:S3776", "unchecked"})
+    public List<RealtimeMagnetometer> getMagnetometers(@NotNull String uuid) throws NotConnectedException {
+
+        return (List<RealtimeMagnetometer>) getMeasurements(getMagnetometersChild(uuid), dataSnapshot -> {
+
+            List<RealtimeMagnetometer> result = new ArrayList<>();
+            List<RealtimeMagnetometer> magnetometers = dataSnapshot.getValue(MAGNETOMETER_TYPE_INDICATOR);
+
+            if (magnetometers != null && !magnetometers.isEmpty()) {
+
+                for (RealtimeMagnetometer current : magnetometers) {
+
+                    if (current != null) {
+                        result.add(current);
+                    }
+
+                }
+
+            }
+
+            return result;
+
+        });
+
+    }
+
+    /**
+     * Retrieve a list of barometer measurements from the remote database.
+     *
+     * @param uuid The not null user firebase uuid.
+     * @return A not null list of barometer measurements.
+     * @throws NotConnectedException Invoked if the device is not connected to internet.
+     */
+    @NotNull
+    @SuppressWarnings({"squid:S3776", "unchecked"})
+    public List<RealtimeBarometer> getBarometers(@NotNull String uuid) throws NotConnectedException {
+
+        return (List<RealtimeBarometer>) getMeasurements(getBarometersChild(uuid), dataSnapshot -> {
+
+            List<RealtimeBarometer> result = new ArrayList<>();
+            List<RealtimeBarometer> barometers = dataSnapshot.getValue(BAROMETER_TYPE_INDICATOR);
+
+            if (barometers != null && !barometers.isEmpty()) {
+
+                for (RealtimeBarometer current : barometers) {
+
+                    if (current != null) {
+                        result.add(current);
+                    }
+
+                }
+
+            }
+
+            return result;
+
+        });
+
+    }
+
+    //
+    // PRIVATE METHODS
+    //
+
+    /**
+     * Retrieve a list of measurements from the remote database.
+     *
+     * @param childReference The not null measurements child reference instance.
+     * @param dataSnapshotConsumer The not null lambda Function to gets the result.
+     * @return A not null list of measurements.
+     * @throws NotConnectedException Invoked if the device is not connected to internet.
+     */
+    @NotNull
+    private List<? extends RealtimeMeasure> getMeasurements(
+            @NotNull DatabaseReference childReference,
+            @NotNull Function<DataSnapshot, List<? extends RealtimeMeasure>> dataSnapshotConsumer)
             throws NotConnectedException {
 
         if (!isNetworkConnected()) {
             throw new NotConnectedException();
         }
 
-        List<RealtimeRuler> results = new ArrayList<>();
-        Task<DataSnapshot> dataSnapshotTask = databaseReference.get();
+        List<RealtimeMeasure> results = new ArrayList<>();
+        Task<DataSnapshot> dataSnapshotTask = childReference.get();
 
         dataSnapshotTask.addOnCanceledListener(this :: unlock);
         dataSnapshotTask.addOnFailureListener(onFailure -> unlock());
@@ -335,21 +591,7 @@ public class RealtimeManager {
         dataSnapshotTask.addOnSuccessListener(dataSnapshot -> {
 
             if (dataSnapshot != null) {
-
-                List<RealtimeRuler> rulers = dataSnapshot.getValue(RULER_TYPE_INDICATOR);
-
-                if (rulers != null && !rulers.isEmpty()) {
-
-                    for (RealtimeRuler current : rulers) {
-
-                        if (current != null) {
-                            results.add(current);
-                        }
-
-                    }
-
-                }
-
+                results.addAll(dataSnapshotConsumer.apply(dataSnapshot));
             }
 
             unlock();
@@ -362,22 +604,84 @@ public class RealtimeManager {
     }
 
     /**
-     * @return True if the device is connected to an internet connection.
+     * @param uuid The not null user firebase uuid.
+     * @return A not null list of all measurements associate with the uuid.
+     * @throws NotConnectedException Invoked if the device is not connected to internet.
      */
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public boolean isNetworkConnected() {
+    @NotNull
+    private List<RealtimeMeasure> getAllMeasurements(@NotNull String uuid) throws NotConnectedException {
 
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected();
+        List<RealtimeMeasure> result = new ArrayList<>();
+
+        result.addAll(getRulers(uuid));
+        result.addAll(getMagnetometers(uuid));
+        result.addAll(getBarometers(uuid));
+
+        return result;
 
     }
 
-    //
-    // PRIVATE METHODS
-    //
+    /**
+     * @param type The not null measure type.
+     * @param uuid The not null user firebase uuid.
+     * @return A not null list of all measurements associate with the uuid.
+     * @throws NotConnectedException Invoked if the device is not connected to internet.
+     */
+    @NotNull
+    private List<? extends RealtimeMeasure> getSpecificMeasurements(@NotNull Type type,
+                                                          @NotNull String uuid) throws NotConnectedException {
+
+        List<RealtimeMeasure> result = new ArrayList<>();
+
+        switch (type) {
+            case RULER:        result.addAll(getRulers(uuid));        break;
+            case MAGNETOMETER: result.addAll(getMagnetometers(uuid)); break;
+            case BAROMETER:    result.addAll(getBarometers(uuid));    break;
+            default: break;
+        }
+
+        return result;
+
+    }
+
+    /**
+     * @param uuid The not null user firebase uuid.
+     * @return a not null instance of the rulers child.
+     */
+    @NotNull
+    private DatabaseReference getRulersChild(@NotNull String uuid) {
+
+        DatabaseReference databaseReference = getMeasurementsChild(uuid);
+        return databaseReference.child(CHILD_RULERS);
+
+    }
+
+    /**
+     * @param uuid The not null user firebase uuid.
+     * @return a not null instance of the magnetometers child.
+     */
+    @NotNull
+    private DatabaseReference getMagnetometersChild(@NotNull String uuid) {
+
+        DatabaseReference databaseReference = getMeasurementsChild(uuid);
+        return databaseReference.child(CHILD_MAGNETOMETERS);
+
+    }
+
+    /**
+     * @param uuid The not null user firebase uuid.
+     * @return a not null instance of the barometers child.
+     */
+    @NotNull
+    private DatabaseReference getBarometersChild(@NotNull String uuid) {
+
+        DatabaseReference databaseReference = getMeasurementsChild(uuid);
+        return databaseReference.child(CHILD_BAROMETERS);
+
+    }
 
     @NotNull
-    private DatabaseReference getMeasureChild(@NotNull String uuid) {
+    private DatabaseReference getMeasurementsChild(@NotNull String uuid) {
 
         DatabaseReference databaseReference = getUserChild(uuid);
         return databaseReference.child(CHILD_MEASUREMENTS);

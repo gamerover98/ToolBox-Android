@@ -22,9 +22,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.realtime.NotConnectedException;
 import it.uniba.magr.misurapp.database.realtime.RealtimeManager;
+import it.uniba.magr.misurapp.database.realtime.bean.RealtimeMagnetometer;
 import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Magnetometer;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
@@ -143,8 +148,38 @@ public class SaveMagnetometerFragment extends SaveMeasureFragment {
     }
 
     @Override
-    protected void saveToRealtime(@NotNull RealtimeManager realtimeManager, @NotNull Measure measure) {
-        //TODO: needs to be implemented.
+    protected void saveToRealtime(@NotNull RealtimeManager realtimeManager,
+                                  @NotNull Measure measure) throws NotConnectedException {
+
+        int measureId      = measure.getId();
+        String title       = measure.getTitle();
+        String description = measure.getDescription();
+        Date startDate     = measure.getStartDate();
+
+        RealtimeMagnetometer realtimeMagnetometer = new RealtimeMagnetometer();
+
+        assert seconds.length == values.length;
+        List<Integer> secondsToList = new ArrayList<>(seconds.length);
+        List<Float>   valuesToList  = new ArrayList<>(values.length);
+
+        int length = seconds.length;
+
+        for (int i = 0 ; i < length ; i++) {
+
+            secondsToList.add(seconds[i]);
+            valuesToList.add(values[i]);
+
+        }
+
+        realtimeMagnetometer.setMeasureId(measureId);
+        realtimeMagnetometer.setTitle(title);
+        realtimeMagnetometer.setDescription(description);
+        realtimeMagnetometer.setStartDate(startDate);
+        realtimeMagnetometer.setSeconds(secondsToList);
+        realtimeMagnetometer.setValues(valuesToList);
+
+        realtimeManager.addMeasure(realtimeMagnetometer);
+
     }
 
     private void initLineChart(@NotNull LineChart lineChart) {

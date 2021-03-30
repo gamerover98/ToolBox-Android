@@ -28,12 +28,18 @@ import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
 import it.uniba.magr.misurapp.database.realtime.NotConnectedException;
 import it.uniba.magr.misurapp.database.realtime.RealtimeManager;
+import it.uniba.magr.misurapp.database.realtime.bean.RealtimeBarometer;
+import it.uniba.magr.misurapp.database.realtime.bean.RealtimeMagnetometer;
 import it.uniba.magr.misurapp.database.realtime.bean.RealtimeMeasure;
 import it.uniba.magr.misurapp.database.realtime.bean.RealtimeRuler;
 import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
+import it.uniba.magr.misurapp.database.sqlite.bean.Barometer;
+import it.uniba.magr.misurapp.database.sqlite.bean.Magnetometer;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
 import it.uniba.magr.misurapp.database.sqlite.bean.Ruler;
 import it.uniba.magr.misurapp.database.sqlite.bean.Type;
+import it.uniba.magr.misurapp.database.sqlite.dao.BarometersDao;
+import it.uniba.magr.misurapp.database.sqlite.dao.MagnetometersDao;
 import it.uniba.magr.misurapp.database.sqlite.dao.MeasurementsDao;
 import it.uniba.magr.misurapp.database.sqlite.dao.RulersDao;
 import it.uniba.magr.misurapp.navigation.Navigable;
@@ -204,6 +210,7 @@ public class MainNavigation implements Navigable {
                 progressBar.setVisibility(View.GONE);
                 aboveLayout.setVisibility(View.VISIBLE);
                 measurementsView.setVisibility(View.VISIBLE);
+                noItemsTextView.setVisibility(View.GONE);
 
                 MeasureRecyclerAdapter adapter = (MeasureRecyclerAdapter) measurementsView.getAdapter();
                 assert adapter != null;
@@ -258,11 +265,9 @@ public class MainNavigation implements Navigable {
 
         SqliteManager sqliteManager = homeActivity.getSqliteManager();
         RealtimeManager realtimeManager = homeActivity.getRealtimeManager();
-
         MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
-        RulersDao rulersDao = sqliteManager.rulersDao();
 
-        for (int i = 0; i < localMeasureList.size() ; i++) {
+        for (int i = 0 ; i < localMeasureList.size() ; i++) {
 
             Measure measure = localMeasureList.get(i);
             int measureId = measure.getId();
@@ -274,13 +279,7 @@ public class MainNavigation implements Navigable {
 
                     try {
 
-                        switch (type) {
-                            case RULER:        realtimeManager.removeRuler(measureId); break;
-                            case BAROMETER:    /* needs to be implemented */           break;
-                            case MAGNETOMETER: /* needs to be implemented */           break;
-                            case UNKNOWN: throw new IllegalStateException("Unknown measure");
-                            default: break;
-                        }
+                        realtimeManager.removeMeasure(measureId);
 
                         measure.setDeleted(true);
                         measurementsDao.removeMeasure(measure);
@@ -288,7 +287,7 @@ public class MainNavigation implements Navigable {
                     } catch (NotConnectedException notConnectedEx) {
                         Log.d(HomeActivity.HOME_LOG_TAG, "delete", notConnectedEx);
                     } catch (IllegalStateException isEx) {
-                        Log.d(HomeActivity.HOME_LOG_TAG, isEx.getMessage());
+                        Log.d(HomeActivity.HOME_LOG_TAG, "delete: " + isEx.getMessage());
                     }
 
                 } else {
@@ -309,6 +308,7 @@ public class MainNavigation implements Navigable {
 
                             if (type == Type.RULER) {
 
+                                RulersDao rulersDao = sqliteManager.rulersDao();
                                 Ruler ruler = rulersDao.getRuler(measureId);
                                 RealtimeRuler realtimeRuler = new RealtimeRuler();
 
@@ -318,10 +318,53 @@ public class MainNavigation implements Navigable {
                                 realtimeRuler.setStartDate(startDate);
                                 realtimeRuler.setLength(ruler.getLength());
 
-                                realtimeManager.addRuler(realtimeRuler);
+                                realtimeManager.addMeasure(realtimeRuler);
+
+                            } else if (type == Type.MAGNETOMETER) {
+
+                                MagnetometersDao magnetometersDao = sqliteManager.magnetometersDao();
+                                List<Magnetometer> magnetometers = magnetometersDao.getMagnetometers(measureId);
+                                int length = magnetometers.size();
+
+                                List<Integer> seconds = new ArrayList<>(length);
+                                List<Float>   values  = new ArrayList<>(length);
+
+                                for (int k = 0; k < length ; k++) {
+
+                                    Magnetometer magnetometer = magnetometers.get(k);
+
+                                    seconds.add(magnetometer.getTime());
+                                    values.add((float) magnetometer.getValue());
+
+                                }
+
+                                RealtimeMagnetometer realtimeMagnetometer = new RealtimeMagnetometer();
+
+                                realtimeMagnetometer.setMeasureId(newMeasureId);
+                                realtimeMagnetometer.setTitle(title);
+                                realtimeMagnetometer.setDescription(description);
+                                realtimeMagnetometer.setStartDate(startDate);
+
+                                realtimeMagnetometer.setSeconds(seconds);
+                                realtimeMagnetometer.setValues(values);
+
+                                realtimeManager.addMeasure(realtimeMagnetometer);
+
+                            } else if (type == Type.BAROMETER) {
+
+                                BarometersDao barometersDao = sqliteManager.barometersDao();
+                                Barometer barometer = barometersDao.getBarometer(measureId);
+                                RealtimeBarometer realtimeBarometer = new RealtimeBarometer();
+
+                                realtimeBarometer.setMeasureId(newMeasureId);
+                                realtimeBarometer.setTitle(title);
+                                realtimeBarometer.setDescription(description);
+                                realtimeBarometer.setStartDate(startDate);
+                                realtimeBarometer.setPressure(barometer.getPressure());
+
+                                realtimeManager.addMeasure(realtimeBarometer);
 
                             }
-                            //TODO: magnetometer and barometer
 
                         }
 
@@ -351,9 +394,7 @@ public class MainNavigation implements Navigable {
 
         SqliteManager sqliteManager = homeActivity.getSqliteManager();
         RealtimeManager realtimeManager = homeActivity.getRealtimeManager();
-
         MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
-        RulersDao rulersDao = sqliteManager.rulersDao();
 
         List<RealtimeMeasure> realtimeMeasurements = new ArrayList<>();
         int maxMeasureId;
@@ -362,8 +403,8 @@ public class MainNavigation implements Navigable {
         try {
 
             realtimeMeasurements.addAll(realtimeManager.getRulers());
-            //TODO: magnetometer
-            //TODO: barometer
+            realtimeMeasurements.addAll(realtimeManager.getMagnetometers());
+            realtimeMeasurements.addAll(realtimeManager.getBarometers());
 
             int latestRemoteMeasureId = realtimeManager.getMaxMeasureId();
             int latestLocalMeasureId = measurementsDao.getLatestMeasureID();
@@ -401,8 +442,11 @@ public class MainNavigation implements Navigable {
 
                 if (remoteMeasure instanceof RealtimeRuler) {
                     type = Type.RULER;
+                } else if (remoteMeasure instanceof RealtimeBarometer) {
+                    type = Type.BAROMETER;
+                } else if (remoteMeasure instanceof RealtimeMagnetometer) {
+                    type = Type.MAGNETOMETER;
                 }
-                //TODO: magnetometer and barometer
 
                 int updatedMeasureId = ++maxMeasureId;
 
@@ -429,6 +473,7 @@ public class MainNavigation implements Navigable {
 
                 if (type == Type.RULER) {
 
+                    RulersDao rulersDao = sqliteManager.rulersDao();
                     RealtimeRuler realtimeRuler = (RealtimeRuler) remoteMeasure;
                     double length = realtimeRuler.getLength();
 
@@ -439,8 +484,46 @@ public class MainNavigation implements Navigable {
 
                     rulersDao.insertRuler(ruler);
 
+                } else if (type == Type.MAGNETOMETER) {
+
+                    MagnetometersDao magnetometersDao = sqliteManager.magnetometersDao();
+                    RealtimeMagnetometer realtimeMagnetometer = (RealtimeMagnetometer) remoteMeasure;
+
+                    Integer[] seconds = realtimeMagnetometer.getSeconds().toArray(new Integer[0]);
+                    Float[]   values  = realtimeMagnetometer.getValues().toArray(new Float[0]);
+                    assert seconds.length == values.length;
+
+                    int length = seconds.length;
+                    Magnetometer[] magnetometers = new Magnetometer[length];
+
+                    for (int i = 0 ; i < length ; i++) {
+
+                        Magnetometer magnetometer = new Magnetometer();
+
+                        magnetometer.setMeasureId(measure.getId());
+                        magnetometer.setTime(seconds[i]);
+                        magnetometer.setValue(values[i]);
+
+                        magnetometers[i] = magnetometer;
+
+                    }
+
+                    magnetometersDao.insertMagnetometers(magnetometers);
+
+                } else if (type == Type.BAROMETER) {
+
+                    BarometersDao barometersDao = sqliteManager.barometersDao();
+                    RealtimeBarometer realtimeBarometer = (RealtimeBarometer) remoteMeasure;
+                    double pressure = realtimeBarometer.getPressure();
+
+                    Barometer barometer = new Barometer();
+
+                    barometer.setMeasureId(measure.getId());
+                    barometer.setPressure(pressure);
+
+                    barometersDao.insertBarometer(barometer);
+
                 }
-                //TODO: magnetometer and barometer
 
             }
 
