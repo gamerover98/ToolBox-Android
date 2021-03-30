@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.database.sqlite.DatabaseManager;
+import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
 import it.uniba.magr.misurapp.database.sqlite.bean.Type;
 import it.uniba.magr.misurapp.database.sqlite.dao.MeasurementsDao;
@@ -103,10 +103,10 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
 
     /**
      * Save additional parameters such as ruler length.
-     * @param databaseManager The not null sqlLite database manager instance.
+     * @param sqliteManager The not null sqlLite database manager instance.
      * @param measure The not null saved measure.
      */
-    protected abstract void save(@NotNull DatabaseManager databaseManager, @NotNull Measure measure);
+    protected abstract void save(@NotNull SqliteManager sqliteManager, @NotNull Measure measure);
 
     /**
      * @return the inserted title.
@@ -206,8 +206,8 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
         HomeActivity homeActivity = (HomeActivity) getActivity();
         assert homeActivity != null;
 
-        DatabaseManager databaseManager = homeActivity.getDatabaseManager();
-        MeasurementsDao measurementsDao = databaseManager.measurementsDao();
+        SqliteManager sqliteManager = homeActivity.getSqliteManager();
+        MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
         Measure measure = new Measure();
 
         measure.setType(getMeasureType());
@@ -231,7 +231,7 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
         }
 
         // perform the tool saving with the measure just saved.
-        save(databaseManager, measure);
+        save(sqliteManager, measure);
 
         NavHostFragment navHostFragment = activity.getNavHostFragment();
         FragmentManager fragmentManager = navHostFragment.getChildFragmentManager();

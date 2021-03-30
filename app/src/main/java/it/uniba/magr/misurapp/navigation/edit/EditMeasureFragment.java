@@ -32,7 +32,7 @@ import java.util.List;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.database.sqlite.DatabaseManager;
+import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
 import it.uniba.magr.misurapp.database.sqlite.dao.MeasurementsDao;
 import it.uniba.magr.misurapp.navigation.NavigationFragment;
@@ -216,8 +216,8 @@ public abstract class EditMeasureFragment extends NavigationFragment {
         HomeActivity homeActivity = (HomeActivity) getActivity();
         assert homeActivity != null;
 
-        DatabaseManager databaseManager = homeActivity.getDatabaseManager();
-        MeasurementsDao measurementsDao = databaseManager.measurementsDao();
+        SqliteManager sqliteManager = homeActivity.getSqliteManager();
+        MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
         Measure measure = measurementsDao.getMeasure(measureId);
 
         measure.setTitle(getTitle());

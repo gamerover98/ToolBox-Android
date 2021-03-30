@@ -12,7 +12,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.database.sqlite.DatabaseManager;
+import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
 import it.uniba.magr.misurapp.database.sqlite.bean.Ruler;
 import it.uniba.magr.misurapp.database.sqlite.bean.Type;
@@ -75,9 +75,9 @@ public class SaveRulerFragment extends SaveMeasureFragment {
     }
 
     @Override
-    protected void save(@NotNull DatabaseManager databaseManager, @NotNull Measure measure) {
+    protected void save(@NotNull SqliteManager sqliteManager, @NotNull Measure measure) {
 
-        RulersDao rulersDao = databaseManager.rulersDao();
+        RulersDao rulersDao = sqliteManager.rulersDao();
         Ruler ruler = new Ruler();
 
         ruler.setMeasureId(measure.getId());

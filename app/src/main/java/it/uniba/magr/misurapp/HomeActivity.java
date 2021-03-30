@@ -46,7 +46,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import it.uniba.magr.misurapp.auth.AuthActivity;
-import it.uniba.magr.misurapp.database.sqlite.DatabaseManager;
+import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.introduction.IntroductionFragment;
 import it.uniba.magr.misurapp.loading.LoadingFragment;
 import it.uniba.magr.misurapp.navigation.Navigable;
@@ -150,7 +150,7 @@ public class HomeActivity extends AppCompatActivity implements
      * Gets the SQLite database manager of this application.
      */
     @Getter
-    private DatabaseManager databaseManager;
+    private SqliteManager sqliteManager;
 
     /**
      * The loading fragment that will be replaced
@@ -169,8 +169,8 @@ public class HomeActivity extends AppCompatActivity implements
         super.onCreate(bundle);
         setContentView(R.layout.activity_home);
 
-        databaseManager = Room.databaseBuilder(getApplicationContext(),
-                DatabaseManager.class, "MisurApp").build();
+        sqliteManager = Room.databaseBuilder(getApplicationContext(),
+                SqliteManager.class, "MisurApp").build();
 
         LocaleUtil.onActivityCreated();
         setupNavigation();
@@ -207,7 +207,7 @@ public class HomeActivity extends AppCompatActivity implements
     protected void onDestroy() {
 
         super.onDestroy();
-        databaseManager.close();
+        sqliteManager.close();
 
     }
 

@@ -23,7 +23,7 @@ import java.util.List;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.database.sqlite.DatabaseManager;
+import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
 import it.uniba.magr.misurapp.database.sqlite.bean.Type;
 import it.uniba.magr.misurapp.database.sqlite.dao.MeasurementsDao;
@@ -160,8 +160,8 @@ public class MainNavigation implements Navigable {
      */
     private void obtainItemsFromDatabase() {
 
-        DatabaseManager databaseManager = homeActivity.getDatabaseManager();
-        MeasurementsDao measurementsDao = databaseManager.measurementsDao();
+        SqliteManager sqliteManager = homeActivity.getSqliteManager();
+        MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
 
         List<Measure> measureList = measurementsDao.getAll();
 

@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.database.sqlite.DatabaseManager;
+import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
 import it.uniba.magr.misurapp.database.sqlite.dao.MeasurementsDao;
 import it.uniba.magr.misurapp.navigation.main.entry.MeasureEntry;
@@ -59,8 +59,8 @@ public class MeasureRecycleTouchHelper extends ItemTouchHelper.Callback {
             Context context = recyclerView.getContext();
             HomeActivity homeActivity = (HomeActivity) context;
 
-            DatabaseManager databaseManager = homeActivity.getDatabaseManager();
-            MeasurementsDao measurementsDao = databaseManager.measurementsDao();
+            SqliteManager sqliteManager = homeActivity.getSqliteManager();
+            MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
 
             MeasureEntry e1 = adapter.getMeasureEntry(fromPosition);
             MeasureEntry e2 = adapter.getMeasureEntry(toPosition);
@@ -144,8 +144,8 @@ public class MeasureRecycleTouchHelper extends ItemTouchHelper.Callback {
 
             Thread thread = new Thread(() -> {
 
-                DatabaseManager databaseManager = homeActivity.getDatabaseManager();
-                MeasurementsDao measurementsDao = databaseManager.measurementsDao();
+                SqliteManager sqliteManager = homeActivity.getSqliteManager();
+                MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
 
                 measurementsDao.removeMeasure(measure);
 

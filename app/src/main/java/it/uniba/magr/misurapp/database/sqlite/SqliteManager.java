@@ -19,7 +19,7 @@ import it.uniba.magr.misurapp.database.sqlite.dao.RulersDao;
 @Database(entities = {Measure.class, Ruler.class, Barometer.class, Magnetometer.class},
         version = 1, exportSchema = false)
 @TypeConverters({Conversions.class})
-public abstract class DatabaseManager extends RoomDatabase {
+public abstract class SqliteManager extends RoomDatabase {
 
     /**
      * @return The instance of the MeasurementDao class.

@@ -18,7 +18,7 @@ import java.util.Optional;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
-import it.uniba.magr.misurapp.database.sqlite.DatabaseManager;
+import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Barometer;
 import it.uniba.magr.misurapp.database.sqlite.bean.Magnetometer;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
@@ -104,8 +104,8 @@ public class MeasureRecyclerGestureDetector extends GestureDetector.SimpleOnGest
         Context context = recyclerView.getContext();
         HomeActivity activity = (HomeActivity) context;
 
-        DatabaseManager databaseManager = activity.getDatabaseManager();
-        MeasurementsDao measurementsDao = databaseManager.measurementsDao();
+        SqliteManager sqliteManager = activity.getSqliteManager();
+        MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
 
         Optional<MeasureAndRuler> opt = measurementsDao.getRulerMeasure(measureId).stream().findAny();
 
@@ -144,8 +144,8 @@ public class MeasureRecyclerGestureDetector extends GestureDetector.SimpleOnGest
         Context context = recyclerView.getContext();
         HomeActivity activity = (HomeActivity) context;
 
-        DatabaseManager databaseManager = activity.getDatabaseManager();
-        MeasurementsDao measurementsDao = databaseManager.measurementsDao();
+        SqliteManager sqliteManager = activity.getSqliteManager();
+        MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
 
         Optional<MeasureAndBarometer> opt = measurementsDao.getBarometerMeasure(measureId).stream().findAny();
 
@@ -184,8 +184,8 @@ public class MeasureRecyclerGestureDetector extends GestureDetector.SimpleOnGest
         Context context = recyclerView.getContext();
         HomeActivity activity = (HomeActivity) context;
 
-        DatabaseManager databaseManager = activity.getDatabaseManager();
-        MagnetometersDao magnetometersDao = databaseManager.magnetometersDao();
+        SqliteManager sqliteManager = activity.getSqliteManager();
+        MagnetometersDao magnetometersDao = sqliteManager.magnetometersDao();
 
         List<Magnetometer> results = magnetometersDao.getMagnetometers(measureId);
 
