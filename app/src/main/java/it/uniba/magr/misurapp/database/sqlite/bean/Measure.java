@@ -87,6 +87,20 @@ public class Measure {
     @ColumnInfo(name = "card_order")
     private int cardOrder;
 
+    /**
+     * True if this row is sync with firebase database.
+     * False if it needs to be uploaded to the database.
+     */
+    @ColumnInfo(name = "firebase_sync", defaultValue = "false")
+    private boolean firebaseSync;
+
+    /**
+     * True if this measure has been deleted by the user but the
+     * firebase database connection is absent and needs to be removed after.
+     */
+    @ColumnInfo(name = "deleted", defaultValue = "false")
+    private boolean deleted;
+
     //
     // GETTERS
     //
@@ -124,6 +138,14 @@ public class Measure {
         return this.cardOrder;
     }
 
+    public boolean isFirebaseSync() {
+        return this.firebaseSync;
+    }
+
+    public boolean isDeleted() {
+        return this.deleted;
+    }
+
     //
     // SETTERS
     //
@@ -154,6 +176,14 @@ public class Measure {
 
     public void setCardOrder(int cardOrder) {
         this.cardOrder = cardOrder;
+    }
+
+    public void setFirebaseSync(boolean firebaseSync) {
+        this.firebaseSync = firebaseSync;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
 }

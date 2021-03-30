@@ -72,7 +72,7 @@ public class HomeActivity extends AppCompatActivity implements
      * The logcat activity prefix.
      */
     @SuppressWarnings("unused")
-    private static final String HOME_LOG_TAG = "Home";
+    public static final String HOME_LOG_TAG = "Home";
 
     /**
      * This is the same permission that you can find at Manifest.ACTIVITY_RECOGNITION.
@@ -157,7 +157,7 @@ public class HomeActivity extends AppCompatActivity implements
      * Gets the Realtime database manager of this application.
      */
     @Getter
-    private final RealtimeManager realtimeManager = new RealtimeManager();
+    private RealtimeManager realtimeManager;
 
     /**
      * The loading fragment that will be replaced
@@ -178,6 +178,8 @@ public class HomeActivity extends AppCompatActivity implements
 
         sqliteManager = Room.databaseBuilder(getApplicationContext(),
                 SqliteManager.class, "MisurApp").build();
+
+        realtimeManager = new RealtimeManager(this);
 
         LocaleUtil.onActivityCreated();
         setupNavigation();

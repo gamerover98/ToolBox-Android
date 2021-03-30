@@ -2,6 +2,9 @@ package it.uniba.magr.misurapp.database.realtime.bean;
 
 import java.util.Date;
 
+import lombok.ToString;
+
+@ToString
 public class RealtimeRuler extends RealtimeMeasure {
 
     /**

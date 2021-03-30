@@ -1,5 +1,8 @@
 package it.uniba.magr.misurapp.database.realtime;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
@@ -14,9 +17,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.database.realtime.bean.RealtimeMeasure;
 import it.uniba.magr.misurapp.database.realtime.bean.RealtimeRuler;
 import it.uniba.magr.misurapp.database.sqlite.bean.Type;
@@ -36,7 +41,22 @@ public class RealtimeManager {
      */
     private final AtomicBoolean lock = new AtomicBoolean(true);
 
-    public void addRuler(@NotNull RealtimeRuler ruler) {
+    /**
+     * The not null connectivity manager instance.
+     */
+    @NotNull
+    private final ConnectivityManager connectivityManager;
+
+    public RealtimeManager(@NotNull HomeActivity homeActivity) {
+
+        this.connectivityManager = (ConnectivityManager)
+                homeActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        assert connectivityManager != null;
+
+    }
+
+    public void addRuler(@NotNull RealtimeRuler ruler) throws NotConnectedException {
 
         String uuid = getUserUUID();
 
@@ -44,7 +64,7 @@ public class RealtimeManager {
             return;
         }
 
-        List<RealtimeRuler> existingRulers = getRulers();
+        List<RealtimeRuler> existingRulers = new ArrayList<>(getRulers());
         existingRulers.add(ruler);
 
         DatabaseReference databaseReference = getMeasureChild(uuid);
@@ -55,7 +75,11 @@ public class RealtimeManager {
 
     }
 
-    public void removeRuler(int measureId) {
+    public void removeRuler(int measureId) throws NotConnectedException {
+
+        if (!isNetworkConnected()) {
+            throw new NotConnectedException();
+        }
 
         String uuid = getUserUUID();
 
@@ -63,7 +87,7 @@ public class RealtimeManager {
             return;
         }
 
-        List<RealtimeRuler> existingRulers = getRulers();
+        List<RealtimeRuler> existingRulers = new ArrayList<>(getRulers());
 
         for (int i = 0 ; i < existingRulers.size() ; i++) {
 
@@ -87,8 +111,39 @@ public class RealtimeManager {
 
     }
 
-    public void editMeasure(Type type, int measureId,
-                            @NotNull String title, @NotNull String description) {
+    public boolean hasMeasure(int measureId) throws NotConnectedException {
+
+        if (!isNetworkConnected()) {
+            throw new NotConnectedException();
+        }
+
+        String uuid = getUserUUID();
+
+        if (uuid == null) {
+            return false;
+        }
+
+        List<RealtimeMeasure> existingMeasurements = getRealtimeMeasures();
+
+        for (RealtimeMeasure realtimeMeasure : existingMeasurements) {
+
+            int currentId = realtimeMeasure.getMeasureId();
+
+            if (measureId == currentId) {
+                return true;
+            }
+
+        }
+
+        return false;
+
+    }
+
+    public void updateMeasureId(int remoteMeasureId, int updatedMeasureId) throws NotConnectedException {
+
+        if (!isNetworkConnected()) {
+            throw new NotConnectedException();
+        }
 
         String uuid = getUserUUID();
 
@@ -96,14 +151,63 @@ public class RealtimeManager {
             return;
         }
 
-        List<RealtimeMeasure> existingMeasurements = new ArrayList<>();
+        List<RealtimeMeasure> existingMeasurements = getRealtimeMeasures();
+        Type currentType = Type.UNKNOWN;
 
-        switch (type) {
-            case RULER:        existingMeasurements.addAll(getRulers()); break;
-            case MAGNETOMETER: /* needs to be implemented */ return;
-            case BAROMETER:    /* needs to be implemented */ return;
+        for (int i = 0 ; i < existingMeasurements.size() ; i++) {
+
+            RealtimeMeasure current = existingMeasurements.get(i);
+            int currentId = current.getMeasureId();
+
+            if (remoteMeasureId == currentId) {
+
+                current.setMeasureId(updatedMeasureId);
+
+                if (current instanceof RealtimeRuler) {
+                    currentType = Type.RULER;
+                }
+                //TODO: add magnetometer and barometer
+
+                break;
+
+            }
+
+        }
+
+        DatabaseReference databaseReference = getMeasureChild(uuid);
+
+        switch (currentType) {
+            case RULER:
+
+                databaseReference = databaseReference.child(CHILD_RULERS);
+                databaseReference.setValue(existingMeasurements);
+
+                break;
+
+            case MAGNETOMETER: /* needs to be implemented */ break;
+            case BAROMETER:    /* needs to be implemented */ break;
             default: return;
         }
+
+        databaseReference.push();
+
+    }
+
+    public void updateMeasure(Type type, int measureId,
+                              @NotNull String title,
+                              @NotNull String description) throws NotConnectedException {
+
+        if (!isNetworkConnected()) {
+            throw new NotConnectedException();
+        }
+
+        String uuid = getUserUUID();
+
+        if (uuid == null) {
+            return;
+        }
+
+        List<RealtimeMeasure> existingMeasurements = getRealtimeMeasures(type);
 
         for (int i = 0 ; i < existingMeasurements.size() ; i++) {
 
@@ -144,12 +248,66 @@ public class RealtimeManager {
     //
 
     @NotNull
-    public List<RealtimeRuler> getRulers() {
+    private List<RealtimeMeasure> getRealtimeMeasures(@NotNull Type type) throws NotConnectedException {
+
+        List<RealtimeMeasure> result = new ArrayList<>();
+
+        switch (type) {
+            case RULER:        result.addAll(getRulers()); break;
+            case MAGNETOMETER: /* needs to be implemented */ break;
+            case BAROMETER:    /* needs to be implemented */ break;
+            default: break;
+        }
+
+        return result;
+
+    }
+
+    @NotNull
+    private List<RealtimeMeasure> getRealtimeMeasures() throws NotConnectedException {
+
+        List<RealtimeMeasure> result = new ArrayList<>();
+
+        result.addAll(getRulers());
+        //TODO: magnetometer and barometer
+
+        return result;
+
+    }
+
+    public int getMaxMeasureId() throws NotConnectedException {
+
+        if (!isNetworkConnected()) {
+            throw new NotConnectedException();
+        }
+
+        int max = 0;
+
+        for (RealtimeRuler realtimeRuler : getRulers()) {
+
+            int measureId = realtimeRuler.getMeasureId();
+
+            if (measureId > max) {
+                max = measureId;
+            }
+
+        }
+
+        return 0;
+
+    }
+
+    @NotNull
+    public List<RealtimeRuler> getRulers() throws NotConnectedException {
+
+        if (!isNetworkConnected()) {
+            throw new NotConnectedException();
+        }
 
         String uuid = getUserUUID();
 
         if (uuid == null) {
-            return new ArrayList<>();
+            return Collections.unmodifiableList(new ArrayList<>());
         }
 
         DatabaseReference databaseReference = getMeasureChild(uuid);
@@ -160,7 +318,13 @@ public class RealtimeManager {
     }
 
     @NotNull
-    public List<RealtimeRuler> getRulers(@NotNull DatabaseReference databaseReference) {
+    @SuppressWarnings("squid:S3776")
+    public List<RealtimeRuler> getRulers(@NotNull DatabaseReference databaseReference)
+            throws NotConnectedException {
+
+        if (!isNetworkConnected()) {
+            throw new NotConnectedException();
+        }
 
         List<RealtimeRuler> results = new ArrayList<>();
         Task<DataSnapshot> dataSnapshotTask = databaseReference.get();
@@ -175,7 +339,15 @@ public class RealtimeManager {
                 List<RealtimeRuler> rulers = dataSnapshot.getValue(RULER_TYPE_INDICATOR);
 
                 if (rulers != null && !rulers.isEmpty()) {
-                    results.addAll(rulers);
+
+                    for (RealtimeRuler current : rulers) {
+
+                        if (current != null) {
+                            results.add(current);
+                        }
+
+                    }
+
                 }
 
             }
@@ -185,9 +357,24 @@ public class RealtimeManager {
         });
 
         lock();
-        return results;
+        return Collections.unmodifiableList(results);
 
     }
+
+    /**
+     * @return True if the device is connected to an internet connection.
+     */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public boolean isNetworkConnected() {
+
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
+
+    }
+
+    //
+    // PRIVATE METHODS
+    //
 
     @NotNull
     private DatabaseReference getMeasureChild(@NotNull String uuid) {

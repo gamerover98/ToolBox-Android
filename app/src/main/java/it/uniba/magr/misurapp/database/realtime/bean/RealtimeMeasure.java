@@ -6,6 +6,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
+import lombok.ToString;
+
+@ToString
 public class RealtimeMeasure {
 
     /**

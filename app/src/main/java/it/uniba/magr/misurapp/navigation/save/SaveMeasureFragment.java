@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.realtime.NotConnectedException;
 import it.uniba.magr.misurapp.database.realtime.RealtimeManager;
 import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
@@ -116,7 +117,7 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
      * @param realtimeManager The not null sqlLite database manager instance.
      * @param measure The not null saved measure.
      */
-    protected abstract void saveToRealtime(@NotNull RealtimeManager realtimeManager, @NotNull Measure measure);
+    protected abstract void saveToRealtime(@NotNull RealtimeManager realtimeManager, @NotNull Measure measure) throws NotConnectedException;
 
     /**
      * @return the inserted title.
@@ -244,7 +245,17 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
 
         // perform the tool saving with the measure just saved.
         saveToSqlite(sqliteManager, measure);
-        saveToRealtime(realtimeManager, measure);
+
+        try {
+
+            saveToRealtime(realtimeManager, measure);
+            measure.setFirebaseSync(true);
+
+        } catch (NotConnectedException notConnectedEx) {
+            measure.setFirebaseSync(false);
+        }
+
+        measurementsDao.updateMeasure(measure);
 
         NavHostFragment navHostFragment = activity.getNavHostFragment();
         FragmentManager fragmentManager = navHostFragment.getChildFragmentManager();

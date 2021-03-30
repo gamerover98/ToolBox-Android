@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.realtime.NotConnectedException;
 import it.uniba.magr.misurapp.database.realtime.RealtimeManager;
 import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
@@ -147,11 +148,25 @@ public class MeasureRecycleTouchHelper extends ItemTouchHelper.Callback {
 
                 SqliteManager sqliteManager = homeActivity.getSqliteManager();
                 RealtimeManager realtimeMeasure = homeActivity.getRealtimeManager();
-
                 MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
-                measurementsDao.removeMeasure(measure);
 
-                realtimeMeasure.removeRuler(measure.getId());
+                try {
+
+                    realtimeMeasure.removeRuler(measure.getId());
+
+                    measure.setFirebaseSync(true);
+                    measure.setDeleted(true);
+
+                    measurementsDao.removeMeasure(measure);
+
+                } catch (NotConnectedException notConnectedEx) {
+
+                    measure.setFirebaseSync(false);
+                    measure.setDeleted(true);
+
+                    measurementsDao.updateMeasure(measure);
+
+                }
 
             });
 

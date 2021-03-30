@@ -3,6 +3,7 @@ package it.uniba.magr.misurapp.navigation.main;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -19,14 +20,22 @@ import com.google.android.material.textview.MaterialTextView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.realtime.NotConnectedException;
+import it.uniba.magr.misurapp.database.realtime.RealtimeManager;
+import it.uniba.magr.misurapp.database.realtime.bean.RealtimeMeasure;
+import it.uniba.magr.misurapp.database.realtime.bean.RealtimeRuler;
 import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
+import it.uniba.magr.misurapp.database.sqlite.bean.Ruler;
 import it.uniba.magr.misurapp.database.sqlite.bean.Type;
 import it.uniba.magr.misurapp.database.sqlite.dao.MeasurementsDao;
+import it.uniba.magr.misurapp.database.sqlite.dao.RulersDao;
 import it.uniba.magr.misurapp.navigation.Navigable;
 import it.uniba.magr.misurapp.navigation.main.recycle.MeasureRecyclerAdapter;
 import it.uniba.magr.misurapp.navigation.main.recycle.MeasureRecycleTouchHelper;
@@ -108,7 +117,7 @@ public class MainNavigation implements Navigable {
     }
 
     @Override
-    public void onResume() {
+    public void onStart() {
 
         if (obtainItemsThread != null) {
             obtainItemsThread.interrupt();
@@ -116,6 +125,15 @@ public class MainNavigation implements Navigable {
 
         obtainItemsThread = new Thread(this :: obtainItemsFromDatabase);
         obtainItemsThread.start();
+
+    }
+
+    @Override
+    public void onStop() {
+
+        if (obtainItemsThread != null) {
+            obtainItemsThread.interrupt();
+        }
 
     }
 
@@ -161,11 +179,14 @@ public class MainNavigation implements Navigable {
     private void obtainItemsFromDatabase() {
 
         SqliteManager sqliteManager = homeActivity.getSqliteManager();
+
         MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
+        List<Measure> localMeasureList = measurementsDao.getAll();
 
-        List<Measure> measureList = measurementsDao.getAll();
+        checkLocalDatabaseMeasurements(localMeasureList);
+        checkRemoteDatabaseMeasurements(localMeasureList);
 
-        if (measureList.isEmpty()) {
+        if (localMeasureList.isEmpty()) {
 
             homeActivity.runOnUiThread(() -> {
 
@@ -190,25 +211,33 @@ public class MainNavigation implements Navigable {
                 adapter.clear();
                 adapter.updateAll();
 
-                for (int i = 0 ; i < measureList.size() ; i++) {
+                int count = 0;
 
-                    Measure measure = measureList.get(i);
-                    Type type = measure.getType();
-                    int iconId;
+                for (int i = 0; i < localMeasureList.size() ; i++) {
 
-                    switch (type) {
+                    Measure measure = localMeasureList.get(count);
 
-                        case RULER:        iconId = R.drawable.icon_ruler;        break;
-                        case MAGNETOMETER: iconId = R.drawable.icon_magnetometer; break;
-                        case LUX_METER:    iconId = R.drawable.icon_lux_meter;    break;
-                        case BAROMETER:    iconId = R.drawable.icon_barometer;    break;
-                        case PEDOMETER:    iconId = R.drawable.icon_pedometer;    break;
-                        default:
-                        case UNKNOWN: continue;
+                    if (!measure.isDeleted()) {
+
+                        Type type = measure.getType();
+                        int iconId;
+
+                        switch (type) {
+
+                            case RULER:        iconId = R.drawable.icon_ruler;        break;
+                            case MAGNETOMETER: iconId = R.drawable.icon_magnetometer; break;
+                            case LUX_METER:    iconId = R.drawable.icon_lux_meter;    break;
+                            case BAROMETER:    iconId = R.drawable.icon_barometer;    break;
+                            case PEDOMETER:    iconId = R.drawable.icon_pedometer;    break;
+                            default:
+                            case UNKNOWN: continue;
+                        }
+
+                        adapter.addMeasureEntry(iconId, measure);
+                        adapter.update(count);
+                        count++;
+
                     }
-
-                    adapter.addMeasureEntry(iconId, measure);
-                    adapter.update(i);
 
                 }
 
@@ -218,5 +247,205 @@ public class MainNavigation implements Navigable {
 
     }
 
+    /**
+     * Check the sqlite database to obtain/update/remove items from the
+     * remote firebase database.
+     *
+     * @param localMeasureList The not null list of local measurements.
+     */
+    @SuppressWarnings("squid:S3776")
+    private void checkLocalDatabaseMeasurements(@NotNull List<Measure> localMeasureList) {
+
+        SqliteManager sqliteManager = homeActivity.getSqliteManager();
+        RealtimeManager realtimeManager = homeActivity.getRealtimeManager();
+
+        MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
+        RulersDao rulersDao = sqliteManager.rulersDao();
+
+        for (int i = 0; i < localMeasureList.size() ; i++) {
+
+            Measure measure = localMeasureList.get(i);
+            int measureId = measure.getId();
+            Type type = measure.getType();
+
+            if (!measure.isFirebaseSync()) {
+
+                if (measure.isDeleted()) {
+
+                    try {
+
+                        switch (type) {
+                            case RULER:        realtimeManager.removeRuler(measureId); break;
+                            case BAROMETER:    /* needs to be implemented */           break;
+                            case MAGNETOMETER: /* needs to be implemented */           break;
+                            case UNKNOWN: throw new IllegalStateException("Unknown measure");
+                            default: break;
+                        }
+
+                        measure.setDeleted(true);
+                        measurementsDao.removeMeasure(measure);
+
+                    } catch (NotConnectedException notConnectedEx) {
+                        Log.d(HomeActivity.HOME_LOG_TAG, "delete", notConnectedEx);
+                    } catch (IllegalStateException isEx) {
+                        Log.d(HomeActivity.HOME_LOG_TAG, isEx.getMessage());
+                    }
+
+                } else {
+
+                    String title       = measure.getTitle();
+                    String description = measure.getDescription();
+                    Date   startDate   = measure.getStartDate();
+
+                    try {
+
+                        boolean hasMeasure = realtimeManager.hasMeasure(measureId);
+
+                        if (hasMeasure) {
+                            realtimeManager.updateMeasure(type, measureId, title, description);
+                        } else {
+
+                            int newMeasureId = realtimeManager.getMaxMeasureId() + 1;
+
+                            if (type == Type.RULER) {
+
+                                Ruler ruler = rulersDao.getRuler(measureId);
+                                RealtimeRuler realtimeRuler = new RealtimeRuler();
+
+                                realtimeRuler.setMeasureId(newMeasureId);
+                                realtimeRuler.setTitle(title);
+                                realtimeRuler.setDescription(description);
+                                realtimeRuler.setStartDate(startDate);
+                                realtimeRuler.setLength(ruler.getLength());
+
+                                realtimeManager.addRuler(realtimeRuler);
+
+                            }
+                            //TODO: magnetometer and barometer
+
+                        }
+
+                        measure.setFirebaseSync(true);
+                        measurementsDao.updateMeasure(measure);
+
+                    } catch (NotConnectedException notConnectedEx) {
+                        Log.d(HomeActivity.HOME_LOG_TAG, "update", notConnectedEx);
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    /**
+     * Check the remote firebase database to obtain/update/remove items to the
+     * local sqlite database.
+     *
+     * @param localMeasureList The not null list of local measurements.
+     */
+    @SuppressWarnings("squid:S3776")
+    private void checkRemoteDatabaseMeasurements(@NotNull List<Measure> localMeasureList) {
+
+        SqliteManager sqliteManager = homeActivity.getSqliteManager();
+        RealtimeManager realtimeManager = homeActivity.getRealtimeManager();
+
+        MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
+        RulersDao rulersDao = sqliteManager.rulersDao();
+
+        List<RealtimeMeasure> realtimeMeasurements = new ArrayList<>();
+        int maxMeasureId;
+        int remoteMeasureId;
+
+        try {
+
+            realtimeMeasurements.addAll(realtimeManager.getRulers());
+            //TODO: magnetometer
+            //TODO: barometer
+
+            int latestRemoteMeasureId = realtimeManager.getMaxMeasureId();
+            int latestLocalMeasureId = measurementsDao.getLatestMeasureID();
+
+            maxMeasureId = Math.max(latestRemoteMeasureId, latestLocalMeasureId);
+
+        } catch (NotConnectedException notConnectedEx) {
+            return;
+        }
+
+        for (RealtimeMeasure remoteMeasure : realtimeMeasurements) {
+
+            remoteMeasureId = remoteMeasure.getMeasureId();
+            boolean isSavedLocally = false;
+
+            for (Measure localMeasure : localMeasureList) {
+
+                int localMeasureId = localMeasure.getId();
+
+                if (remoteMeasureId == localMeasureId) {
+
+                    isSavedLocally = true;
+                    break;
+
+                }
+
+            }
+
+            if (!isSavedLocally) {
+
+                String title       = remoteMeasure.getTitle();
+                String description = remoteMeasure.getDescription();
+                Date   startDate   = remoteMeasure.getStartDate();
+                Type   type        = Type.UNKNOWN;
+
+                if (remoteMeasure instanceof RealtimeRuler) {
+                    type = Type.RULER;
+                }
+                //TODO: magnetometer and barometer
+
+                int updatedMeasureId = ++maxMeasureId;
+
+                try {
+
+                    realtimeManager.updateMeasureId(remoteMeasureId, updatedMeasureId);
+
+                } catch (NotConnectedException notConnectedEx) {
+                    continue;
+                }
+
+                Measure measure = new Measure();
+
+                measure.setId(updatedMeasureId);
+                measure.setType(type);
+                measure.setTitle(title);
+                measure.setDescription(description);
+                measure.setStartDate(startDate);
+                measure.setFirebaseSync(true);
+                measure.setDeleted(false);
+
+                localMeasureList.add(measure);
+                measurementsDao.insertMeasurements(measure);
+
+                if (type == Type.RULER) {
+
+                    RealtimeRuler realtimeRuler = (RealtimeRuler) remoteMeasure;
+                    double length = realtimeRuler.getLength();
+
+                    Ruler ruler = new Ruler();
+
+                    ruler.setMeasureId(measure.getId());
+                    ruler.setLength(length);
+
+                    rulersDao.insertRuler(ruler);
+
+                }
+                //TODO: magnetometer and barometer
+
+            }
+
+        }
+
+    }
 
 }

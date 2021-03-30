@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Date;
 
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.realtime.NotConnectedException;
 import it.uniba.magr.misurapp.database.realtime.RealtimeManager;
 import it.uniba.magr.misurapp.database.realtime.bean.RealtimeRuler;
 import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
@@ -92,7 +93,8 @@ public class SaveRulerFragment extends SaveMeasureFragment {
     }
 
     @Override
-    protected void saveToRealtime(@NotNull RealtimeManager realtimeManager, @NotNull Measure measure) {
+    protected void saveToRealtime(@NotNull RealtimeManager realtimeManager,
+                                  @NotNull Measure measure) throws NotConnectedException {
 
         int measureId      = measure.getId();
         String title       = measure.getTitle();
