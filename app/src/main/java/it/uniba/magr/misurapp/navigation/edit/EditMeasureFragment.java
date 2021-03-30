@@ -32,6 +32,7 @@ import java.util.List;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.realtime.RealtimeManager;
 import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
 import it.uniba.magr.misurapp.database.sqlite.dao.MeasurementsDao;
@@ -217,13 +218,19 @@ public abstract class EditMeasureFragment extends NavigationFragment {
         assert homeActivity != null;
 
         SqliteManager sqliteManager = homeActivity.getSqliteManager();
+        RealtimeManager realtimeManager = homeActivity.getRealtimeManager();
+
         MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
         Measure measure = measurementsDao.getMeasure(measureId);
 
-        measure.setTitle(getTitle());
-        measure.setDescription(getDescription());
+        String title = getTitle();
+        String description = getDescription();
+
+        measure.setTitle(title);
+        measure.setDescription(description);
 
         measurementsDao.updateMeasure(measure);
+        realtimeManager.editMeasure(measure.getType(), measureId, title, description);
 
         NavHostFragment navHostFragment = activity.getNavHostFragment();
         FragmentManager fragmentManager = navHostFragment.getChildFragmentManager();

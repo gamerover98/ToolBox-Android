@@ -46,6 +46,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import it.uniba.magr.misurapp.auth.AuthActivity;
+import it.uniba.magr.misurapp.database.realtime.RealtimeManager;
 import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.introduction.IntroductionFragment;
 import it.uniba.magr.misurapp.loading.LoadingFragment;
@@ -151,6 +152,12 @@ public class HomeActivity extends AppCompatActivity implements
      */
     @Getter
     private SqliteManager sqliteManager;
+
+    /**
+     * Gets the Realtime database manager of this application.
+     */
+    @Getter
+    private final RealtimeManager realtimeManager = new RealtimeManager();
 
     /**
      * The loading fragment that will be replaced

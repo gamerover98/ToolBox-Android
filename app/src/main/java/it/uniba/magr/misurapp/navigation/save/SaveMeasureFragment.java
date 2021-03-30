@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.realtime.RealtimeManager;
 import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
 import it.uniba.magr.misurapp.database.sqlite.bean.Type;
@@ -102,11 +103,20 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
     protected abstract void handleParametersCreation(@NotNull FragmentActivity activity, @NotNull Bundle bundle);
 
     /**
-     * Save additional parameters such as ruler length.
+     * Save additional parameters such as ruler length to the sqlite database.
+     *
      * @param sqliteManager The not null sqlLite database manager instance.
      * @param measure The not null saved measure.
      */
-    protected abstract void save(@NotNull SqliteManager sqliteManager, @NotNull Measure measure);
+    protected abstract void saveToSqlite(@NotNull SqliteManager sqliteManager, @NotNull Measure measure);
+
+    /**
+     * Save additional parameters such as ruler length to the firebase database.
+     *
+     * @param realtimeManager The not null sqlLite database manager instance.
+     * @param measure The not null saved measure.
+     */
+    protected abstract void saveToRealtime(@NotNull RealtimeManager realtimeManager, @NotNull Measure measure);
 
     /**
      * @return the inserted title.
@@ -207,6 +217,8 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
         assert homeActivity != null;
 
         SqliteManager sqliteManager = homeActivity.getSqliteManager();
+        RealtimeManager realtimeManager = homeActivity.getRealtimeManager();
+
         MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
         Measure measure = new Measure();
 
@@ -231,7 +243,8 @@ public abstract class SaveMeasureFragment extends NavigationFragment {
         }
 
         // perform the tool saving with the measure just saved.
-        save(sqliteManager, measure);
+        saveToSqlite(sqliteManager, measure);
+        saveToRealtime(realtimeManager, measure);
 
         NavHostFragment navHostFragment = activity.getNavHostFragment();
         FragmentManager fragmentManager = navHostFragment.getChildFragmentManager();

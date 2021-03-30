@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.HomeActivity;
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.realtime.RealtimeManager;
 import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
 import it.uniba.magr.misurapp.database.sqlite.dao.MeasurementsDao;
@@ -145,9 +146,12 @@ public class MeasureRecycleTouchHelper extends ItemTouchHelper.Callback {
             Thread thread = new Thread(() -> {
 
                 SqliteManager sqliteManager = homeActivity.getSqliteManager();
-                MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
+                RealtimeManager realtimeMeasure = homeActivity.getRealtimeManager();
 
+                MeasurementsDao measurementsDao = sqliteManager.measurementsDao();
                 measurementsDao.removeMeasure(measure);
+
+                realtimeMeasure.removeRuler(measure.getId());
 
             });
 

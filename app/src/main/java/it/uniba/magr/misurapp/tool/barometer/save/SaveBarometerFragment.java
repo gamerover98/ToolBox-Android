@@ -9,6 +9,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import org.jetbrains.annotations.NotNull;
 
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.realtime.RealtimeManager;
 import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Barometer;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
@@ -48,7 +49,7 @@ public class SaveBarometerFragment extends SaveMeasureFragment {
     }
 
     @Override
-    protected void save(@NotNull SqliteManager sqliteManager, @NotNull Measure measure) {
+    protected void saveToSqlite(@NotNull SqliteManager sqliteManager, @NotNull Measure measure) {
 
         BarometersDao barometersDao = sqliteManager.barometersDao();
         Barometer barometer = new Barometer();
@@ -58,6 +59,11 @@ public class SaveBarometerFragment extends SaveMeasureFragment {
 
         barometersDao.insertBarometer(barometer);
 
+    }
+
+    @Override
+    protected void saveToRealtime(@NotNull RealtimeManager realtimeManager, @NotNull Measure measure) {
+        //TODO: needs to be implemented.
     }
 
 }

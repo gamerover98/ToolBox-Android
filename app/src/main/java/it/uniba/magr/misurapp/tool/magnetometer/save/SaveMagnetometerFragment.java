@@ -24,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DecimalFormat;
 
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.realtime.RealtimeManager;
 import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Magnetometer;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
@@ -116,7 +117,7 @@ public class SaveMagnetometerFragment extends SaveMeasureFragment {
     }
 
     @Override
-    protected void save(@NotNull SqliteManager sqliteManager, @NotNull Measure measure) {
+    protected void saveToSqlite(@NotNull SqliteManager sqliteManager, @NotNull Measure measure) {
 
         MagnetometersDao magnetometersDao = sqliteManager.magnetometersDao();
         int length = seconds.length;
@@ -139,6 +140,11 @@ public class SaveMagnetometerFragment extends SaveMeasureFragment {
 
         magnetometersDao.insertMagnetometers(magnetometers);
 
+    }
+
+    @Override
+    protected void saveToRealtime(@NotNull RealtimeManager realtimeManager, @NotNull Measure measure) {
+        //TODO: needs to be implemented.
     }
 
     private void initLineChart(@NotNull LineChart lineChart) {

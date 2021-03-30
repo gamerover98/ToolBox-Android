@@ -11,7 +11,11 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Date;
+
 import it.uniba.magr.misurapp.R;
+import it.uniba.magr.misurapp.database.realtime.RealtimeManager;
+import it.uniba.magr.misurapp.database.realtime.bean.RealtimeRuler;
 import it.uniba.magr.misurapp.database.sqlite.SqliteManager;
 import it.uniba.magr.misurapp.database.sqlite.bean.Measure;
 import it.uniba.magr.misurapp.database.sqlite.bean.Ruler;
@@ -75,7 +79,7 @@ public class SaveRulerFragment extends SaveMeasureFragment {
     }
 
     @Override
-    protected void save(@NotNull SqliteManager sqliteManager, @NotNull Measure measure) {
+    protected void saveToSqlite(@NotNull SqliteManager sqliteManager, @NotNull Measure measure) {
 
         RulersDao rulersDao = sqliteManager.rulersDao();
         Ruler ruler = new Ruler();
@@ -84,6 +88,26 @@ public class SaveRulerFragment extends SaveMeasureFragment {
         ruler.setLength(length);
 
         rulersDao.insertRuler(ruler);
+
+    }
+
+    @Override
+    protected void saveToRealtime(@NotNull RealtimeManager realtimeManager, @NotNull Measure measure) {
+
+        int measureId      = measure.getId();
+        String title       = measure.getTitle();
+        String description = measure.getDescription();
+        Date startDate     = measure.getStartDate();
+
+        RealtimeRuler realtimeRuler = new RealtimeRuler();
+
+        realtimeRuler.setMeasureId(measureId);
+        realtimeRuler.setTitle(title);
+        realtimeRuler.setDescription(description);
+        realtimeRuler.setStartDate(startDate);
+        realtimeRuler.setLength(length);
+
+        realtimeManager.addRuler(realtimeRuler);
 
     }
 
