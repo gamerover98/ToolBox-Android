@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">MisurApp</string>
+    <string name="app_name" translatable="false">ToolBox</string>
     <string name="empty" translatable="false"/>
     <string name="text_intro_first_title">Welcome!</string>
-    <string name="text_intro_first_text">Welcome to MisurApp! This app will help you make simple and quick measurements, organize them and manage them as you see for convenience</string>
+    <string name="text_intro_first_text">Welcome to ToolBox! This app will help you make simple and quick measurements, organize them and manage them as you see for convenience</string>
     <string name="text_intro_second_title">Full control</string>
     <string name="text_intro_second_text">Create quick measurements</string>
     <string name="text_intro_third_title">Wide choice</string>
-    <string name="text_intro_third_text">Choose from various tools that will help you in your work, easy and comfortable to use! What are you waiting for? Start using MisurApp</string>
+    <string name="text_intro_third_text">Choose from various tools that will help you in your work, easy and comfortable to use! What are you waiting for? Start using ToolBox</string>
     <string name="text_intro_start_button">Start</string>
     <string name="text_intro_confirm_button">Confirm</string>
     <string name="text_sign_in_button">Sign in with e-mail</string>
@@ -34,7 +34,7 @@
     <string name="text_save_measure">Save measure</string>
     <string name="text_save_complete">Successful saving</string>
     <string name="text_list_tools">Tool list</string>
-    <string name="text_access_no_authentication"><u>Use MisurApp without authentication</u></string>
+    <string name="text_access_no_authentication"><u>Use ToolBox without authentication</u></string>
     <string name="text_radio_complete">Complete</string>
     <string name="text_radio_essential">Essential</string>
     <string name="text_radio_functionality">Select functionality:</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="text_intro_first_title">Benvenuto!</string>
-    <string name="text_intro_first_text">Benvenuto su MisurApp! Questa app ti aiuterà ad effettuare delle misure semplici e veloci, organizzarle e gestirle come ti è più comodo</string>
+    <string name="text_intro_first_text">Benvenuto su ToolBox! Questa app ti aiuterà ad effettuare delle misure semplici e veloci, organizzarle e gestirle come ti è più comodo</string>
     <string name="text_intro_second_title">Pieno controllo</string>
     <string name="text_intro_second_text">Fai le tue misurazioni</string>
     <string name="text_intro_third_title">Ampia scelta</string>
@@ -32,7 +32,7 @@
     <string name="text_title">Titolo</string>
     <string name="text_description">Descrizione</string>
     <string name="text_intro_confirm_button">Conferma</string>
-    <string name="text_access_no_authentication"><u>Usa MisurApp senza autenticarti</u></string>
+    <string name="text_access_no_authentication"><u>Usa ToolBox senza autenticarti</u></string>
     <string name="text_radio_complete">Completa</string>
     <string name="text_radio_essential">Essenziale</string>
     <string name="text_radio_functionality">Seleziona funzionalità</string>
