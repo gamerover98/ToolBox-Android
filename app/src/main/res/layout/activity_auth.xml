@@ -10,7 +10,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/auth_text_login"
-        android:layout_width="275dp"
+        android:layout_width="wrap_content"
         android:layout_height="65dp"
         android:layout_marginTop="150dp"
         android:fontFamily="@font/alegreya_sc_bold"
