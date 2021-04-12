@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_main_fragment"
-        android:name="it.uniba.magr.misurapp.navigation.main.MainFragment"
+        android:name="it.uniba.magr.toolbox.navigation.main.MainFragment"
         tools:layout="@layout/fragment_main">
 
         <action
@@ -36,24 +36,24 @@
 
     <fragment
         android:id="@+id/editRulerFragment"
-        android:name="it.uniba.magr.misurapp.navigation.edit.tool.EditRulerFragment"
+        android:name="it.uniba.magr.toolbox.navigation.edit.tool.EditRulerFragment"
         android:label="EditRulerFragment" />
 
     <fragment
         android:id="@+id/editMagnetometerFragment"
-        android:name="it.uniba.magr.misurapp.navigation.edit.tool.EditMagnetometerFragment"
+        android:name="it.uniba.magr.toolbox.navigation.edit.tool.EditMagnetometerFragment"
         android:label="EditMagnetometerFragment" />
 
     <fragment
         android:id="@+id/editBarometerFragment"
-        android:name="it.uniba.magr.misurapp.navigation.edit.tool.EditBarometerFragment"
+        android:name="it.uniba.magr.toolbox.navigation.edit.tool.EditBarometerFragment"
         android:label="EditBarometerFragment" />
 
     <!-- Tool list -->
 
     <fragment
         android:id="@+id/nav_list_tools_fragment"
-        android:name="it.uniba.magr.misurapp.navigation.tools.list.ListToolsFragment"
+        android:name="it.uniba.magr.toolbox.navigation.tools.list.ListToolsFragment"
         tools:layout="@layout/fragment_tools_list">
 
         <action
@@ -84,13 +84,13 @@
 
     <fragment
         android:id="@+id/nav_settings_fragment"
-        android:name="it.uniba.magr.misurapp.navigation.settings.SettingsFragment" />
+        android:name="it.uniba.magr.toolbox.navigation.settings.SettingsFragment" />
 
     <!-- ruler fragment -->
 
     <fragment
         android:id="@+id/rulerFragment"
-        android:name="it.uniba.magr.misurapp.tool.ruler.RulerFragment"
+        android:name="it.uniba.magr.toolbox.tool.ruler.RulerFragment"
         android:label="RulerFragment">
 
         <action
@@ -101,14 +101,14 @@
 
     <fragment
         android:id="@+id/saveRulerFragment"
-        android:name="it.uniba.magr.misurapp.tool.ruler.save.SaveRulerFragment"
+        android:name="it.uniba.magr.toolbox.tool.ruler.save.SaveRulerFragment"
         android:label="SaveRulerFragment" />
 
     <!-- magnetometer fragment -->
 
     <fragment
         android:id="@+id/magnetometerFragment"
-        android:name="it.uniba.magr.misurapp.tool.magnetometer.MagnetometerFragment"
+        android:name="it.uniba.magr.toolbox.tool.magnetometer.MagnetometerFragment"
         android:label="MagnetometerFragment">
 
         <action
@@ -119,21 +119,21 @@
 
     <fragment
         android:id="@+id/saveMagnetometerFragment"
-        android:name="it.uniba.magr.misurapp.tool.magnetometer.save.SaveMagnetometerFragment"
+        android:name="it.uniba.magr.toolbox.tool.magnetometer.save.SaveMagnetometerFragment"
         android:label="SaveMagnetometerFragment" />
 
     <!-- lux meter fragment -->
 
     <fragment
         android:id="@+id/luxMeterFragment"
-        android:name="it.uniba.magr.misurapp.tool.luxmeter.LuxMeterFragment"
+        android:name="it.uniba.magr.toolbox.tool.luxmeter.LuxMeterFragment"
         android:label="LuxMeterFragment" />
 
     <!-- barometer fragment -->
 
     <fragment
         android:id="@+id/barometerFragment"
-        android:name="it.uniba.magr.misurapp.tool.barometer.BarometerFragment"
+        android:name="it.uniba.magr.toolbox.tool.barometer.BarometerFragment"
         android:label="BarometerFragment">
 
         <action
@@ -144,21 +144,21 @@
 
     <fragment
         android:id="@+id/saveBarometerFragment"
-        android:name="it.uniba.magr.misurapp.tool.barometer.save.SaveBarometerFragment"
+        android:name="it.uniba.magr.toolbox.tool.barometer.save.SaveBarometerFragment"
         android:label="SaveBarometerFragment" />
 
     <!-- pedometer fragment -->
 
     <fragment
         android:id="@+id/pedometerFragment"
-        android:name="it.uniba.magr.misurapp.tool.pedometer.PedometerFragment"
+        android:name="it.uniba.magr.toolbox.tool.pedometer.PedometerFragment"
         android:label="PedometerFragment" />
 
     <!-- compass fragment -->
 
     <fragment
         android:id="@+id/compassFragment"
-        android:name="it.uniba.magr.misurapp.tool.compass.CompassFragment"
+        android:name="it.uniba.magr.toolbox.tool.compass.CompassFragment"
         android:label="CompassFragment" />
 
 </navigation>

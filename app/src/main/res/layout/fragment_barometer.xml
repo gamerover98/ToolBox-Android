@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <it.uniba.magr.misurapp.tool.barometer.BarometerView
+        <it.uniba.magr.toolbox.tool.barometer.BarometerView
             android:id="@+id/barometer_view"
             android:layout_width="120dp"
             android:layout_height="wrap_content"

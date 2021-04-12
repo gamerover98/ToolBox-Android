@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <it.uniba.magr.misurapp.tool.ruler.RulerCanvasView
+    <it.uniba.magr.toolbox.tool.ruler.RulerCanvasView
         android:id="@+id/ruler_canvas_view"
         android:layout_width="200dp"
         android:layout_height="0dp"
