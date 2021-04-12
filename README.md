@@ -3,10 +3,10 @@
 ToolBox Android Application was made for the Android exam of the Informatic technologies for the software prodution of Uniba Italy University.
 
 Authors (MAGR group):
-- [gamerover98](https://github.com/gamerover98 "gamerover98") (PM and java developer): 60% of the project.
-- [RaffSStein](https://github.com/RaffSStein "RaffSStein") (java developer): 20% of the project.
-- [Gip94](https://github.com/Gip94 "Gip94") (Material Design and user interface): 10% of the project.
-- [zack-97](https://github.com/zack-97 "zack-97") (Material Design and user interface): 10% of the project.
+- [gamerover98](https://github.com/gamerover98 "gamerover98") (PM and java developer)
+- [RaffSStein](https://github.com/RaffSStein "RaffSStein") (java developer)
+- [Gip94](https://github.com/Gip94 "Gip94") (Material Design and user interface)
+- [zack-97](https://github.com/zack-97 "zack-97") (Material Design and user interface)
 
 ### Introduction
 ToolBox is an Android Application that offers to the user the opportunity to make the most of the sensors of its own device. You can use a tool to make a measure and save it into your device or remotely on the google firebase cloud. It uses the remote firebase database to keep registered accounts (or google logins) and user data.
