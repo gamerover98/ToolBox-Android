@@ -3,10 +3,10 @@
 ToolBox Android Application was made for the Android exam of the Informatic technologis for the software prodution of Uniba Italy University.
 
 Authors (MAGR group):
-- @gamerover98 (PM and java developer): 60% of the project.
-- @RaffSStein (java developer): 20% of the project.
-- @Gip94 (Material Design and user interface): 10% of the project.
-- @zack-97 (Material Design and user interface): 10% of the project.
+- [gamerover98](https://github.com/gamerover98 "gamerover98") (PM and java developer): 60% of the project.
+- [RaffSStein](https://github.com/RaffSStein "RaffSStein") (java developer): 20% of the project.
+- [Gip94](https://github.com/Gip94 "Gip94") (Material Design and user interface): 10% of the project.
+- [zack-97](https://github.com/zack-97 "zack-97") (Material Design and user interface): 10% of the project.
 
 ### Introduction
 ToolBox is an Android Application that offers to the user the opportunity to make the most of the sensors of its own device. You can use a tool to make a measure and save it into your device or remotely on the google firebase cloud. It uses the remote firebase database to keep registered accounts (or google logins) and user data.
@@ -25,11 +25,11 @@ To compile and run this application you have to use Android Studio (canary versi
 
 Useful things:
 - SDK target: 28+ (Android 9+)
-- Color palette from [Immuni Covid Android App](https://github.com/immuni-app/immuni "Immuni Covid Android application") under GNU license.
+- Color palette from [Immuni Covid Android App](https://github.com/immuni-app/immuni "Immuni Covid Android application") under GNU public license.
 
 #### Rules
 
-This software is under the GNU public license but you have to comply with the following rules:
+This software has a free license but you have to comply with the following rules:
 
 **1.** The use of the entire source or a piece of it needs to be reported into your project description files.
 **2.** You can't sell this project or a derivative.
