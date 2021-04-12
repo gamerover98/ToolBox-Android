@@ -1,6 +1,6 @@
 ## ToolBox Android application
 
-ToolBox Android Application was made for the Android exam of the Informatic technologis for the software prodution of Uniba Italy University.
+ToolBox Android Application was made for the Android exam of the Informatic technologies for the software prodution of Uniba Italy University.
 
 Authors (MAGR group):
 - [gamerover98](https://github.com/gamerover98 "gamerover98") (PM and java developer): 60% of the project.
