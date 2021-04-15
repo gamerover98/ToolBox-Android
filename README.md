@@ -17,7 +17,7 @@ Supported *tools* at this time:
 - **Barometer**
 - **Luxmeter**
 - **Compass**
-- **Step count**
+- **Step counter**
 ------------
 
 ### READ BEFORE CLONE IT
@@ -42,8 +42,7 @@ This software has a free license but you have to comply with the following rules
 - **Vector Child Finder**: https://github.com/devendroid/VectorChildFinder
 - **Firebase**: Auth, UI-Auth, database
 - **Lombok**: https://plugins.jetbrains.com/plugin/6317-lombok and https://projectlombok.org/
-
-Jetbrains annotations
+- **Jetbrains annotations**
 ------------
 
 ### Screenshots and explains
